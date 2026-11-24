@@ -1,0 +1,45 @@
+# Design
+
+Written on 24 November 2026, before any image, audio, video or script was generated.
+The same audience and intent are in `brief.json`, which every agent reads.
+
+## The story
+
+Gebisa Ejeta: how a boy from a village in Ethiopia became the plant scientist who bred sorghum that survives both drought and the parasitic weed striga.
+
+## Audience
+
+Ethiopian students and young graduates aged 16–25, watching on a phone on TikTok or Telegram.
+
+## Intent
+
+The feeling at the end: pride and possibility. Someone who started where I started changed how a continent eats.
+
+## What this decides
+
+| Because of the audience and intent | The film will |
+|---|---|
+| They watch on a phone | be designed for 9:16 first; the 16:9 export is a crop of the same shots |
+| They often watch with the sound off | carry the whole story in the subtitles as well as the voice |
+| They scroll | open on a picture that raises a question within the first three seconds |
+| The feeling is "someone who started where I started" | spend its opening shots on the village and the walk to school, not on awards |
+| The feeling is possibility, not biography | end on what the work made possible, not on a list of prizes |
+
+## How the subject is shown
+
+Gebisa Ejeta is a living person. The film never shows his face or likeness, never imitates his voice, and gives him no invented words.
+The narrator speaks about him in the third person. The pictures show places, fields, plants, hands and seed.
+The record of this decision and the sources for every fact are in `ETHICS.md`.
+
+## User tests
+
+| Test | What is shown | Status |
+|---|---|---|
+| 1 | The radio cut: narration over placeholder music on a black screen | Not yet run |
+| 2 | The near-final cut | Not yet run |
+
+Each test will record who took part, what they said, and what changed in the storyboard because of it.
+
+## Reasons for each shot
+
+Every shot's reason is a required field in `storyboard.json`. The schema rejects a storyboard that has a shot without one.
