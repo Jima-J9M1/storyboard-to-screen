@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Researched facts",
+  "description": "Facts about the subject, each tied to the exact words in the source that support it.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["facts"],
+  "properties": {
+    "facts": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 40,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "text", "quote"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^f[0-9]{2}$" },
+          "text": {
+            "description": "One fact, in one plain sentence, saying no more than the source does.",
+            "type": "string",
+            "minLength": 10
+          },
+          "quote": {
+            "description": "The words copied exactly from the source that support the fact.",
+            "type": "string",
+            "minLength": 10
+          }
+        }
+      }
+    }
+  }
+}

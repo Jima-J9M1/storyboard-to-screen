@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Storyboard",
+  "description": "The contract between every pipeline stage. Prompts, seeds and durations live here, not in code.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["title", "languages", "style_block", "reference_sheet", "music", "shots", "end_card"],
+  "properties": {
+    "title": { "type": "string", "minLength": 2 },
+    "languages": {
+      "description": "Narration languages. The first is the primary language.",
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^[a-z]{2,3}$" }
+    },
+    "style_block": {
+      "description": "Appended to every image prompt. Describes qualities; never names a living artist.",
+      "type": "string",
+      "minLength": 20
+    },
+    "reference_sheet": {
+      "description": "The character and style reference generated before any keyframe.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["prompt", "seed"],
+      "properties": {
+        "prompt": { "type": "string", "minLength": 20 },
+        "seed": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "music": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["caption", "bpm", "key", "seeds", "cues"],
+      "properties": {
+        "caption": {
+          "description": "Style, mood, instruments, texture, era. Tempo and key go in their own fields.",
+          "type": "string",
+          "minLength": 20
+        },
+        "bpm": { "type": "integer", "minimum": 40, "maximum": 200 },
+        "key": { "type": "string", "minLength": 1 },
+        "seeds": {
+          "description": "One seed per score candidate.",
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "integer", "minimum": 0 }
+        },
+        "chosen_seed": {
+          "description": "The candidate picked by the director. Absent until the audition is done.",
+          "type": "integer",
+          "minimum": 0
+        },
+        "cues": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["at_s", "note"],
+            "properties": {
+              "at_s": { "type": "number", "minimum": 0 },
+              "note": { "type": "string", "minLength": 3 }
+            }
+          }
+        }
+      }
+    },
+    "end_card": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["text", "duration_s"],
+      "properties": {
+        "text": {
+          "description": "Must state that the film was made with AI.",
+          "type": "string",
+          "pattern": "(?i)\\bAI\\b"
+        },
+        "duration_s": { "type": "number", "minimum": 2, "maximum": 3 }
+      }
+    },
+    "shots": {
+      "type": "array",
+      "minItems": 8,
+      "maxItems": 12,
+      "items": { "$ref": "#/$defs/shot" }
+    }
+  },
+  "$defs": {
+    "shot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id", "duration_s", "size", "image_prompt", "motion_mode", "motion_prompt",
+        "narration", "subtitle_en", "reason", "fact_ids", "seed"
+      ],
+      "properties": {
+        "id": { "type": "string", "pattern": "^s[0-9]{2}$" },
+        "duration_s": { "type": "number", "minimum": 3, "maximum": 12 },
+        "size": { "enum": ["wide", "medium", "close"] },
+        "image_prompt": { "type": "string", "minLength": 20 },
+        "motion_mode": {
+          "description": "video = image-to-video model; ken_burns = pan and zoom over the keyframe; still = hold.",
+          "enum": ["video", "ken_burns", "still"]
+        },
+        "motion_prompt": {
+          "description": "Motion and camera only. Do not re-describe the subject.",
+          "type": "string",
+          "minLength": 5
+        },
+        "narration": {
+          "description": "One line per language code. An empty string means the shot has no narration.",
+          "type": "object",
+          "minProperties": 1,
+          "propertyNames": { "pattern": "^[a-z]{2,3}$" },
+          "additionalProperties": { "type": "string" }
+        },
+        "subtitle_en": { "type": "string" },
+        "reason": {
+          "description": "Why this shot exists, in terms of the audience and the intended feeling.",
+          "type": "string",
+          "minLength": 10
+        },
+        "fact_ids": {
+          "description": "Ids of the researched facts this shot's narration relies on.",
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string" }
+        },
+        "seed": { "type": "integer", "minimum": 0 }
+      }
+    }
+  }
+}
