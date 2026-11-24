@@ -1,0 +1,15 @@
+{
+  "gebisa-ejeta": {
+    "input_hash": "0bb3f395607f3c64",
+    "outputs": [
+      "research/gebisa-ejeta/source_wikipedia.json",
+      "research/gebisa-ejeta/subject.json"
+    ]
+  },
+  "gebisa-ejeta:facts": {
+    "input_hash": "c5c99013ad3d09e6",
+    "outputs": [
+      "research/gebisa-ejeta/facts.json"
+    ]
+  }
+}

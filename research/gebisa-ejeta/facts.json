@@ -1,0 +1,72 @@
+{
+  "source_id": "wikipedia",
+  "source_permalink": "https://en.wikipedia.org/w/index.php?oldid=1384816634",
+  "model": "gemini-3.5-flash",
+  "facts": [
+    {
+      "id": "f01",
+      "text": "Gebisa Ejeta was born in 1950.",
+      "quote": "Gebisa Ejeta (born 1950) is an Ethiopian American plant breeder, geneticist and Professor at Purdue University."
+    },
+    {
+      "id": "f02",
+      "text": "Ejeta was born to Oromo parents in the remote village of Wollonkomi, Ethiopia.",
+      "quote": "Ejeta was born in the remote village Wollonkomi, Ethiopia to Oromo parents."
+    },
+    {
+      "id": "f03",
+      "text": "Encouraged by his mother, Ejeta walked 20 kilometres to the nearest elementary school every Sunday evening to spend the week there.",
+      "quote": "Encouraged by his mother, he walked 20 kilometres to the nearest elementary school every Sunday evening and spend the week there."
+    },
+    {
+      "id": "f04",
+      "text": "During primary school, Ejeta planned to study engineering when he reached college age.",
+      "quote": "During primary school, Ejeta planned to study engineering when he reached college age."
+    },
+    {
+      "id": "f05",
+      "text": "Ejeta's mother convinced him that he could do more working in agriculture.",
+      "quote": "However, his mother convinced him he could do more working in agriculture."
+    },
+    {
+      "id": "f06",
+      "text": "With assistance from Oklahoma State University, Ejeta attended an agricultural and technical secondary school in Ethiopia and studied at what is now Haramaya University.",
+      "quote": "With assistance from the Oklahoma State University, he attended an agricultural and technical secondary school in Ethiopia, and also studied at what is now Haramaya University."
+    },
+    {
+      "id": "f07",
+      "text": "The university and the U.S. Agency for International Development helped Ejeta earn a doctorate from Purdue University.",
+      "quote": "The university and the U.S. Agency for International Development helped him earn a doctorate from Purdue University."
+    },
+    {
+      "id": "f08",
+      "text": "While working in Sudan in the early 1980s, Ejeta developed Africa's first commercial hybrid variety of sorghum tolerant to drought.",
+      "quote": "Working in Sudan during the early 1980s, Ejeta developed Africa's first commercial hybrid variety of sorghum tolerant to drought."
+    },
+    {
+      "id": "f09",
+      "text": "With a colleague at Purdue University in Indiana, Ejeta discovered the chemical basis of the relationship between striga and sorghum and produced sorghum varieties resistant to both drought and striga.",
+      "quote": "Later, with a Purdue University colleague in Indiana, he discovered the chemical basis of the relationship between the deadly parasitic weed striga and sorghum, and was able to produce sorghum varieties resistant to both drought and striga."
+    },
+    {
+      "id": "f10",
+      "text": "Ejeta is an Ethiopian American plant breeder, geneticist, and Professor at Purdue University.",
+      "quote": "Gebisa Ejeta (born 1950) is an Ethiopian American plant breeder, geneticist and Professor at Purdue University."
+    },
+    {
+      "id": "f11",
+      "text": "In 2009, Ejeta won the World Food Prize for his contributions in the production of sorghum.",
+      "quote": "In 2009, he won the World Food Prize for his major contributions in the production of sorghum."
+    },
+    {
+      "id": "f12",
+      "text": "In 2011, President Barack Obama appointed Ejeta as a member of the Board for International Food and Agricultural Development.",
+      "quote": "In 2011 President Barack Obama appointed Gebisa Ejeta as Member, Board for International Food and Agricultural Development."
+    },
+    {
+      "id": "f13",
+      "text": "President Biden awarded the National Medal of Science to Ejeta in 2023.",
+      "quote": "The National Medal of Science was awarded to Ejeta by President Biden in 2023."
+    }
+  ]
+}
