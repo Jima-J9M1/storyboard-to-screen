@@ -1,8 +1,8 @@
 """Skip work whose inputs have not changed.
 
-Each stage keeps a manifest at cache/<stage>.json mapping an item (a shot id, a title)
-to the input hash that produced it and the files it wrote. The manifests are committed,
-so a clean clone skips work whose outputs are already in the repo.
+Each stage of each film keeps a manifest at films/<slug>/cache/<stage>.json mapping an item
+(a shot id, a source) to the input hash that produced it and the files it wrote. The manifests
+are committed, so a clean clone skips work whose outputs are already in the repo.
 """
 
 from __future__ import annotations
@@ -14,8 +14,8 @@ from core.files import load_json, write_json
 
 
 class Cache:
-    def __init__(self, stage: str):
-        self.path = paths.CACHE_DIR / f"{stage}.json"
+    def __init__(self, film: paths.Film, stage: str):
+        self.path = film.cache / f"{stage}.json"
         self.entries: dict = load_json(self.path) if self.path.exists() else {}
 
     def fresh(self, item: str, key: str) -> bool:

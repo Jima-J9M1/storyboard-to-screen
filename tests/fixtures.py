@@ -9,6 +9,7 @@ def shot(n: int, duration_s: float = 7) -> dict:
         "duration_s": duration_s,
         "size": "wide",
         "image_prompt": "a wide field of sorghum at dawn, low golden light",
+        "use_reference": False,
         "motion_mode": "ken_burns",
         "motion_prompt": "slow push in, fixed horizon",
         "narration": {"en": "A line of narration."},
@@ -24,7 +25,9 @@ def storyboard(shots: int = 9) -> dict:
     return {
         "title": "Test film",
         "languages": ["en"],
+        "voice": {"name": "Sulafat", "style": "calm, warm, unhurried"},
         "style_block": "warm, grainy, hand-painted look with soft morning light",
+        "world_block": "Rural highland Ethiopia in the 1950s. Every person is Ethiopian, with deep brown skin, in white cotton shawls.",
         "reference_sheet": {"prompt": "style sheet of fields, hands and seed, warm grain", "seed": 1},
         "music": {
             "caption": "gentle acoustic texture, warm and unhurried, instrumental",

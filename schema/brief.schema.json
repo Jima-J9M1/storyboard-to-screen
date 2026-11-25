@@ -26,6 +26,12 @@
       "uniqueItems": true,
       "items": { "type": "string", "pattern": "^[a-z]{2,3}$" }
     },
+    "sources": {
+      "description": "Optional: web pages the director trusts, read by the Researcher in addition to Wikipedia.",
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^https://" }
+    },
     "why_it_matters": {
       "description": "Optional: the director's own reason for choosing this story.",
       "type": "string"

@@ -43,16 +43,12 @@ def _schema_problems(instance: Any, schema_name: str) -> list[str]:
     return problems
 
 
-def load_brief(path: Path | None = None, require_intent: bool = True) -> dict:
-    """Load and validate the brief.
+def validate_brief(brief: dict, name: str = "brief.json", require_intent: bool = True) -> dict:
+    """Check a brief and return it.
 
-    require_intent=False is only for research, which a director may run before
-    deciding the audience. Every generating stage requires audience and feeling.
+    require_intent=False is for creating a film and for research, which a director may do
+    before deciding the audience. Every generating stage requires audience and feeling.
     """
-    path = path or paths.BRIEF_PATH
-    if not path.exists():
-        raise ValidationError(path.name, ["file not found"])
-    brief = load_json(path)
     problems = _schema_problems(brief, "brief.schema.json")
     if not problems and require_intent:
         for field in ("audience", "feeling"):
@@ -62,19 +58,31 @@ def load_brief(path: Path | None = None, require_intent: bool = True) -> dict:
                     f"(at least {MIN_INTENT_CHARS} characters)"
                 )
     if problems:
-        raise ValidationError(path.name, problems)
+        raise ValidationError(name, problems)
     return brief
 
 
-def load_storyboard(path: Path | None = None) -> dict:
-    """Load and validate the storyboard."""
-    path = path or paths.STORYBOARD_PATH
+def load_brief(path: Path, require_intent: bool = True) -> dict:
+    """Load and validate a film's brief."""
+    if not path.exists():
+        raise ValidationError(path.name, ["file not found"])
+    return validate_brief(load_json(path), path.name, require_intent)
+
+
+def load_storyboard(path: Path, check_length: bool = True) -> dict:
+    """Load and validate a film's storyboard.
+
+    check_length=False is only for the step that sets shot lengths from the narration: it has
+    to be able to open a storyboard whose running time is wrong in order to correct it.
+    """
     if not path.exists():
         raise ValidationError(path.name, ["file not found"])
     board = load_json(path)
     problems = _schema_problems(board, "storyboard.schema.json")
     if not problems:
         problems = _storyboard_rule_problems(board)
+        if not check_length:
+            problems = [p for p in problems if "film runs" not in p]
     if problems:
         raise ValidationError(path.name, problems)
     return board

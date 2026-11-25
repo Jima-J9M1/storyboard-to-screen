@@ -2,11 +2,26 @@
 .private/
 The Heritage Short*.md
 
+# Text of copyrighted web sources: used for the quote check, never redistributed
+films/*/research/.text/
+
+# Clips and working files that FFmpeg rebuilds on this machine from committed pictures and audio.
+# Pictures, narration, the radio cut and the finished films are committed.
+films/*/outputs/shots/*.mp4
+films/*/outputs/film/work/
+films/*/outputs/music/work/
+films/*/outputs/video/work/
+films/*/outputs/radio_cut/voice.wav
+
 # Secrets
 .env
 
 # Local environment and caches
 .venv/
+frontend/node_modules/
+frontend/.next/
+frontend/next-env.d.ts
+frontend/tsconfig.tsbuildinfo
 __pycache__/
 *.pyc
 .DS_Store

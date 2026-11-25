@@ -14,6 +14,14 @@ from typing import Any, Callable
 
 from core import paths
 
+_film: str | None = None
+
+
+def set_film(slug: str) -> None:
+    """Name the film this process is working on. Every line logged afterwards carries it."""
+    global _film
+    _film = slug
+
 
 def input_hash(*parts: Any) -> str:
     """Stable hash of a stage's inputs. Same inputs, same hash, on any machine."""
@@ -23,7 +31,7 @@ def input_hash(*parts: Any) -> str:
 
 def log_run(**fields: Any) -> None:
     """Append one line to runs.jsonl."""
-    line = {"ts": datetime.now(timezone.utc).isoformat(timespec="seconds"), **fields}
+    line = {"ts": datetime.now(timezone.utc).isoformat(timespec="seconds"), "film": _film, **fields}
     with paths.RUNS_PATH.open("a", encoding="utf-8") as f:
         f.write(json.dumps(line, ensure_ascii=False) + "\n")
 
@@ -42,6 +50,7 @@ def logged_call(
     attempts: int = 3,
     base_delay_s: float = 2.0,
     measure: Callable[[Any], dict] | None = None,
+    retry_if: Callable[[Exception], bool] | None = None,
 ) -> Any:
     """Run one outside call, retrying with a doubling delay. Every attempt is logged.
 
@@ -49,6 +58,8 @@ def logged_call(
     key      the input hash of the work, so a log line can be matched to a cache entry
     item     which unit of the stage this is, for example a shot id
     measure  optional: takes the result and returns extra fields to log, such as token counts
+    retry_if optional: takes a failure and says whether trying again could help. A quota
+             error will not clear in a few seconds, so the caller can give up on it at once.
     """
     last_error: Exception | None = None
     for attempt in range(1, attempts + 1):
@@ -63,6 +74,8 @@ def logged_call(
             last_error = err
             log_run(**record, latency_s=round(time.monotonic() - started, 3),
                     cost_usd=0.0, status="error", error=f"{type(err).__name__}: {err}")
+            if retry_if and not retry_if(err):
+                raise RuntimeError(f"{stage}: {model} failed and a retry will not help: {err}") from None
             if attempt < attempts:
                 time.sleep(base_delay_s * 2 ** (attempt - 1))
             continue

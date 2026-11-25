@@ -21,6 +21,11 @@ API_URL = "https://generativelanguage.googleapis.com/v1beta/models/{model}:gener
 TEXT_MODELS = ["gemini-3.8-flash", "gemini-3.7-flash", "gemini-3.5-flash"]
 
 
+def worth_retrying(err: Exception) -> bool:
+    """A quota error (HTTP 429) will not clear in seconds; move to the next model at once."""
+    return "HTTP 429" not in str(err)
+
+
 class BadReply(Exception):
     """The model answered, but the answer broke the contract."""
 
@@ -59,11 +64,13 @@ def generate_json(
     temperature: float = 0.2,
     seed: int = 1,
     check: Callable[[Any], list[str]] | None = None,
+    key: str | None = None,
 ) -> tuple[Any, str]:
     """Return (reply, model): the parsed JSON that satisfies `schema` and `check`, and who wrote it.
 
     models  tried in order; each gets three attempts before the next is used
     check   optional: takes the parsed reply and returns a list of problems (empty if fine)
+    key     optional: the caller's cache key, logged so the run line matches the cache entry
     """
     models = models or TEXT_MODELS
     api_key = env.require("GEMINI_API_KEY")
@@ -94,12 +101,12 @@ def generate_json(
         holder["parsed"] = parsed
         return response
 
-    key = request_key(system, prompt, temperature, seed, models)
+    key = key or request_key(system, prompt, temperature, seed, models)
     for model in models:
         try:
             logged_call(
                 lambda: call(model), stage=stage, item=item, model=model, params=params,
-                seed=seed, key=key, measure=_token_counts,
+                seed=seed, key=key, measure=_token_counts, retry_if=worth_retrying,
             )
         except RuntimeError as err:
             print(f"{err}".splitlines()[0][:200] + " Trying the next model.")

@@ -6,7 +6,7 @@ from unittest import mock
 
 from core import paths
 from core.cache import Cache
-from core.runlog import input_hash, logged_call
+from core.runlog import input_hash, logged_call, set_film
 
 
 class TempRepoTestCase(unittest.TestCase):
@@ -19,7 +19,7 @@ class TempRepoTestCase(unittest.TestCase):
         for name, value in {
             "ROOT": self.root,
             "RUNS_PATH": self.root / "runs.jsonl",
-            "CACHE_DIR": self.root / "cache",
+            "FILMS_DIR": self.root / "films",
         }.items():
             patcher = mock.patch.object(paths, name, value)
             patcher.start()
@@ -38,6 +38,12 @@ class LoggedCallTests(TempRepoTestCase):
         for field in ("ts", "stage", "model", "params", "seed", "latency_s", "cost_usd", "status"):
             self.assertIn(field, line)
         self.assertEqual((line["status"], line["seed"], line["cost_usd"]), ("ok", 7, 0.01))
+
+    def test_every_line_names_its_film(self):
+        set_film("test-film")
+        self.addCleanup(set_film, None)
+        logged_call(lambda: "done", **self.CALL)
+        self.assertEqual(self.log_lines()[0]["film"], "test-film")
 
     def test_failures_are_retried_and_every_attempt_is_logged(self):
         calls = {"n": 0}
@@ -73,39 +79,44 @@ class InputHashTests(unittest.TestCase):
 class CacheTests(TempRepoTestCase):
     def setUp(self):
         super().setUp()
-        self.output = self.root / "outputs" / "s01.png"
+        self.film = paths.film("test-film")
+        self.output = self.film.outputs / "s01.png"
         self.output.parent.mkdir(parents=True)
         self.output.write_bytes(b"image")
 
     def test_unknown_item_is_not_fresh(self):
-        self.assertFalse(Cache("keyframes").fresh("s01", "hash1"))
+        self.assertFalse(Cache(self.film, "keyframes").fresh("s01", "hash1"))
 
     def test_stored_item_is_fresh_in_a_later_run(self):
-        Cache("keyframes").store("s01", "hash1", [self.output])
-        self.assertTrue(Cache("keyframes").fresh("s01", "hash1"))
+        Cache(self.film, "keyframes").store("s01", "hash1", [self.output])
+        self.assertTrue(Cache(self.film, "keyframes").fresh("s01", "hash1"))
 
     def test_changed_inputs_are_not_fresh(self):
-        Cache("keyframes").store("s01", "hash1", [self.output])
-        self.assertFalse(Cache("keyframes").fresh("s01", "hash2"))
+        Cache(self.film, "keyframes").store("s01", "hash1", [self.output])
+        self.assertFalse(Cache(self.film, "keyframes").fresh("s01", "hash2"))
 
     def test_changing_one_item_leaves_the_others_fresh(self):
-        other = self.root / "outputs" / "s02.png"
+        other = self.film.outputs / "s02.png"
         other.write_bytes(b"image")
-        cache = Cache("keyframes")
+        cache = Cache(self.film, "keyframes")
         cache.store("s01", "hash1", [self.output])
         cache.store("s02", "hash1", [other])
-        self.assertFalse(Cache("keyframes").fresh("s01", "edited"))
-        self.assertTrue(Cache("keyframes").fresh("s02", "hash1"))
+        self.assertFalse(Cache(self.film, "keyframes").fresh("s01", "edited"))
+        self.assertTrue(Cache(self.film, "keyframes").fresh("s02", "hash1"))
 
     def test_deleted_output_is_not_fresh(self):
-        Cache("keyframes").store("s01", "hash1", [self.output])
+        Cache(self.film, "keyframes").store("s01", "hash1", [self.output])
         self.output.unlink()
-        self.assertFalse(Cache("keyframes").fresh("s01", "hash1"))
+        self.assertFalse(Cache(self.film, "keyframes").fresh("s01", "hash1"))
 
     def test_manifest_stores_paths_relative_to_the_repo(self):
-        Cache("keyframes").store("s01", "hash1", [self.output])
-        manifest = json.loads((paths.CACHE_DIR / "keyframes.json").read_text())
-        self.assertEqual(manifest["s01"]["outputs"], ["outputs/s01.png"])
+        Cache(self.film, "keyframes").store("s01", "hash1", [self.output])
+        manifest = json.loads((self.film.cache / "keyframes.json").read_text())
+        self.assertEqual(manifest["s01"]["outputs"], ["films/test-film/outputs/s01.png"])
+
+    def test_each_film_has_its_own_cache(self):
+        Cache(self.film, "keyframes").store("s01", "hash1", [self.output])
+        self.assertFalse(Cache(paths.film("other-film"), "keyframes").fresh("s01", "hash1"))
 
 
 if __name__ == "__main__":

@@ -13,9 +13,14 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["id", "text", "quote"],
+        "required": ["id", "source_id", "text", "quote"],
         "properties": {
           "id": { "type": "string", "pattern": "^f[0-9]{2}$" },
+          "source_id": {
+            "description": "Which source the quote was copied from.",
+            "type": "string",
+            "pattern": "^(wikipedia|web[0-9]+)$"
+          },
           "text": {
             "description": "One fact, in one plain sentence, saying no more than the source does.",
             "type": "string",

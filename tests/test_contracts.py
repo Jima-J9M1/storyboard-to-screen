@@ -99,6 +99,11 @@ class BriefTests(ContractTestCase):
         brief = fixtures.brief() | {"audience": "", "feeling": ""}
         self.assertEqual(load_brief(self.write("b.json", brief), require_intent=False)["title"], "Test subject")
 
+    def test_extra_sources_must_be_https_links(self):
+        ok = fixtures.brief() | {"sources": ["https://example.org/page"]}
+        self.assertEqual(len(load_brief(self.write("b.json", ok))["sources"]), 1)
+        self.assertIn("sources/0", self.problems(load_brief, fixtures.brief() | {"sources": ["example.org"]}))
+
     def test_bad_language_code_is_rejected(self):
         brief = fixtures.brief() | {"languages": ["English"]}
         self.assertIn("languages/0", self.problems(load_brief, brief))
