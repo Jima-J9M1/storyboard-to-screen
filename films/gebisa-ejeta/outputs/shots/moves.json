@@ -3,80 +3,80 @@
     "shot": "s01",
     "asked": "the bare feet walk slowly forward along the dirt path, the tall grass sways in the breeze, slow pan left to right",
     "mode": "video",
-    "move": "camera move: pan left to right",
+    "move": "generated video",
     "frames": 226,
-    "fallback": true
+    "fallback": false
   },
   {
     "shot": "s02",
     "asked": "the fire flickers, the mother's hands gently close around the child's hand and the pencil, slow push in",
     "mode": "video",
-    "move": "camera move: push in",
+    "move": "generated video",
     "frames": 248,
-    "fallback": true
+    "fallback": false
   },
   {
     "shot": "s03",
     "asked": "the grain sways in the wind, the young man stands still looking out over the fields, slow tilt up",
     "mode": "video",
-    "move": "camera move: tilt up",
+    "move": "generated video",
     "frames": 185,
-    "fallback": true
+    "fallback": false
   },
   {
     "shot": "s04",
     "asked": "the gloved hands lift the beaker a little, the green sprout's leaves tremble, slow push in",
     "mode": "video",
-    "move": "camera move: push in",
+    "move": "generated video",
     "frames": 251,
-    "fallback": true
+    "fallback": false
   },
   {
     "shot": "s05",
     "asked": "heat shimmers over the cracked ground, the single green shoot trembles in the wind, slow pull back",
     "mode": "video",
-    "move": "camera move: pull back",
+    "move": "generated video",
     "frames": 192,
-    "fallback": true
+    "fallback": false
   },
   {
     "shot": "s06",
     "asked": "the tall sorghum sways in slow waves in the wind, clouds drift across the sky, slow pan left to right, fixed horizon",
     "mode": "video",
-    "move": "camera move: pan left to right",
+    "move": "generated video",
     "frames": 255,
-    "fallback": true
+    "fallback": false
   },
   {
     "shot": "s07",
     "asked": "light shifts slowly across the roots, crumbs of soil settle, slow push in",
     "mode": "video",
-    "move": "camera move: push in",
+    "move": "generated video",
     "frames": 200,
-    "fallback": true
+    "fallback": false
   },
   {
     "shot": "s08",
     "asked": "golden seed pours steadily from the cupped hands into the sack, slow tilt down",
     "mode": "video",
-    "move": "camera move: tilt down",
+    "move": "generated video",
     "frames": 201,
-    "fallback": true
+    "fallback": false
   },
   {
     "shot": "s09",
     "asked": "the hands tighten on the bundle and the grain heads sway gently, slow push in",
     "mode": "video",
-    "move": "camera move: push in",
+    "move": "generated video",
     "frames": 196,
-    "fallback": true
+    "fallback": false
   },
   {
     "shot": "s10",
     "asked": "light glints across the gold medal, dust drifts in the beams of light, slow push in",
     "mode": "video",
-    "move": "camera move: push in",
+    "move": "generated video",
     "frames": 220,
-    "fallback": true
+    "fallback": false
   }
 ]
