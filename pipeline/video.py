@@ -1,0 +1,161 @@
+"""Video stage: turn pictures into moving clips with Wan 2.2 on a Kaggle GPU.
+
+Reads   films/<slug>/storyboard.json   the shots whose motion_mode is "video", their motion prompts and seeds
+        films/<slug>/outputs/keyframes/<shot>.jpg
+Writes  films/<slug>/outputs/video/<shot>.<shape>.mp4   the clip as the model made it (480p, about 3 seconds)
+        films/<slug>/outputs/video/job_report.json      the GPU job's record: time and memory per clip
+
+Only shots marked "video" are sent. The Moving shots stage then uses a generated clip where
+one exists and a camera move over the picture where it does not, so a shot the model could
+not make, or did not reach before its time ran out, still has a clip.
+
+Clips are asked for in storyboard order, tall first and then wide, and the job stops
+starting new ones when its time budget is nearly spent.
+
+A clip is asked for again only when its picture, motion prompt or seed changes.
+
+Usage:
+    python -m pipeline.video --film gebisa-ejeta
+    python -m pipeline.video --film gebisa-ejeta --collect   # fetch a job that already ran
+"""
+
+from __future__ import annotations
+
+import argparse
+import hashlib
+import shutil
+import subprocess
+import sys
+from pathlib import Path
+
+from core import kaggle, paths
+from core.cache import Cache
+from core.contracts import ValidationError, load_brief, load_storyboard
+from core.files import load_json, write_json
+from core.runlog import input_hash, logged_call, set_film
+
+STAGE = "video"
+MODEL = "wan-2.2-ti2v-5b (Kaggle T4)"
+JOB_FILE = Path(__file__).parent / "kaggle_video_job.py"
+SIZES = {"9x16": (480, 832), "16x9": (832, 480)}   # width, height the model works at
+SETTINGS = {
+    "steps": 25, "frames": 81, "budget_min": 150,
+    "negative": "text, letters, watermark, logo, distorted hands, extra fingers, extra limbs, "
+                "morphing, flicker, blurry, jerky fast motion, camera shake",
+}
+
+
+def prepare_input(picture: Path, shape: str, out: Path) -> None:
+    """Cut the middle of the square picture to the clip's shape, at the size the model works at."""
+    width, height = SIZES[shape]
+    crop = f"crop=ih*{width}/{height}:ih" if width < height else f"crop=iw:iw*{height}/{width}"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(picture),
+                    "-vf", f"{crop},scale={width}:{height}:flags=lanczos", "-q:v", "2", str(out)],
+                   check=True, capture_output=True)
+
+
+def clip_key(shot: dict, shape: str, picture: Path) -> str:
+    """What a generated clip was made from. If the picture, the motion or the seed changes, the clip is stale."""
+    return input_hash(hashlib.sha256(picture.read_bytes()).hexdigest()[:16], shot["motion_prompt"],
+                      shot["seed"], shape, SIZES[shape], SETTINGS["steps"], SETTINGS["frames"])
+
+
+def run(film_slug: str, collect: bool = False) -> int:
+    film = paths.film(film_slug)
+    set_film(film.slug)
+    try:
+        load_brief(film.brief)
+        board = load_storyboard(film.storyboard)
+    except ValidationError as err:
+        print(err, file=sys.stderr)
+        return 1
+
+    out_dir, work = film.outputs / "video", film.outputs / "video" / "work"
+    cache = Cache(film, STAGE)
+    wanted = [shot for shot in board["shots"] if shot["motion_mode"] == "video"]
+    if not wanted:
+        print("video: no shot in the storyboard has motion_mode \"video\"; nothing to do.")
+        return 0
+
+    # Tall clips for every shot first, then wide: if time runs out, the phone film is complete.
+    clips, keys = [], {}
+    for shape in SIZES:
+        for shot in wanted:
+            picture = film.outputs / "keyframes" / f"{shot['id']}.jpg"
+            if not picture.exists():
+                print(f"video: no picture for {shot['id']}. Run make keyframes FILM={film.slug} first.", file=sys.stderr)
+                return 1
+            name = f"{shot['id']}.{shape}"
+            key = clip_key(shot, shape, picture)
+            keys[name] = key
+            if not cache.fresh(name, key):
+                clips.append({"shot": shot["id"], "shape": shape, "file": f"{name}.jpg",
+                              "prompt": shot["motion_prompt"], "seed": shot["seed"]})
+    if not clips:
+        print(f"video: all {len(keys)} clips are up to date; no job sent.")
+        return 0
+
+    job = SETTINGS | {"clips": clips}
+    slug = f"heritage-short-video-{film.slug}"[:50]
+
+    def send() -> dict:
+        if collect:
+            return kaggle.collect(slug, work)
+        inputs = work / "inputs"
+        shutil.rmtree(inputs, ignore_errors=True)
+        for clip in clips:
+            prepare_input(film.outputs / "keyframes" / f"{clip['shot']}.jpg", clip["shape"], inputs / clip["file"])
+        print(f"video: uploading {len(clips)} pictures to Kaggle ...")
+        dataset = kaggle.upload_dataset(f"heritage-short-frames-{film.slug}"[:50], inputs)
+        return kaggle.run_job(slug, JOB_FILE, job, work, datasets=[dataset], timeout_s=5 * 3600, label="video")
+
+    try:
+        report = logged_call(
+            send, stage=STAGE, item=f"{len(clips)} clips", model=MODEL, seed=clips[0]["seed"],
+            params={k: v for k, v in SETTINGS.items()} | {"clips": [f"{c['shot']}.{c['shape']}" for c in clips]},
+            key=input_hash([keys[f"{c['shot']}.{c['shape']}"] for c in clips]), attempts=1,
+            measure=lambda r: {"gpu_seconds": r.get("total_seconds"), "gpu": r.get("gpu"),
+                               "per_candidate_s": [c["seconds"] for c in r.get("clips", []) if c.get("made")],
+                               "clips_made": [c["clip"] for c in r.get("clips", []) if c.get("made")]},
+        )
+    except RuntimeError as err:
+        print(f"video: {err}", file=sys.stderr)
+        return 1
+
+    out_dir.mkdir(parents=True, exist_ok=True)
+    made = []
+    for entry in report.get("clips", []):
+        source = work / "download" / f"{entry['clip']}.mp4"
+        if entry.get("made") and source.exists() and entry["clip"] in keys:
+            target = out_dir / source.name
+            shutil.move(str(source), str(target))
+            cache.store(entry["clip"], keys[entry["clip"]], [target])
+            made.append(entry["clip"])
+    history = load_json(out_dir / "job_reports.json") if (out_dir / "job_reports.json").exists() else []
+    write_json(out_dir / "job_reports.json", history + [report])
+    write_json(out_dir / "job_report.json", report)
+
+    if report.get("error"):
+        print(f"video: the job reported an error: {report['error'][:400]}", file=sys.stderr)
+    times = [c["seconds"] for c in report.get("clips", []) if c.get("made")]
+    if made:
+        print(f"video: {len(made)} clip(s) made ({', '.join(made)}), about {sum(times) / len(times) / 60:.1f} minutes each, "
+              f"in a {report.get('total_seconds', 0) / 60:.0f}-minute GPU session.")
+    not_made = [f"{c['shot']}.{c['shape']}" for c in clips if f"{c['shot']}.{c['shape']}" not in made]
+    if not_made:
+        print(f"video: not made this time: {', '.join(not_made)}. Those shots keep their camera move. "
+              "Run the stage again to ask for them.")
+    return 0 if made else 1
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+    parser.add_argument("--film", required=True, help="the film's folder name under films/")
+    parser.add_argument("--collect", action="store_true", help="fetch the result of the job already on Kaggle; send nothing")
+    args = parser.parse_args()
+    return run(args.film, args.collect)
+
+
+if __name__ == "__main__":
+    sys.exit(main())
