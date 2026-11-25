@@ -149,3 +149,30 @@ Three shots still needed their own descriptions reworded after v2: the feet were
 **Limits.** Judged by eye from contact sheets by the agent that built the stage; one seed per shot. Whether the dress and buildings are right for 1950s Oromia in detail needs someone who knows, and the director is the first check.
 
 **Evidence.** `films/gebisa-ejeta/outputs/keyframes/contact_sheet_before_world_block.jpg`, `contact_sheet_world_block_v1.jpg` and `contact_sheet.jpg`. `runs.jsonl`, stage `keyframes`, 25 November.
+
+## E7. Can a stranger rebuild the film from a clean clone, with no keys?
+
+**Date:** 25 November 2026
+
+**Hypothesis.** Because the pictures, narration and score are committed together with a record of the inputs each was made from, a fresh clone should rebuild the film with one command, without any API key and without calling a model.
+
+**Change.** Cloned the public repository into an empty folder. Confirmed there was no `.env`. Removed every API key from the environment and ran `make film`.
+
+**Result.**
+
+| Check | Result |
+|---|---|
+| Command finished | Yes, in 61.7 seconds, including creating the Python environment |
+| Narration | 0 lines spoken, 10 reused |
+| Pictures | 0 made, 11 reused |
+| Score | no job sent; 3 candidates reused |
+| Clips | 20 rebuilt locally by FFmpeg |
+| Film | recognised as up to date: the rebuilt clips were byte-for-byte what the committed film was cut from |
+| Lines in `runs.jsonl` | 165 before, 165 after: no outside call was made |
+| Files changed in the clone | none |
+
+**Decision.** Keep committing the generated pictures, audio and cache manifests. The hours-long video job was taken out of `make film` after this test showed it would otherwise be attempted on every clean run; it stays a separate command.
+
+**Limits.** Run on the same machine that built the film, so the same FFmpeg and Python versions. A different FFmpeg may encode the clips differently; the film would then be re-cut, which takes a few more minutes but still needs no key. The production board was not part of this test.
+
+**Evidence.** The commands are in the README. The run log's line count is the check anyone can repeat.
