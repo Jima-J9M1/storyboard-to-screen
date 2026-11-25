@@ -3,7 +3,7 @@
 This project is a machine that makes a 60–90 second narrated short film from a title.
 This document explains how it is built and why. Each decision is given as the problem it answers.
 
-Status on 24 November 2026: the foundation and the Researcher agent are built. Each table below says what exists and what is planned.
+Status on 25 November 2026: every stage is built. Each table below says what exists and what is planned.
 
 ## The problem
 
@@ -38,6 +38,23 @@ There are two halves, and one file sits between them.
 - **The film half** (`pipeline/`) turns the approved plan into the film. It makes no creative decisions; it renders what the plan says.
 - **The plan** is `storyboard.json`. Because the approved plan is committed, the film half gives the same film on any machine.
 
+## Many films, one machine
+
+The system is not built around one story. Each film is a folder under `films/`, named from its title:
+
+```
+films/gebisa-ejeta/
+  brief.json        the director's input
+  storyboard.json   the approved plan
+  research/         sources and facts
+  outputs/          images, audio, video
+  cache/            what was built from which inputs
+```
+
+Every command takes the film's name: `make research FILM=lalibela`. The default is `gebisa-ejeta`, the film submitted for the assignment, so `make film` with no name rebuilds that one.
+
+Films share the code, the schemas and one run log, `runs.jsonl`, in which every line names its film. They share nothing else, so work on one film cannot disturb another's cache or outputs. A film's name is checked against a strict pattern before it is used as a path, so it cannot point outside `films/`.
+
 Keeping the halves apart is what lets an agent write the story without making the film unrepeatable: an agent may answer differently each time it is asked, but it is asked once, and its approved answer is saved.
 
 ## Contracts
@@ -46,9 +63,9 @@ A contract is a file whose shape is fixed by a JSON Schema in `schema/`. Stages 
 
 | File | Written by | Read by | Holds |
 |---|---|---|---|
-| `brief.json` | the director | every agent | title, audience, the feeling to leave them with, narration languages |
-| `research/<slug>/` | the Researcher | the other agents | source text with its revision and licence; the subject and its likeness policy |
-| `storyboard.json` | the agents, then the director | every stage | per shot: duration, shot size, image prompt, motion prompt, narration per language, English subtitle, reason, source fact ids, seed. Per film: style block, reference sheet, music, end card |
+| `films/<name>/brief.json` | the director | every agent | title, audience, the feeling to leave them with, narration languages, optional extra source pages |
+| `films/<name>/research/` | the Researcher | the other agents | one record per source; the subject and its likeness policy; `facts.json`, the numbered facts with the source and quote behind each |
+| `films/<name>/storyboard.json` | the agents, then the director | every stage | per shot: duration, shot size, image prompt, motion prompt, narration per language, English subtitle, reason, source fact ids, seed. Per film: style block, reference sheet, music, end card |
 
 **Validation happens before every run.** `core/contracts.py` loads each file through its schema and refuses to continue if it fails. The schema carries the structural rules. Rules a schema cannot express are checked in code.
 
@@ -71,15 +88,22 @@ Each agent owns named fields of the storyboard and writes nothing else. `agents/
 
 | Agent | Produces | Model | Status |
 |---|---|---|---|
-| Researcher | source text, subject, likeness policy | none (Wikipedia and Wikidata fetches) | Built |
+| Researcher | source records, subject, likeness policy | none (Wikipedia, Wikidata and the pages listed in the brief) | Built |
 | Researcher, step 2 | the source as numbered facts, each quoting the source | Gemini | Built |
-| Screenwriter | narration, subtitles, fact ids | Gemini | Planned |
-| Storyboard artist | shots, sizes, prompts, reasons | Gemini | Planned |
-| Art director | style block, reference sheet | Gemini | Planned |
-| Composer | music caption, tempo, key, cues | Gemini | Planned |
+| Screenwriter | narration, subtitles, fact ids | Gemini | Built |
+| Storyboard artist | style block, reference sheet, each shot's size, picture, movement and reason | Gemini | Built |
+| Composer | music caption, tempo, key, cues | Gemini | Built |
 | Translator | narration in the extra languages | Gemini | Planned |
 
-**The quote check.** A language model can state things its source does not say. So the Researcher must return, with every fact, the exact words from the source that support it, and code checks that those words are in the source text. A reply with a quote that is not there word for word is rejected and retried. Later agents may only narrate facts from this list.
+**Checks on every draft.** Code checks each agent's reply before it is saved: 8 to 12 shots, 130 to 190 words, a running time of 60 to 90 seconds worked out from the word count, every cited fact exists, no quotation marks, each shot size used at least twice, and no picture prompt names a subject who may not be shown. A reply that fails is retried.
+
+**Who and where.** The storyboard carries a `world_block`: conditional rules for how the story's people, homes, land and crops look when they appear ("Any person is ...", "Any village home is ..."). The Storyboard artist writes it from the researched facts and the picture stage adds it to every prompt. Without it the picture model drew people and places from its own defaults; written as a plain description it put villagers into every shot (EXPERIMENTS.md, E6).
+
+**The director owns the storyboard.** The agents write `storyboard.json` only when the film has none. After that a new draft goes to `storyboard.draft.json`, so re-running the agents can never undo the director's edits.
+
+**The quote check.** A language model can state things its source does not say. So the Researcher must return, with every fact, the exact words from the source that support it, and code checks that those words are in the text of the source the fact names. A reply with a quote that is not there word for word is rejected and retried. Later agents may only narrate facts from this list.
+
+**Source text and copyright.** Wikipedia's text is openly licensed, so it is committed. Other pages belong to their publishers, so only a record is committed: the address, the date, the word count and a fingerprint of the text. The text itself stays in a git-ignored folder and is fetched again if it is needed. The facts cache is keyed on the fingerprints, so a clean clone can tell the facts are current without fetching anything.
 
 **The likeness guard.** The Researcher asks Wikidata what the title is. If it is a living person, it records the policy `no_likeness`: the film may not show them, voice them or give them invented quotes unless `ETHICS.md` holds a consent record. The policy is decided by code from a public record, not left to a prompt.
 
@@ -88,17 +112,19 @@ Each agent owns named fields of the storyboard and writes nothing else. `agents/
 | Stage | Reads | Writes | Runs on | Status |
 |---|---|---|---|---|
 | validate | `brief.json`, `storyboard.json` | nothing | local | Built |
-| keyframes | style block, reference sheet, image prompts, seeds | one image per shot | Cloudflare Workers AI | Planned |
-| moving shots | keyframes, motion prompts | one clip per shot | Kaggle GPU; Ken Burns locally as the fallback | Planned |
-| music | music caption, tempo, key, seeds | score candidates | Kaggle GPU | Planned |
-| narration | narration lines | one audio file per shot per language | Gemini TTS | Planned |
-| assembly | all of the above | the film in 9:16 and 16:9 | local FFmpeg | Planned |
+| keyframes | style block, reference sheet, image prompts, seeds, `use_reference` | the reference sheet, one picture per shot, and a contact sheet for review | FLUX.2 klein 4B on Cloudflare Workers AI | Built |
+| video | pictures, motion prompts and seeds of the shots marked `video` | one generated clip per shot and shape, and the GPU job's report | Wan 2.2 TI2V-5B on a Kaggle GPU | Built |
+| moving shots | generated clips where they exist, otherwise pictures and motion prompts; shot lengths | one clip per shot in each shape (9:16 and 16:9), fitted to the shot's length | local FFmpeg | Built |
+| music | music caption, tempo, key, one seed per candidate | score candidates, and the GPU job's own report | ACE-Step 1.5 turbo on a Kaggle GPU | Built |
+| narration | narration lines, voice and style | one audio file per shot per language, and the measured timings | Gemini TTS; the Mac's built-in voice if every model fails | Built |
+| radio cut | the narration files | narration over placeholder music on a black screen | local FFmpeg | Built |
+| assembly | clips, narration, the chosen score, subtitles, end card | the film in 9:16 and 16:9, and `report.json` with its measured length and loudness | local FFmpeg and Pillow | Built |
 
 ## Caching
 
 **Problem.** Generation is slow and the quota is small, so nothing should be made twice.
 
-**Decision.** Before a stage makes anything, it computes a hash of that item's inputs: a short fingerprint that changes if any input changes. Each stage keeps a manifest in `cache/<stage>.json` that records, per item, the hash that produced it and the files it wrote.
+**Decision.** Before a stage makes anything, it computes a hash of that item's inputs: a short fingerprint that changes if any input changes. Each stage keeps a manifest in the film's `cache/<stage>.json` that records, per item, the hash that produced it and the files it wrote.
 
 An item is skipped when its recorded hash matches and its files still exist. Otherwise it is regenerated.
 
@@ -118,8 +144,16 @@ What follows from that:
 | A model fails three times | The next model in the list is tried (`core/llm.py`). The model that answered is saved with the output. | Built |
 | A model's reply breaks the schema or a check | It counts as a failed attempt: logged, retried, never saved. | Built |
 | Every model fails | The stage stops with a clear error. Finished items stay cached, so the next run resumes where it stopped. | Built |
-| Video generation fails or the GPU quota runs out | The shot falls back to a Ken Burns pan and zoom over its keyframe. | Planned |
+| The video model has not made a shot's clip (it failed, or the job's time ran out) | The Moving shots stage gives that shot a camera move over its picture and lists it as a fallback in `moves.json`. The film can always be cut. | Built |
+| The GPU runs out of memory on a clip | The job retries with fewer frames (81, then 49, then 33). | Built |
+| The video model returns a blank clip | The job reloads the model at a different numeric precision and retries. | Built |
+| No score has been chosen | The Edit stage uses a quiet placeholder chord and marks the film as a rough cut in `report.json`. | Built |
+| The Kaggle GPU job fails | The job writes its own report, with each step's output and the traceback. The stage saves it as `job_report_failed.json` and stops. | Built |
 | The title has no Wikipedia article | The Researcher stops and says to change the title. | Built |
+| A model refuses with "quota exceeded" | It is not retried, because the quota will not clear in seconds. The next model is tried at once. | Built |
+| A narration file says more or less than its line | Every file is transcribed by a model and compared with its line; a mismatch is reported. | Built |
+| A line is longer than its shot | The voice stage reports each one with both lengths. The radio cut lets the next line wait, and says how far over the plan it ran. | Built |
+| A source page is blocked, empty or a stub | It counts as a failed fetch: retried, logged, and never saved as a source. | Built |
 
 Every outside call goes through one function, `core.runlog.logged_call`, so no stage can skip the retry or the log. The first real case is in `FAILURES.md`, entry F1.
 
@@ -130,6 +164,7 @@ Every outside call goes through one function, `core.runlog.logged_call`, so no s
 | Field | Meaning |
 |---|---|
 | `ts` | when, in UTC |
+| `film` | which film the call was for |
 | `stage`, `item` | which stage, and which unit of it (for example a shot id) |
 | `kind` | `model` for a generative model call, `fetch` for a plain data fetch |
 | `model`, `params`, `seed` | exactly what was asked |
@@ -147,13 +182,58 @@ The cost and latency tables in `COSTS.md` will be generated from this file by a 
 | `agents/` | the story half, one module per agent |
 | `pipeline/` | the film half, one script per stage |
 | `core/` | shared plumbing: paths, contracts, run log, cache, HTTP |
+| `films/` | one folder per film |
+| `frontend/` | the production board, a Next.js app (`make board`) |
 | `schema/` | the JSON Schemas |
 | `tests/` | unit tests; they need no network and no keys |
-| `research/`, `cache/`, `outputs/` | what runs produce |
 
 `core/` depends on neither half. The halves do not import each other; they meet only at `storyboard.json`.
 
+## The production board
+
+`make board` starts a Next.js app at `http://127.0.0.1:3000`.
+
+| Page | Shows |
+|---|---|
+| `/` | every film with a strip of its nine stages, a form to start a new film, and the repo's paperwork: required documents, experiments, failures |
+| `/films/<name>` | one film: its brief, the stage it is at and what blocks it; the finished films, radio cut and score candidates, playable in the page; the storyboard with each shot's picture and narration audio; the sources and facts; its part of the run log |
+
+**Problem.** A second program that reads the repo would need its own idea of what "done" and "valid" mean, and the two would drift apart.
+
+**Decision.** The board does not read the repo's files. Its server asks the pipeline, by running `python -m core.status`, and draws the JSON that comes back. `core/status.py` is the one place that decides a stage's status, and it uses the same validation as the stages. The page asks again every five seconds.
+
+The board also serves the generated files themselves, so they can be looked at and played. It serves only what the status report lists, only pictures, sound and video, and only from inside a film's `outputs/` folder; a request for anything else gets "not found".
+
+The board can change one thing: it can start a new film, by running `python -m core.films new`, which validates the brief before writing it. It cannot run a stage, edit a storyboard or call a model. It listens on this machine only, runs commands without a shell, and refuses a request to start a film that comes from another website. The pipeline does not need it.
+
+## Text on screen
+
+Generated pictures never contain words. Subtitles and the end card are drawn in code with Pillow, using its built-in font, and laid over the picture by FFmpeg. That keeps the result the same on every machine: no font has to be installed, and FFmpeg does not need to be built with text support (the copy on the development machine was not).
+
+A subtitle card has at most two lines. A line's cards share its spoken time in proportion to their length.
+
+## What is committed
+
+| Kind of file | Committed? | Why |
+|---|---|---|
+| Pictures, narration audio, score candidates | Yes | They cost model calls. With them and the cache manifests in the repo, a clean clone needs no keys. |
+| The finished films and the radio cut | Yes | So the result can be inspected without running anything. |
+| Per-shot clips and working files | No | FFmpeg rebuilds them from the pictures in a few minutes. |
+| Text of copyrighted source pages | No | It belongs to its publishers. A record of each page is committed. |
+
+## Generated video on a small GPU
+
+The video model's documentation asks for a 24 GB GPU at 720p. Kaggle's free GPU has 15 GB. The job therefore:
+
+- works at 480p (480 x 832 tall, 832 x 480 wide) with 81 frames, about 3.4 seconds;
+- keeps one part of the model on the GPU at a time, and decodes the video in tiles;
+- makes clips in storyboard order, tall first, saving each as it finishes, and stops starting new ones when its time budget is nearly spent.
+
+A generated clip is shorter than its shot, so the Moving shots stage slows it (by at most two, with in-between frames computed by FFmpeg) and then holds the last frame.
+
+The pictures reach Kaggle as a private dataset, and the clips come back as the job's output. `core/kaggle.py` holds the upload, wait and download steps; a job that has already run can be collected without sending a new one.
+
 ## Open decisions
 
-- **How the local command starts a Kaggle GPU job.** The options are the Kaggle API, which pushes a notebook and polls for its output, or a manual run whose outputs are downloaded. Not yet decided.
-- **What a clean clone regenerates.** Reusing committed outputs makes the one command work without GPU access. A flag to force full regeneration is planned.
+- **More than one language.** The storyboard holds a narration line per language, but the Translator agent is not built, so a film has one language for now.
+- **The music stage has its own copy of the Kaggle steps.** It was written first; it should be moved onto `core/kaggle.py`.

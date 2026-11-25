@@ -1,7 +1,7 @@
 # Rules for any coding agent working in this repo
 
 This repo is a system that turns a title into a 60–90 second narrated short film.
-It is the submission for the 10 Academy "Heritage Short" assignment. The pipeline is what is graded.
+It holds many films, one folder each under `films/`. The film submitted for the 10 Academy "Heritage Short" assignment is `films/gebisa-ejeta`. The pipeline is what is graded.
 
 ## Before every task
 1. Re-read the section of the assignment brief that covers the task. Do not work from memory of it.
@@ -11,37 +11,40 @@ It is the submission for the 10 Academy "Heritage Short" assignment. The pipelin
 If the brief and these rules disagree, the brief wins. Say so and fix this file.
 
 ## Shape of the system
-Two halves, with `storyboard.json` between them.
+Two halves, with a film's `storyboard.json` between them. Every command works on one film, chosen with `FILM=<name>`; the default is `gebisa-ejeta`.
 
 | Half | Command | What it does |
 |---|---|---|
-| Story half | `make research`, `make story` | Reads `brief.json`, researches the title, drafts `storyboard.json`. A person edits and approves the result. |
+| Start | `make new TITLE="..."` | Creates `films/<name>/brief.json` from a title. |
+| Story half | `make research`, `make story` | Reads the brief, researches the title, drafts the storyboard. A person edits and approves the result. |
 | Film half | `make film` | Renders the approved storyboard: keyframes, moving shots, music, narration, assembly. |
 
-- `brief.json` is the human input: title, audience, the feeling to leave them with, narration language.
-- `storyboard.json` is the contract between every stage. Prompts, seeds and durations live there, never in code.
-- A frontend comes last. It is a thin layer over the same commands; the pipeline must work without it.
+- `films/<name>/brief.json` is the human input: title, audience, the feeling to leave them with, narration languages, extra sources.
+- `films/<name>/storyboard.json` is the contract between every stage. Prompts, seeds and durations live there, never in code.
+- `runs.jsonl` is one log for the whole repo. Every line names its film.
+- The frontend (`make board`) shows every film and where it is. The pipeline must work without it.
 
 ## Where things go
 | Folder | Holds | Rule |
 |---|---|---|
 | `agents/` | The story half: one module per agent. `agents/README.md` lists who owns which storyboard fields. | An agent writes only the fields it owns. |
 | `pipeline/` | The film half: one script per stage. | No agent and no creative decision here; it renders what the storyboard says. |
-| `core/` | Shared plumbing: paths, contracts, run log, cache, HTTP. | Both halves use it; it depends on neither. |
+| `core/` | Shared plumbing: paths, contracts, run log, cache, HTTP, the text-model client, the status report. | Both halves use it; it depends on neither. |
+| `films/<name>/` | One film: its brief, storyboard, `research/`, `outputs/` and `cache/`. | Films never read each other's folders. `research/`, `outputs/` and `cache/` are written by runs, never by hand. |
+| `frontend/` | The production board, a Next.js app. | It gets every fact and every list of files from `python -m core.status`, and never decides a status itself. It serves the pictures, audio and video that list names, from a film's `outputs/` folder only. Its only write is starting a new film, through `core.films`. It never calls a model. |
 | `schema/` | JSON Schemas for `brief.json` and `storyboard.json`. | Change the schema and its tests together. |
 | `tests/` | Unit tests. They use no network and no keys. | `make test` passes before any commit. |
-| `research/`, `cache/`, `outputs/` | What runs produce. Committed, so a run can be inspected and a clean clone can skip finished work. | Never edited by hand. |
 | `.claude/agents/` | Checker subagents used while building. | Never part of a run. |
 
 ## Hard rules
 1. **One command.** `make film` must rebuild the film from a clean clone using only the README.
-2. **Validate first.** Every stage validates `brief.json` and `storyboard.json` against `schema/` before doing anything.
+2. **Validate first.** Every stage validates the film's `brief.json` and `storyboard.json` against `schema/` before doing anything.
 3. **Log every model call** to `runs.jsonl`: model, parameters, seed, latency, cost. Use `core.runlog.logged_call`; never call a model around it.
 4. **Cache by input hash.** A stage regenerates only what changed. A re-run with no changes makes zero model calls.
 5. **Retry, then fall back.** Three attempts per call, then the documented fallback (for moving shots: Ken Burns over the keyframe).
 6. **No secrets in git.** Keys live in `.env`. Only `.env.example` is committed.
 7. **No real person's face, likeness or voice** without a consent record in `ETHICS.md`. For a living person the default is: never shown, never voiced, no invented quotes.
-8. **Every narrated fact cites a source** recorded under `research/`.
+8. **Every narrated fact cites a source** recorded under the film's `research/`.
 9. **No text inside generated images.** Titles, subtitles and the end card are added in code.
 10. **Describe style by qualities.** Never name a living artist.
 11. **Leave watermarks and provenance metadata intact** (SynthID, C2PA).
@@ -64,3 +67,4 @@ story and intent → radio cut → keyframes → moving shots → edit.
 - Audience and intent go into `DESIGN.md` before the first generation call.
 - Draft at low resolution, batch GPU jobs, finish only the chosen shots.
 - Python, standard library where possible; dependencies go in `requirements.txt`.
+- The frontend is Next.js with TypeScript. Pin exact versions of `next` and `react` in `frontend/package.json`.
