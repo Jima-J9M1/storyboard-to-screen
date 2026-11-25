@@ -75,6 +75,8 @@ export type Outputs = {
       move: string | null;
     }
   >;
+  // The same lines spoken by different providers: provider name, then shot id.
+  voice_compare: Record<string, Record<string, MediaFile & { spoken_s: number | null; model: string | null }>>;
   radio_cut: { audio: MediaFile | null; video: MediaFile | null };
   music: {
     candidates: (MediaFile & { seed: number; seconds_to_make: number | null; audition: MediaFile | null })[];

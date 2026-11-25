@@ -1,66 +1,82 @@
 {
   "s01.am": {
-    "input_hash": "76d210a4cf850763",
+    "input_hash": "00d88c2a87431360",
     "outputs": [
       "films/abebe-bikila/outputs/narration/s01.am.wav"
     ],
-    "model": "gemini-3.8-flash-lite-tts",
-    "heard": "አንድ ሁለቱ ባዶም ጎዳኖች ላይ በባዶ እግሩ ሲሮጥ ነበር"
+    "model": "addis-voices-2:am-yohanes-calm",
+    "heard": "አንዷንታት በርውን ጎዳናዎች ላይ በባዶ እግሩ ለምን ይሮጥ ነበርክ?"
   },
   "s02.am": {
-    "input_hash": "6d2acdc3422db99f",
+    "input_hash": "0f52044bb3cff8f6",
     "outputs": [
       "films/abebe-bikila/outputs/narration/s02.am.wav"
     ],
-    "model": "gemini-3.8-flash-lite-tts",
-    "heard": "አበበ ቢቂላ በልጅነቱ ጋና የተባለውን ባህላዊ የሩቅ ርቀት ሆኪ ጨዋታ ይጫወት ነበር።"
+    "model": "addis-voices-2:am-yohanes-calm",
+    "heard": "አበባ ቪላ በልጅነቱ ገና የተባለውን ባህላዊ የሩቅ ተከትሎ ትወና ይጫወት ነበር።"
   },
   "s03.am": {
-    "input_hash": "87847509a7aaeaa4",
+    "input_hash": "a4c73df2e9626d75",
     "outputs": [
       "films/abebe-bikila/outputs/narration/s03.am.wav"
     ],
-    "model": "gemini-3.1-flash-tts-preview",
-    "heard": "ስዊድን አውሮፓ አሸናፊ እውን ኒስካነን አበበን አውጥቶ ለማራቶን ማሰልጠን ጀመረ።"
+    "model": "addis-voices-2:am-yohanes-calm",
+    "heard": "ስዊድን አውሮፓ ሰልጠን ኮን ይነስካነን አበውን አስቶሮ ለማራቶን ማሰልጠን ጀመረ።"
   },
   "s04.am": {
-    "input_hash": "d47f1cd3d4cb850f",
+    "input_hash": "637241459d5a5b24",
     "outputs": [
       "films/abebe-bikila/outputs/narration/s04.am.wav"
     ],
-    "model": "gemini-3.1-flash-tts-preview",
-    "heard": "በ1960 የሮም ኦሎምፒክ አበበ በባዶ እግሩ ማራቶኑን በማሸነፍ የመጀመሪያው የኢትዮጵያ የወርቅ ሜዳሊያ ባለቤት ሆነ።"
+    "model": "addis-voices-2:am-yohanes-calm",
+    "heard": "በአዲስ አበባ፡ ዘይኝ፡ መቶ፡ ሰላሳ፡ ው፡ የሮም፡ ኦሎምፒክ፡ አበበ፡ ቢቂላ፡ ድንቁ፡ ማራቶኑን፡ በማሸነፍ፡ የመጀመሪያው፡ የኢትዮጵያ፡ የወርቅ፡ ሜዳሊያ፡ ባለቤት፡ ሆነ።"
   },
   "s05.am": {
-    "input_hash": "04ba5f727251cdce",
+    "input_hash": "27ca287c03549cbb",
     "outputs": [
       "films/abebe-bikila/outputs/narration/s05.am.wav"
     ],
-    "model": "gemini-3.1-flash-tts-preview",
-    "heard": "ነገሰነገስት ሃይለስላሴ ላዕለባ የኢትዮጵያ ኮከብ ኒሻን ሰጥተው ወደ አጥር አለቃነት አደገጉት።"
+    "model": "addis-voices-2:am-yohanes-calm",
+    "heard": "ንጉሠ ነገሥት ኃይለ ሥላሴ ለአበባዬ ኢትዮጵያ ኮከብ ኒሻን ሰጥተው ወደ አስር አለቃነት አደገው።"
   },
   "s06.am": {
-    "input_hash": "1265f4fb08a92593",
+    "input_hash": "d6384c02a12a15f9",
     "outputs": [
       "films/abebe-bikila/outputs/narration/s06.am.wav"
     ],
-    "model": "gemini-3.8-flash-tts",
-    "heard": "ከ1964ቱ የቶኪዮ ኦሎምፒክ 4 ቀናት በፊት አበባበ የትርፍ አንጀት ቀዶ ህክምና ተደረገለት።"
+    "model": "addis-voices-2:am-yohanes-calm",
+    "heard": "ከ9 164ቱ የኢትዮጵያ ኦሊምፒክ አባላት መካከል በቤት አበበ የተረፈ አንጀት ቀዶ ህክምና ተደረገለት"
   },
   "s07.am": {
-    "input_hash": "266098421b9b295c",
+    "input_hash": "a89ba2c709b2a20d",
     "outputs": [
       "films/abebe-bikila/outputs/narration/s07.am.wav"
     ],
-    "model": "gemini-3.1-flash-tts-preview",
-    "heard": "በተከታታይ የኦሊምፒክ ማራቶን ሻምፒዮንነቱን ያስጠበቀ የመጀመሪያው ስፖርተኛ ሆነ።"
+    "model": "addis-voices-2:am-yohanes-calm",
+    "heard": "በቶኪዮ ጃፓን ውስጥ የኦሎምፒክ ማራቶን ሻምፒዮንነቱን ያስጠበቀ የመጀመሪያው ስፖርተኛ ሆነ።"
   },
   "s08.am": {
-    "input_hash": "3e5cada407f8668e",
+    "input_hash": "4d09ff7eba46f6cf",
     "outputs": [
       "films/abebe-bikila/outputs/narration/s08.am.wav"
     ],
-    "model": "gemini-3.1-flash-tts-preview",
-    "heard": "በመጋቢት 22 ቀን 969 በደረሰበት የመኪና አደጋ አበበ ከአንገቱ በታች ሽባ ሆነ።"
+    "model": "addis-voices-2:am-yohanes-calm",
+    "heard": "በመጋቢት 22 ቀን 1969 በደረሰበት የመኪና አደጋ አበበ ከአንገቱ በታች ሽባ ሆነ።"
+  },
+  "s09.am": {
+    "input_hash": "774727b10d6258d1",
+    "outputs": [
+      "films/abebe-bikila/outputs/narration/s09.am.wav"
+    ],
+    "model": "addis-voices-2:am-yohanes-calm",
+    "heard": "በኖርዌይ በተደረገ ውድድር የሀገር አቋራጭ የስልኪ ግልቢያ ውድድርን አሸነፈ።"
+  },
+  "s10.am": {
+    "input_hash": "319694bfd2169680",
+    "outputs": [
+      "films/abebe-bikila/outputs/narration/s10.am.wav"
+    ],
+    "model": "addis-voices-2:am-yohanes-calm",
+    "heard": "ആ ടിവി പുതിയ സവാ കർഫ്യൂ വാരൽ നുറുസനഗസ് ടൈലസ് ലാംസി ബിഹേരവി യാഹസങ്കനവോചു"
   }
 }

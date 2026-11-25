@@ -20,7 +20,11 @@
       "additionalProperties": false,
       "required": ["name", "style"],
       "properties": {
-        "name": { "description": "A prebuilt voice name of the text-to-speech model.", "type": "string", "minLength": 2 },
+        "provider": {
+          "description": "Who speaks. gemini: Gemini text-to-speech (free tier). addis: Addis AI voices for Ethiopian languages (paid by the minute). Defaults to gemini.",
+          "enum": ["gemini", "addis"]
+        },
+        "name": { "description": "A voice name of that provider, for example Sulafat (gemini) or am-yohanes-calm (addis).", "type": "string", "minLength": 2 },
         "style": { "description": "How the lines are spoken, in a few words.", "type": "string", "minLength": 3 }
       }
     },

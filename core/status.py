@@ -318,6 +318,20 @@ def _outputs(film: paths.Film, board: dict | None) -> dict:
         if (found := _file(film, f"music/candidate_{seed}.m4a"))
     ]
 
+    # Recordings of the same lines by different voices, kept side by side so they can be compared.
+    compare = {}
+    compare_dir = film.outputs / "voice_compare"
+    for folder in sorted(p for p in compare_dir.iterdir() if p.is_dir()) if compare_dir.is_dir() else []:
+        timings = {t["shot"]: t for t in _read_json(folder / "timings.json") or []}
+        lines = {}
+        for shot in (board or {}).get("shots", []):
+            found = _file(film, f"voice_compare/{folder.name}/{shot['id']}.{board['languages'][0]}.wav")
+            if found:
+                timing = timings.get(shot["id"], {})
+                lines[shot["id"]] = found | {"spoken_s": timing.get("spoken_s"), "model": timing.get("model")}
+        if lines:
+            compare[folder.name] = lines
+
     report = _read_json(film.outputs / "film" / "report.json") or {}
     films = {}
     for shape, facts in report.get("films", {}).items():
@@ -329,6 +343,7 @@ def _outputs(film: paths.Film, board: dict | None) -> dict:
         "reference": _file(film, "keyframes/reference.jpg"),
         "contact_sheet": _file(film, "keyframes/contact_sheet.jpg"),
         "shots": shots,
+        "voice_compare": compare,
         "radio_cut": {"audio": _file(film, "radio_cut/radio_cut.m4a"), "video": _file(film, "radio_cut/radio_cut.mp4")},
         "music": {"candidates": candidates, "chosen_seed": music.get("chosen_seed"),
                   "gpu": job.get("gpu"), "gpu_seconds": job.get("total_seconds")},

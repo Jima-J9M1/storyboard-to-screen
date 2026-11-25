@@ -101,15 +101,19 @@ def run(film_slug: str, rough: bool = False, fit: bool = False) -> int:
                 continue
             item = f"{shot['id']}.{language}"
             out = out_dir / f"{item}.wav"
-            key = input_hash(text, voice, tts.VOICE_MODELS, language, STYLE_FORMAT)
+            provider = voice.get("provider", "gemini")
+            # Each provider keys on what it actually uses, so adding the provider field did not
+            # make every existing Gemini recording look stale.
+            key = (input_hash(text, voice, tts.VOICE_MODELS, language, STYLE_FORMAT) if provider == "gemini"
+                   else input_hash(text, provider, voice["name"], language))
             stand_in = cache.entries.get(item, {}).get("model") == tts.LOCAL_VOICE
             if cache.fresh(item, key) and (rough or not stand_in):
                 reused += 1
                 model, heard = cache.entries[item].get("model"), cache.entries[item].get("heard", "")
             else:
                 try:
-                    model = tts.speak(text, out, voice=voice["name"], style=voice["style"],
-                                      stage=STAGE, item=item, key=key, allow_local=rough)
+                    model = tts.speak(text, out, voice=voice["name"], style=voice["style"], stage=STAGE,
+                                      item=item, key=key, allow_local=rough, provider=provider, language=language)
                 except tts.VoiceUnavailable as err:
                     print(f"narration: {err}")
                     unspoken.append(item)
@@ -152,7 +156,7 @@ def run(film_slug: str, rough: bool = False, fit: bool = False) -> int:
     voices = sorted({t["model"] for t in timings})
     if tts.LOCAL_VOICE in voices:
         print("narration: some lines use the Mac's stand-in voice. Run again without --rough to re-record them.")
-    elif len(voices) > 1:
+    elif len({v.split(":")[0] for v in voices}) > 1 or (len(voices) > 1 and not voices[0].startswith("addis")):
         print(f"narration: the lines were spoken by {len(voices)} models using the same voice name "
               f"({', '.join(voices)}). Listen for a change in the narrator between shots.")
     if unspoken:

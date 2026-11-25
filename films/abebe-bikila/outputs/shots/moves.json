@@ -1,0 +1,82 @@
+[
+  {
+    "shot": "s01",
+    "asked": "Low angle slow pan right following the running feet.",
+    "mode": "ken_burns",
+    "move": "camera move: pan left to right",
+    "frames": 135,
+    "fallback": false
+  },
+  {
+    "shot": "s02",
+    "asked": "Static wide shot with soft wind movement in grass.",
+    "mode": "ken_burns",
+    "move": "camera move: push in",
+    "frames": 186,
+    "fallback": false
+  },
+  {
+    "shot": "s03",
+    "asked": "Slow push in toward the stopwatch.",
+    "mode": "ken_burns",
+    "move": "camera move: push in",
+    "frames": 181,
+    "fallback": false
+  },
+  {
+    "shot": "s04",
+    "asked": "Slow tilt up from the ground to the illuminated arch.",
+    "mode": "ken_burns",
+    "move": "camera move: tilt up",
+    "frames": 278,
+    "fallback": false
+  },
+  {
+    "shot": "s05",
+    "asked": "Static close-up with a subtle focus pull.",
+    "mode": "ken_burns",
+    "move": "camera move: push in",
+    "frames": 206,
+    "fallback": false
+  },
+  {
+    "shot": "s06",
+    "asked": "Slow zoom out.",
+    "mode": "ken_burns",
+    "move": "camera move: pull back",
+    "frames": 219,
+    "fallback": false
+  },
+  {
+    "shot": "s07",
+    "asked": "Slow orbital pan around the runner.",
+    "mode": "ken_burns",
+    "move": "camera move: pan left to right",
+    "frames": 206,
+    "fallback": false
+  },
+  {
+    "shot": "s08",
+    "asked": "Slow push in through mist.",
+    "mode": "ken_burns",
+    "move": "camera move: push in",
+    "frames": 209,
+    "fallback": false
+  },
+  {
+    "shot": "s09",
+    "asked": "Tracking shot moving alongside the sled.",
+    "mode": "ken_burns",
+    "move": "camera move: push in",
+    "frames": 174,
+    "fallback": false
+  },
+  {
+    "shot": "s10",
+    "asked": "Slow crane up above the crowd.",
+    "mode": "ken_burns",
+    "move": "camera move: push in",
+    "frames": 178,
+    "fallback": false
+  }
+]

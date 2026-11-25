@@ -4,7 +4,8 @@
     "am"
   ],
   "voice": {
-    "name": "Sulafat",
+    "provider": "addis",
+    "name": "am-yohanes-calm",
     "style": "calm, warm, unhurried"
   },
   "style_block": "Cinematic 35mm color film photography with deep chiaroscuro lighting, natural film grain, rich earth tones, and tactile vintage 1960s photojournalism textures.",
@@ -48,7 +49,7 @@
   "shots": [
     {
       "id": "s01",
-      "duration_s": 7.0,
+      "duration_s": 5.4,
       "size": "close",
       "image_prompt": "An extreme close-up at ground level of two bare human feet with dark brown skin, mid-stride, striking wet cobblestones at night under warm street lamps. The feet are naked: bare toes and bare heels are clearly visible, with no shoes, no sandals and no socks. Nothing above the ankles is in the picture.",
       "use_reference": false,
@@ -66,7 +67,7 @@
     },
     {
       "id": "s02",
-      "duration_s": 7.5,
+      "duration_s": 7.45,
       "size": "wide",
       "image_prompt": "A wide silhouette shot of village boys playing a traditional long-distance game using curved wooden sticks on a wide, sunlit grassy pasture in the Ethiopian highlands at dusk.",
       "use_reference": false,
@@ -84,7 +85,7 @@
     },
     {
       "id": "s03",
-      "duration_s": 7.5,
+      "duration_s": 7.25,
       "size": "medium",
       "image_prompt": "A medium shot taken from behind a dark-skinned athletic figure in green military physical-training clothes, looking toward a fair-skinned coach's hand holding a metal stopwatch on a red dirt track.",
       "use_reference": true,
@@ -102,7 +103,7 @@
     },
     {
       "id": "s04",
-      "duration_s": 8.5,
+      "duration_s": 11.1,
       "size": "wide",
       "image_prompt": "A wide night view of an ancient Roman triumphal arch lit by floodlights. A lone barefoot runner in a plain green vest and red shorts, small in the frame and seen from behind, runs toward the arch along a dark road. Nothing is written on his vest.",
       "use_reference": false,
@@ -120,7 +121,7 @@
     },
     {
       "id": "s05",
-      "duration_s": 8.0,
+      "duration_s": 8.25,
       "size": "close",
       "image_prompt": "A close-up of an elderly Ethiopian man's dark brown hands in formal white cuffs pinning a gold star medal onto the chest of an olive-green army uniform. No faces are in the picture.",
       "use_reference": true,
@@ -138,7 +139,7 @@
     },
     {
       "id": "s06",
-      "duration_s": 6.5,
+      "duration_s": 8.75,
       "size": "close",
       "image_prompt": "A close-up of a man's dark brown hands resting still on white hospital bedsheets in a plain 1960s hospital room, in soft light from a window. No face is in the picture.",
       "use_reference": true,
@@ -156,7 +157,7 @@
     },
     {
       "id": "s07",
-      "duration_s": 8.5,
+      "duration_s": 8.25,
       "size": "medium",
       "image_prompt": "A wide view from high in the stands of a 1960s stadium running track in daylight. One small, distant Ethiopian runner with dark brown skin, in a green vest, seen from behind, is alone on the track far ahead of everyone else.",
       "use_reference": false,
@@ -174,7 +175,7 @@
     },
     {
       "id": "s08",
-      "duration_s": 8.0,
+      "duration_s": 8.35,
       "size": "wide",
       "image_prompt": "A wide atmospheric shot of a vintage light-colored sedan resting off a muddy rural road amidst dense morning fog and towering pine trees.",
       "use_reference": false,
@@ -192,7 +193,7 @@
     },
     {
       "id": "s09",
-      "duration_s": 7.5,
+      "duration_s": 6.95,
       "size": "medium",
       "image_prompt": "Seen from directly behind, so that only the back of his head and shoulders show: an Ethiopian man with dark brown skin and short black hair, in a heavy dark winter coat, seated on a low wooden sled and pushing himself with two short poles across deep snow in a Norwegian pine forest under a pale winter sun.",
       "use_reference": false,
@@ -210,7 +211,7 @@
     },
     {
       "id": "s10",
-      "duration_s": 8.5,
+      "duration_s": 7.1,
       "size": "wide",
       "image_prompt": "A wide high-angle view of a vast, quiet crowd gathered along a wide boulevard in Addis Ababa under dramatic afternoon sky clouds, with soft yellow and green banners visible.",
       "use_reference": false,

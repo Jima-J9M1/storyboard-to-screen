@@ -1,6 +1,13 @@
-"""Speech for the narration, through Gemini text-to-speech, with a local fallback.
+"""Speech for the narration, from one of two providers, with a local stand-in for rough cuts.
 
-speak() tries each voice model in turn, waiting and retrying when one says it is being
+    gemini  Gemini text-to-speech. Free tier, about three dozen lines a day. Takes a style.
+    addis   Addis AI "Addis Voices 2". Built for Amharic, Afaan Oromo and Tigrinya. Paid by
+            the minute of audio (5 birr a minute when this was written). Ignores the style.
+
+The storyboard's `voice` says which provider and which voice a film uses.
+
+
+With Gemini, speak() tries each voice model in turn, waiting and retrying when one says it is being
 called too often. The caller is told which model spoke, and that is saved with the audio.
 
 A film must have one narrator, so a different voice is never substituted silently. Only when
@@ -29,6 +36,10 @@ LOCAL_VOICE = "macos-say"
 # The free tier allows only a few voice calls a minute. A refused call is tried again after
 # these waits, which is long enough for the per-minute limit to clear.
 RATE_LIMIT_WAIT_S = 20.0
+
+ADDIS_URL = "https://api.addisassistant.com/api/v1/voice/generations"
+ADDIS_ETB_PER_MINUTE = 5.0     # the price the API reported on 25 November 2026
+ADDIS_USD_PER_MINUTE = 0.032   # the same price as listed in US dollars on the provider's pricing page
 
 
 # Models that refused every attempt with "quota exceeded" during this run. A daily quota does
@@ -76,6 +87,49 @@ def _gemini(model: str, text: str, voice: str, style: str, api_key: str) -> tupl
     return base64.b64decode(part["data"]), part["mimeType"], response.get("usageMetadata", {})
 
 
+def _addis(text: str, voice: str, language: str, request_id: str, api_key: str) -> tuple[bytes, dict]:
+    """One line from Addis AI. The request id makes a retry return the same clip instead of charging twice."""
+    reply = http.post_json(
+        ADDIS_URL,
+        {"text": text, "voice_id": voice, "language": language, "output_format": "wav_44100",
+         "client_request_id": request_id},
+        headers={"x-api-key": api_key},
+    )
+    data = reply.get("data") or {}
+    inline = data.get("audio") or ""
+    if inline.startswith("data:") and "base64," in inline:
+        raw = base64.b64decode(inline.split("base64,", 1)[1])
+    elif data.get("audio_url"):
+        raw = http.get_bytes(data["audio_url"])
+    else:
+        raise RuntimeError(f"no audio in the reply from Addis AI: {str(reply)[:200]}")
+    return raw, data
+
+
+def speak_addis(text: str, out: Path, *, voice: str, language: str, stage: str, item: str, key: str) -> str:
+    api_key = env.require("ADDIS_API_KEY")
+    model = f"addis-voices-2:{voice}"
+
+    def call() -> dict:
+        raw, data = _addis(text, voice, language, f"heritage-{key}", api_key)
+        _to_wav(raw, "audio/wav", out)
+        return data
+
+    def measure(data: dict) -> dict:
+        seconds = data.get("duration_seconds") or 0
+        usage = data.get("usage") or {}
+        return {"cost_usd": round(seconds / 60 * ADDIS_USD_PER_MINUTE, 5),
+                "cost_etb": usage.get("credits_used"), "balance_etb": usage.get("credits_remaining"),
+                "billed_seconds": seconds}
+
+    try:
+        logged_call(call, stage=stage, item=item, model=model, key=key,
+                    params={"voice": voice, "language": language, "chars": len(text)}, measure=measure)
+    except RuntimeError as err:
+        raise VoiceUnavailable(f"Addis AI could not speak {item}: {str(err).splitlines()[0][:200]}") from None
+    return model
+
+
 def transcribe(path: Path, *, stage: str, item: str) -> str:
     """Return the words a listener hears in an audio file, written down by a language model.
 
@@ -110,11 +164,14 @@ def _say(text: str, out: Path) -> None:
 
 
 def speak(text: str, out: Path, *, voice: str, style: str, stage: str, item: str, key: str,
-          allow_local: bool = False) -> str:
+          allow_local: bool = False, provider: str = "gemini", language: str = "en") -> str:
     """Write `text` as speech to `out` and return the name of the model that spoke it.
 
     allow_local  for a rough cut only: use the Mac's own voice if every model fails
+    provider     "gemini" or "addis"
     """
+    if provider == "addis":
+        return speak_addis(text, out, voice=voice, language=language, stage=stage, item=item, key=key)
     api_key = env.require("GEMINI_API_KEY")
     params = {"voice": voice, "style": style, "chars": len(text)}
 

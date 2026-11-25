@@ -13,6 +13,12 @@ from typing import Any
 USER_AGENT = "heritage-short-pipeline/0.1"
 
 
+# 200 is "here it is". 201 is "created", which is how an API answers a request that made
+# something new, such as a voice clip. Treating 201 as a failure threw away ten paid
+# recordings (FAILURES.md, F8).
+OK_STATUSES = (200, 201)
+
+
 class HttpError(Exception):
     """A request failed. Carries the status and the start of the server's reply."""
 
@@ -26,7 +32,7 @@ def _read(request: urllib.request.Request, timeout_s: float) -> str:
     except urllib.error.HTTPError as err:
         body = err.read().decode("utf-8", errors="replace")[:300]
         raise HttpError(f"HTTP {err.code} from {request.host}: {body}") from None
-    if status != 200 or not body.strip():
+    if status not in OK_STATUSES or not body.strip():
         # Some sites answer a script with "202" and an empty page instead of the content.
         raise HttpError(f"HTTP {status} from {request.host} with {len(body)} characters of content")
     return body
@@ -40,6 +46,13 @@ def get_json(url: str, params: dict | None = None, timeout_s: float = 30.0) -> A
     if params:
         url = f"{url}?{urllib.parse.urlencode(params)}"
     return _send(urllib.request.Request(url, headers={"User-Agent": USER_AGENT}), timeout_s)
+
+
+def get_bytes(url: str, timeout_s: float = 120.0) -> bytes:
+    """Fetch a file."""
+    request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+    with urllib.request.urlopen(request, timeout=timeout_s) as response:
+        return response.read()
 
 
 def get_text(url: str, timeout_s: float = 30.0) -> str:

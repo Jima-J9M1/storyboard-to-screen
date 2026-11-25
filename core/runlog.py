@@ -79,7 +79,9 @@ def logged_call(
             if attempt < attempts:
                 time.sleep(base_delay_s * 2 ** (attempt - 1))
             continue
+        extra = measure(result) if measure else {}
+        # A call whose price depends on what came back (a paid voice, by its length) reports its own cost.
         log_run(**record, latency_s=round(time.monotonic() - started, 3),
-                cost_usd=cost_usd, status="ok", **(measure(result) if measure else {}))
+                cost_usd=extra.pop("cost_usd", cost_usd), status="ok", **extra)
         return result
     raise RuntimeError(f"{stage}: {model} failed after {attempts} attempts: {last_error}")

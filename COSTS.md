@@ -2,11 +2,11 @@
 
 Generated from `runs.jsonl` by `python -m core.costs` on 2026-11-25. Do not edit by hand: run `make costs` again.
 
-The log holds 313 attempts at outside calls, 147 of which succeeded.
+The log holds 373 attempts at outside calls, 167 of which succeeded.
 
 ## What was paid
 
-Nothing. Every call used a free tier, and the log's `cost_usd` adds up to $0.00.
+Nothing. Every call used a free tier, and the log's `cost_usd` adds up to $0.04.
 
 ## Time per stage
 
@@ -16,7 +16,7 @@ Latency is the wall-clock time of each call, measured by the pipeline. "Time los
 | --- | --- | --- | --- | --- | --- | --- |
 | Research | 33 | 9 | 24 | 1.6 | 2.1 | 4.1 |
 | Script (three agents) | 45 | 7 | 38 | 2.9 | 17.7 | 10.8 |
-| Voice | 149 | 50 | 99 | 3.9 | 4.2 | 2.7 |
+| Voice | 209 | 70 | 139 | 4.8 | 3.7 | 4.6 |
 | Pictures | 67 | 65 | 2 | 10.6 | 8.3 | 0.6 |
 | Music | 4 | 2 | 2 | 6.3 | 188.0 | 53.5 |
 | Experiments (E2, E4) | 14 | 13 | 1 | 1.1 | 3.7 | 0.0 |
@@ -40,9 +40,10 @@ Total: 14.1 GPU minutes, all on Kaggle's free allowance.
 | --- | --- | --- | --- | --- | --- | --- |
 | `@cf/black-forest-labs/flux-2-klein-4b` | Experiments (E2, E4), Pictures | 69 | 2 | 8.3 |  |  |
 | `ace-step-1.5-turbo (Kaggle T4)` | Music | 2 | 2 | 188.0 |  |  |
+| `addis-voices-2:am-yohanes-calm` | Voice | 10 | 30 | 3.0 |  |  |
 | `gemini-3.1-flash-tts-preview` | Voice | 7 | 16 | 6.8 | 335 | 1636 |
-| `gemini-3.5-flash` | Experiments (E2, E4), Research, Script (three agents), Voice | 29 | 4 | 4.9 | 17119 | 8230 |
-| `gemini-3.5-flash-lite` | Voice | 4 | 1 | 2.5 |  |  |
+| `gemini-3.5-flash` | Experiments (E2, E4), Research, Script (three agents), Voice | 30 | 13 | 4.9 | 17119 | 8230 |
+| `gemini-3.5-flash-lite` | Voice | 13 | 2 | 2.3 |  |  |
 | `gemini-3.7-flash` | Research, Script (three agents) | 0 | 28 | never answered |  |  |
 | `gemini-3.8-flash` | Research, Script (three agents) | 0 | 34 | never answered |  |  |
 | `gemini-3.8-flash-lite-tts` | Experiments (E2, E4), Voice | 13 | 35 | 3.6 | 229 | 1599 |
@@ -57,9 +58,9 @@ Total: 14.1 GPU minutes, all on Kaggle's free allowance.
 
 | Reason | Attempts |
 | --- | --- |
-| quota or rate limit (HTTP 429) | 108 |
-| model overloaded (HTTP 503) | 43 |
-| other | 10 |
+| quota or rate limit (HTTP 429) | 117 |
+| model overloaded (HTTP 503) | 44 |
+| other | 40 |
 | timed out | 5 |
 
 ## Free-tier limits met

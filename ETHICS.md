@@ -37,6 +37,7 @@ The narration was drafted by a language model from those facts and has not been 
 |---|---|---|---|---|---|
 | Pictures | FLUX.2 klein 4B | Cloudflare Workers AI | Apache 2.0 | Pictures may be used, including commercially | The assignment brief states the licence; the 9B version is non-commercial and is not used |
 | Voice | Gemini 3.8 Flash TTS, 3.8 Flash-Lite TTS, 3.1 Flash TTS preview | Gemini API | Proprietary; used under the Gemini API terms | Not checked in detail by us | Not verified: the terms still need to be read |
+| Voice, second film (Amharic) | Addis Voices 2, voice `am-yohanes-calm` | Addis AI API | Proprietary | Its terms assign to the customer any rights the provider has in the output, and allow paid customers commercial use; they also allow the provider to train on inputs and outputs | The provider's Terms of Use, version dated 13 July 2026, read on 25 November 2026 |
 | Facts, script, picture prompts, music brief | Gemini 3.5 Flash | Gemini API | Proprietary; used under the Gemini API terms | Not checked in detail by us | Not verified, as above |
 | Checking the narration audio | Gemini 3.5 Flash (transcription) | Gemini API | as above | Produces text used only as a check | |
 | Score | ACE-Step 1.5 turbo | Kaggle GPU | MIT, code and weights | The model card says generated music may be used commercially | The project's repository and model card, read on 25 November 2026 |

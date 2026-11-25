@@ -600,7 +600,7 @@ function VoiceOutput({ film }: { film: FilmState }) {
       <ol className="voice">
         {shots.map((shot) => {
           const voice = film.outputs.shots[shot.id]?.narration[language];
-          const wrong = voice && (voice.fits === false || voice.matches_line === false);
+          const wrong = voice && (voice.fits === false || (language === "en" && voice.matches_line === false));
           return (
             <li key={shot.id}>
               <span className="id">{shot.id}</span>
@@ -615,9 +615,11 @@ function VoiceOutput({ film }: { film: FilmState }) {
                     <p className={wrong ? "pic bad" : "pic"}>
                       {voice.spoken_s} s spoken, in a {shot.duration_s} s shot. Voice model: {voice.model}.{" "}
                       {voice.fits === false && "Longer than its shot. "}
-                      {voice.matches_line === false
-                        ? `The recording says: "${voice.heard}"`
-                        : "The recording matches the line."}
+                      {language !== "en"
+                        ? "Not verified: the automatic check is unreliable in this language, so a speaker must listen."
+                        : voice.matches_line === false
+                          ? `The recording says: "${voice.heard}"`
+                          : "The recording matches the line."}
                     </p>
                   </>
                 ) : (
@@ -628,6 +630,72 @@ function VoiceOutput({ film }: { film: FilmState }) {
           );
         })}
       </ol>
+      <VoiceCompare film={film} />
+    </>
+  );
+}
+
+const PROVIDERS: Record<string, string> = { gemini: "Gemini", addis: "Addis AI" };
+
+function VoiceCompare({ film }: { film: FilmState }) {
+  const compare = film.outputs.voice_compare;
+  const providers = Object.keys(compare);
+  const board = film.storyboard;
+  if (providers.length < 2 || !board) return null;
+  const language = board.languages[0];
+  const seconds = (provider: string) =>
+    Object.values(compare[provider]).reduce((sum, line) => sum + (line.spoken_s ?? 0), 0);
+  return (
+    <>
+      <h4>The same lines by two voices</h4>
+      <p className="lede">
+        Listen to each line both ways and decide which narrator the film should have. Judge the pronunciation of names,
+        places and numbers: no automatic check can do that for this language.
+      </p>
+      <div className="scroll">
+        <table className="candidates">
+          <thead>
+            <tr>
+              <th>Line</th>
+              {providers.map((provider) => (
+                <th key={provider}>
+                  {PROVIDERS[provider] ?? provider}
+                  <span className="quiet">
+                    {" "}
+                    ({Object.keys(compare[provider]).length} lines, {seconds(provider).toFixed(1)} s)
+                  </span>
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {board.shots.map((shot) => (
+              <tr key={shot.id}>
+                <td>
+                  <b>{shot.id}</b>
+                  <div lang={language}>{shot.narration[language]}</div>
+                  <span className="quiet">{shot.subtitle_en}</span>
+                </td>
+                {providers.map((provider) => {
+                  const line = compare[provider][shot.id];
+                  return (
+                    <td key={provider}>
+                      {line ? (
+                        <>
+                          <audio controls preload="none" src={media(film.slug, line)} />
+                          <span className="quiet">{line.spoken_s} s</span>
+                        </>
+                      ) : (
+                        <span className="quiet">Not recorded</span>
+                      )}
+                    </td>
+                  );
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </>
   );
 }

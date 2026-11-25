@@ -1,4 +1,22 @@
 {
+  "audition_1": {
+    "input_hash": "8d539d0346991701",
+    "outputs": [
+      "films/abebe-bikila/outputs/music/audition_1.m4a"
+    ]
+  },
+  "audition_2": {
+    "input_hash": "1dc9b7be16868b09",
+    "outputs": [
+      "films/abebe-bikila/outputs/music/audition_2.m4a"
+    ]
+  },
+  "audition_3": {
+    "input_hash": "ce74d0f89e51fa2e",
+    "outputs": [
+      "films/abebe-bikila/outputs/music/audition_3.m4a"
+    ]
+  },
   "candidates": {
     "input_hash": "951ec54d54e91fc5",
     "outputs": [

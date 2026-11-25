@@ -127,8 +127,24 @@ A third, smaller failure followed: the job had finished, but downloading its out
 
 **What changed in the code.** A model that refuses every attempt with a quota error is now skipped for the rest of that run. Before, each line waited a minute on the exhausted model before moving on, which is why eight lines took twenty minutes.
 
-**Status.** Open. The film cannot be cut until its last two lines are recorded. Two ways forward: wait for the daily quota to reset and run `make narration FILM=abebe-bikila` again (finished lines are reused), or put credit on the Addis AI account and record all ten lines with one of its Amharic voices.
+**Status.** Resolved the same evening by the second route: the director put credit on the Addis AI account and all ten lines were recorded with one of its voices (EXPERIMENTS.md, E9). The original note follows. The film cannot be cut until its last two lines are recorded. Two ways forward: wait for the daily quota to reset and run `make narration FILM=abebe-bikila` again (finished lines are reused), or put credit on the Addis AI account and record all ten lines with one of its Amharic voices.
 
 **What it taught us.** The free tier's voice limit is roughly three dozen lines a day across all three models. That is about three films' worth of narration, and experiments spend from the same budget. This belongs in the plan before the day starts, not after.
 
 **Evidence.** `runs.jsonl`, stage `narration`, film `abebe-bikila`. Counts of successful and refused calls per model are in `COSTS.md`.
+
+## F8. Ten paid recordings were thrown away because the reply said "201"
+
+**When:** 25 November 2026, first run of the voice stage with Addis AI.
+
+**Symptom.** Every one of the ten lines failed three times with `HTTP 201 from api.addisassistant.com with 1807 characters of content`. No audio was saved. The provider's wallet showed the recordings had been made and charged.
+
+**Cause.** Our own code. `core/http.py` treated any status other than 200 as a failure, a rule added in F2 to catch a site that answers scripts with "202" and an empty page. "201 Created" is the normal reply from an API that has just made something, such as a voice clip. A single test call made earlier with a different tool had worked, so the rule was never exercised against this provider before the real run.
+
+**What limited the damage.** Each line is sent with a request id built from its cache key. The provider treats a repeat with the same id as a replay of the same clip and does not charge again. So the three attempts per line cost one recording each, not three, and after the fix the same ten clips were fetched without a new charge. Total spent: 6.72 birr, including the test call.
+
+**What fixed it.** 200 and 201 both count as success. An empty reply is still a failure whatever its status.
+
+**What it taught us.** A rule written to catch one bad server was too broad for a good one. And a test that goes around the pipeline's own code does not test the pipeline.
+
+**Evidence.** `runs.jsonl`, stage `narration`, film `abebe-bikila`: thirty `error` lines for `addis-voices-2:am-yohanes-calm`, then ten `ok` lines with `cost_etb`.

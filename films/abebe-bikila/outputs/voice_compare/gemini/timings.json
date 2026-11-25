@@ -1,0 +1,90 @@
+[
+  {
+    "shot": "s01",
+    "language": "am",
+    "words": 10,
+    "spoken_s": 5.48,
+    "shot_s": 5.9,
+    "fits": true,
+    "model": "gemini-3.8-flash-lite-tts",
+    "heard": "አንድ ሁለቱ ባዶም ጎዳኖች ላይ በባዶ እግሩ ሲሮጥ ነበር",
+    "matches_line": true
+  },
+  {
+    "shot": "s02",
+    "language": "am",
+    "words": 12,
+    "spoken_s": 7.23,
+    "shot_s": 7.65,
+    "fits": true,
+    "model": "gemini-3.8-flash-lite-tts",
+    "heard": "አበበ ቢቂላ በልጅነቱ ጋና የተባለውን ባህላዊ የሩቅ ርቀት ሆኪ ጨዋታ ይጫወት ነበር።",
+    "matches_line": true
+  },
+  {
+    "shot": "s03",
+    "language": "am",
+    "words": 9,
+    "spoken_s": 7.66,
+    "shot_s": 8.1,
+    "fits": true,
+    "model": "gemini-3.1-flash-tts-preview",
+    "heard": "ስዊድን አውሮፓ አሸናፊ እውን ኒስካነን አበበን አውጥቶ ለማራቶን ማሰልጠን ጀመረ።",
+    "matches_line": true
+  },
+  {
+    "shot": "s04",
+    "language": "am",
+    "words": 17,
+    "spoken_s": 11.29,
+    "shot_s": 11.7,
+    "fits": true,
+    "model": "gemini-3.1-flash-tts-preview",
+    "heard": "በ1960 የሮም ኦሎምፒክ አበበ በባዶ እግሩ ማራቶኑን በማሸነፍ የመጀመሪያው የኢትዮጵያ የወርቅ ሜዳሊያ ባለቤት ሆነ።",
+    "matches_line": true
+  },
+  {
+    "shot": "s05",
+    "language": "am",
+    "words": 13,
+    "spoken_s": 9.02,
+    "shot_s": 9.45,
+    "fits": true,
+    "model": "gemini-3.1-flash-tts-preview",
+    "heard": "ነገሰነገስት ሃይለስላሴ ላዕለባ የኢትዮጵያ ኮከብ ኒሻን ሰጥተው ወደ አጥር አለቃነት አደገጉት።",
+    "matches_line": true
+  },
+  {
+    "shot": "s06",
+    "language": "am",
+    "words": 16,
+    "spoken_s": 8.13,
+    "shot_s": 8.55,
+    "fits": true,
+    "model": "gemini-3.8-flash-tts",
+    "heard": "ከ1964ቱ የቶኪዮ ኦሎምፒክ 4 ቀናት በፊት አበባበ የትርፍ አንጀት ቀዶ ህክምና ተደረገለት።",
+    "matches_line": false
+  },
+  {
+    "shot": "s07",
+    "language": "am",
+    "words": 9,
+    "spoken_s": 7.34,
+    "shot_s": 7.75,
+    "fits": true,
+    "model": "gemini-3.1-flash-tts-preview",
+    "heard": "በተከታታይ የኦሊምፒክ ማራቶን ሻምፒዮንነቱን ያስጠበቀ የመጀመሪያው ስፖርተኛ ሆነ።",
+    "matches_line": true
+  },
+  {
+    "shot": "s08",
+    "language": "am",
+    "words": 17,
+    "spoken_s": 9.54,
+    "shot_s": 9.95,
+    "fits": true,
+    "model": "gemini-3.1-flash-tts-preview",
+    "heard": "በመጋቢት 22 ቀን 969 በደረሰበት የመኪና አደጋ አበበ ከአንገቱ በታች ሽባ ሆነ።",
+    "matches_line": false
+  }
+]

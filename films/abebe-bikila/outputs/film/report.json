@@ -1,0 +1,157 @@
+{
+  "planned_s": 81.85,
+  "end_card": {
+    "text": "This film was made with AI.",
+    "duration_s": 3
+  },
+  "music": "placeholder chord (no score chosen yet)",
+  "placeholder_music": true,
+  "films": {
+    "9x16": {
+      "file": "film_9x16.mp4",
+      "frame": [
+        1080,
+        1920
+      ],
+      "duration_s": 81.85,
+      "loudness_lufs": -14.32,
+      "true_peak_db": -1.16,
+      "subtitle_cards": 20,
+      "longest_subtitle_line": 30
+    },
+    "16x9": {
+      "file": "film_16x9.mp4",
+      "frame": [
+        1920,
+        1080
+      ],
+      "duration_s": 81.85,
+      "loudness_lufs": -14.32,
+      "true_peak_db": -1.16,
+      "subtitle_cards": 14,
+      "longest_subtitle_line": 42
+    }
+  },
+  "subtitles_9x16": [
+    {
+      "shot": "s01",
+      "on_s": 0.1,
+      "off_s": 4.457,
+      "text": "Why was a young man running\nbarefoot through the streets"
+    },
+    {
+      "shot": "s01",
+      "on_s": 4.457,
+      "off_s": 5.08,
+      "text": "of Rome?"
+    },
+    {
+      "shot": "s02",
+      "on_s": 5.5,
+      "off_s": 10.569,
+      "text": "As a boy, Abebe Bikila played\ngena, a traditional long"
+    },
+    {
+      "shot": "s02",
+      "on_s": 10.569,
+      "off_s": 12.54,
+      "text": "distance hockey game."
+    },
+    {
+      "shot": "s03",
+      "on_s": 12.95,
+      "off_s": 17.25,
+      "text": "Swedish coach Onni Niskanen\nnoticed Abebe and began"
+    },
+    {
+      "shot": "s03",
+      "on_s": 17.25,
+      "off_s": 19.78,
+      "text": "training him for the marathon."
+    },
+    {
+      "shot": "s04",
+      "on_s": 20.2,
+      "off_s": 25.899,
+      "text": "At the 1960 Rome Olympics,\nAbebe won the marathon"
+    },
+    {
+      "shot": "s04",
+      "on_s": 25.899,
+      "off_s": 30.9,
+      "text": "barefoot as Ethiopia's first\ngold medalist."
+    },
+    {
+      "shot": "s05",
+      "on_s": 31.3,
+      "off_s": 36.861,
+      "text": "Emperor Haile Selassie awarded\nAbebe the Star of Ethiopia and"
+    },
+    {
+      "shot": "s05",
+      "on_s": 36.861,
+      "off_s": 39.14,
+      "text": "promoted him to corporal."
+    },
+    {
+      "shot": "s06",
+      "on_s": 39.55,
+      "off_s": 44.94,
+      "text": "Forty days before the 1964\nTokyo Olympics, Abebe"
+    },
+    {
+      "shot": "s06",
+      "on_s": 44.94,
+      "off_s": 47.86,
+      "text": "underwent an appendectomy."
+    },
+    {
+      "shot": "s07",
+      "on_s": 48.3,
+      "off_s": 53.946,
+      "text": "At the Tokyo Games, he became\nthe first athlete to defend an"
+    },
+    {
+      "shot": "s07",
+      "on_s": 53.946,
+      "off_s": 56.11,
+      "text": "Olympic marathon title."
+    },
+    {
+      "shot": "s08",
+      "on_s": 56.55,
+      "off_s": 62.416,
+      "text": "A car accident on March 22,\n1969, left Abebe paralysed"
+    },
+    {
+      "shot": "s08",
+      "on_s": 62.416,
+      "off_s": 64.48,
+      "text": "from the neck down."
+    },
+    {
+      "shot": "s09",
+      "on_s": 64.9,
+      "off_s": 70.236,
+      "text": "At a competition in Norway, he\nwon the cross country sleigh"
+    },
+    {
+      "shot": "s09",
+      "on_s": 70.236,
+      "off_s": 71.412,
+      "text": "riding event."
+    },
+    {
+      "shot": "s10",
+      "on_s": 71.85,
+      "off_s": 75.875,
+      "text": "After Abebe died in Addis\nAbaba, Emperor Haile Selassie"
+    },
+    {
+      "shot": "s10",
+      "on_s": 75.875,
+      "off_s": 78.51,
+      "text": "declared a national day of\nmourning."
+    }
+  ]
+}

@@ -203,3 +203,41 @@ Three shots still needed their own descriptions reworded after v2: the feet were
 **Limits.** Eight lines, one voice, one transcriber. No Amharic speaker has yet listened, so the quality of the narration itself is unknown. That listening is the missing half of this experiment.
 
 **Evidence.** `films/abebe-bikila/outputs/narration/timings.json` holds, for each line, its length, the model that spoke it and the transcript. `films/abebe-bikila/storyboard.json` holds the lines. `runs.jsonl`, stages `story` and `narration`, film `abebe-bikila`.
+
+## E9. Gemini or Addis AI for Amharic narration?
+
+**Date:** 25 November 2026
+
+**Hypothesis.** Addis AI is built for Ethiopian languages and should narrate Amharic better than a general model. Its site says so; that is the company's claim, not evidence.
+
+**Change.** The same Amharic lines of the Abebe Bikila film were spoken by both. Gemini: voice "Sulafat", style "calm, warm, unhurried", free tier. Addis AI: voice "am-yohanes-calm" ("Low-key reflective tone"), paid by the minute. Nothing else differed.
+
+**Result so far: what can be measured.**
+
+| | Gemini | Addis AI |
+|---|---|---|
+| Lines recorded | 8 of 10 (daily quota ran out) | 10 of 10 |
+| Time for the 8 lines both recorded | 65.7 s | 61.4 s |
+| Speed on those lines | 1.57 words a second | 1.68 words a second |
+| Models used | three, as each hit its limit | one |
+| Cost | none | 6.22 birr for ten lines (74.6 s of audio) |
+| Calls refused | 95 voice calls refused that day across both films | none |
+
+| Shot | Words | Gemini (s) | Addis AI (s) |
+|---|---|---|---|
+| s01 | 10 | 5.48 | 4.98 |
+| s02 | 12 | 7.23 | 7.04 |
+| s03 | 9 | 7.66 | 6.83 |
+| s04 | 17 | 11.29 | 10.7 |
+| s05 | 13 | 9.02 | 7.84 |
+| s06 | 16 | 8.13 | 8.31 |
+| s07 | 9 | 7.34 | 7.81 |
+| s08 | 17 | 9.54 | 7.93 |
+
+**What has not been measured: which one sounds right.** That is the question that matters, and no number here answers it. The machine transcript cannot judge Amharic (E8); on shot s10 it returned text in the wrong script altogether. Both sets of recordings are kept under `films/abebe-bikila/outputs/voice_compare/` and play side by side on the production board's Voice stage, so the director and Amharic-speaking viewers can choose.
+
+**Decision for now.** The film uses the Addis AI voice, for a practical reason and not a quality one: it could record all ten lines, with one voice, on the day. The choice will be revisited after people have listened.
+
+**To finish this experiment.** Play both sets to at least five Amharic speakers without saying which is which, and record which they prefer and where either mispronounces a name, a place or a number.
+
+**Evidence.** `films/abebe-bikila/outputs/voice_compare/gemini/timings.json` and `addis/timings.json`. `runs.jsonl`, stage `narration`, film `abebe-bikila`: the Addis AI lines record the birr charged for each.
