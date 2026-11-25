@@ -1,0 +1,68 @@
+{
+  "s01.16x9": {
+    "input_hash": "f2a9c9be9bdc49d5",
+    "outputs": [
+      "films/gebisa-ejeta/outputs/video/s01.16x9.mp4"
+    ]
+  },
+  "s01.9x16": {
+    "input_hash": "335c94671e06fd8e",
+    "outputs": [
+      "films/gebisa-ejeta/outputs/video/s01.9x16.mp4"
+    ]
+  },
+  "s02.9x16": {
+    "input_hash": "1f704274c6e3146e",
+    "outputs": [
+      "films/gebisa-ejeta/outputs/video/s02.9x16.mp4"
+    ]
+  },
+  "s03.9x16": {
+    "input_hash": "daf39bf0f514b081",
+    "outputs": [
+      "films/gebisa-ejeta/outputs/video/s03.9x16.mp4"
+    ]
+  },
+  "s04.9x16": {
+    "input_hash": "1fd5270772d762eb",
+    "outputs": [
+      "films/gebisa-ejeta/outputs/video/s04.9x16.mp4"
+    ]
+  },
+  "s05.9x16": {
+    "input_hash": "f342cf1d051b7967",
+    "outputs": [
+      "films/gebisa-ejeta/outputs/video/s05.9x16.mp4"
+    ]
+  },
+  "s06.9x16": {
+    "input_hash": "52ef67357a60b465",
+    "outputs": [
+      "films/gebisa-ejeta/outputs/video/s06.9x16.mp4"
+    ]
+  },
+  "s07.9x16": {
+    "input_hash": "87f623fd88764623",
+    "outputs": [
+      "films/gebisa-ejeta/outputs/video/s07.9x16.mp4"
+    ]
+  },
+  "s08.9x16": {
+    "input_hash": "032c21a052cc22eb",
+    "outputs": [
+      "films/gebisa-ejeta/outputs/video/s08.9x16.mp4"
+    ]
+  },
+  "s09.9x16": {
+    "input_hash": "eaa96b22246add6d",
+    "outputs": [
+      "films/gebisa-ejeta/outputs/video/s09.9x16.mp4"
+    ]
+  },
+  "s10.9x16": {
+    "input_hash": "0edf15bda0531423",
+    "outputs": [
+      "films/gebisa-ejeta/outputs/video/s10.9x16.mp4"
+    ]
+  }
+}

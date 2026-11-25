@@ -241,3 +241,36 @@ Three shots still needed their own descriptions reworded after v2: the feet were
 **To finish this experiment.** Play both sets to at least five Amharic speakers without saying which is which, and record which they prefer and where either mispronounces a name, a place or a number.
 
 **Evidence.** `films/abebe-bikila/outputs/voice_compare/gemini/timings.json` and `addis/timings.json`. `runs.jsonl`, stage `narration`, film `abebe-bikila`: the Addis AI lines record the birr charged for each.
+
+## E10. Can a free 15 GB GPU turn the pictures into real video?
+
+**Date:** 25 November 2026
+
+**Why.** The first viewers of the rough cut said it was not real video: nothing in the pictures moved. The film was using slow camera moves over stills, the fallback the assignment allows.
+
+**Hypothesis.** Wan 2.2 TI2V-5B can animate the pictures on Kaggle's free Tesla T4, although its documentation asks for a 24 GB GPU, if the resolution is lowered to 480p and the model's two large parts are never on the GPU together.
+
+**Change.** Two runs of the same job on the same ten pictures, motion prompts and seeds: 480 x 832, 81 frames, 25 steps. Only the way the model was placed in memory changed.
+
+| Run | How the model was placed on the GPU | Result |
+|---|---|---|
+| 1 | The library's standard memory saver, which swaps whole parts in and out | Out of memory on the first clip, at 81, 49 and 33 frames. Peak 15.46 GB. The job ended after 6 minutes. |
+| 2 | The text encoder goes on alone, encodes all ten prompts (peak 13.43 GB), and is deleted. Only then the video model and decoder go on (12.86 GB before generating). | 11 clips made. Peak 14.93 GB while generating. |
+
+**Measurements from run 2.**
+
+| | |
+|---|---|
+| Time per clip | 12.6 minutes, the same for every clip |
+| Clip | 81 frames at 24 frames a second: 3.4 seconds |
+| GPU session | 145 minutes: 5 minutes loading the model, then 11 clips |
+| Clips made | all 10 tall clips and 1 wide clip, before the time budget stopped it |
+| Change between a clip's first and last frame (0 = a still picture, 255 = everything changed) | from 3.4 (the man standing in the field) to 32.0 (seed pouring from hands) |
+
+Frames taken from four clips showed the motion that was asked for: feet stepping forward, seed pouring, a fire flickering, sorghum swaying. The painted style of the pictures was kept.
+
+**Decision.** Generated video is now the normal path for a shot marked `video`, with the camera move as the fallback. Because a clip takes 12.6 minutes, the tall and the wide clips are sent as two jobs at once.
+
+**Limits.** The clips were checked by looking at three frames each and by the frame-difference number; nobody has watched them play. Two shots barely moved (3.4 and 3.9), so "generated" does not always mean "moving". The peak of 14.93 GB leaves almost no room on a 15.36 GB card, so a larger frame or more frames would not fit. These clips were made from the first set of pictures, before the people were repainted (E6), so the job was run again for the film.
+
+**Evidence.** `films/gebisa-ejeta/outputs/video_first_run/job_report.json` has the settings, time and peak memory for every clip. `films/gebisa-ejeta/outputs/video/job_reports.json` keeps the failed run as well. `runs.jsonl`, stage `video`.

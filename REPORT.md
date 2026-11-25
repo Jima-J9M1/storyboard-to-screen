@@ -25,7 +25,7 @@ What the repository can already show is two pieces of feedback and what each cha
 
 | What was said | By whom | What changed because of it |
 |---|---|---|
-| "This is not real video. There is no movement." | First viewers of the rough cut (names to be added) | The film used camera moves over still pictures, which the assignment allows as a fallback. A new stage was built to animate the pictures with Wan 2.2 on a Kaggle GPU (`pipeline/video.py`, commit `e7aaa82`). Its first run failed for lack of GPU memory; the second was still running when this draft was written. |
+| "This is not real video. There is no movement." | First viewers of the rough cut (names to be added) | The film used camera moves over still pictures, which the assignment allows as a fallback. A new stage was built to animate the pictures with Wan 2.2 on a Kaggle GPU (`pipeline/video.py`). Its first run failed for lack of GPU memory; the second made eleven clips, 12.6 minutes each, with the feet stepping, the seed pouring and the sorghum swaying (experiment E10, failure F9). |
 | The people in the pictures do not look Ethiopian. | The director | The storyboard gained a `world_block` that says who the people are and what their world looks like. All ten pictures were repainted (experiment E6, commit `7296e5a`). |
 
 ## 3. The hardest problem, and how I solved it

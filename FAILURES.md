@@ -148,3 +148,21 @@ A third, smaller failure followed: the job had finished, but downloading its out
 **What it taught us.** A rule written to catch one bad server was too broad for a good one. And a test that goes around the pipeline's own code does not test the pipeline.
 
 **Evidence.** `runs.jsonl`, stage `narration`, film `abebe-bikila`: thirty `error` lines for `addis-voices-2:am-yohanes-calm`, then ten `ok` lines with `cost_etb`.
+
+## F9. The video model ran out of GPU memory on its first clip
+
+**When:** 25 November 2026, first run of the video stage.
+
+**Symptom.** The Kaggle job ended after six minutes. Its report: `the first clip could not be made: ['out of memory at 81 frames', 'out of memory at 49 frames', 'out of memory at 33 frames']`, with a peak of 15.46 GB on a 15.36 GB card.
+
+**Reading the failure.** All three attempts failed within 16 seconds of each other. Making fewer frames changes how much memory the generation needs, so if generation were the problem the smaller attempts would have got further. They did not. That pointed at something loaded before generation starts: too much of the model on the GPU at once.
+
+**A mistake in the job.** It caught the out-of-memory error and recorded only that it happened, not where. The diagnosis above is from timing, which is weaker than a traceback would have been.
+
+**What we tried and what fixed it.** The model has a text encoder of about 11 GB and a video model of about 10 GB. The job now puts the text encoder on the GPU alone, turns every prompt into numbers once, deletes it, and only then loads the video model. Each fits by itself; together they do not. The second run made 11 clips (EXPERIMENTS.md, E10).
+
+**What changed in the code.** The job now records where in the library memory ran out. It also has a last resort that was not needed: moving the video model on and off the GPU layer by layer.
+
+**A second fault found in the same run.** The first attempt, which made no clips, was logged as a successful call, because the job itself had finished and returned a report. A job that makes no clips is now logged as a failure.
+
+**Evidence.** `films/gebisa-ejeta/outputs/video/job_reports.json` holds both runs' reports. `runs.jsonl`, stage `video`.

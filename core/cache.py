@@ -26,6 +26,10 @@ class Cache:
         return all((paths.ROOT / out).exists() for out in entry["outputs"])
 
     def store(self, item: str, key: str, outputs: list[Path]) -> None:
+        # Read the manifest again first: two runs of a stage may be working on the same film
+        # at once (the tall and the wide video jobs do), and neither may erase the other's entries.
+        if self.path.exists():
+            self.entries = load_json(self.path) | {k: v for k, v in self.entries.items() if k not in load_json(self.path)}
         self.entries[item] = {
             "input_hash": key,
             "outputs": [Path(o).resolve().relative_to(paths.ROOT.resolve()).as_posix() for o in outputs],

@@ -14,9 +14,14 @@ starting new ones when its time budget is nearly spent.
 
 A clip is asked for again only when its picture, motion prompt or seed changes.
 
+A clip takes about 12.6 minutes on a Tesla T4 (EXPERIMENTS.md, E10), so ten shots in one
+shape is a two-hour job. `--shape` sends one shape only, as its own job, so the tall and the
+wide clips can be made side by side on two GPUs.
+
 Usage:
     python -m pipeline.video --film gebisa-ejeta
-    python -m pipeline.video --film gebisa-ejeta --collect   # fetch a job that already ran
+    python -m pipeline.video --film gebisa-ejeta --shape 9x16   # the tall clips only, as their own job
+    python -m pipeline.video --film gebisa-ejeta --collect      # fetch a job that already ran
 """
 
 from __future__ import annotations
@@ -39,7 +44,7 @@ MODEL = "wan-2.2-ti2v-5b (Kaggle T4)"
 JOB_FILE = Path(__file__).parent / "kaggle_video_job.py"
 SIZES = {"9x16": (480, 832), "16x9": (832, 480)}   # width, height the model works at
 SETTINGS = {
-    "steps": 25, "frames": 81, "budget_min": 150,
+    "steps": 25, "frames": 81, "budget_min": 180,
     "negative": "text, letters, watermark, logo, distorted hands, extra fingers, extra limbs, "
                 "morphing, flicker, blurry, jerky fast motion, camera shake",
 }
@@ -61,7 +66,7 @@ def clip_key(shot: dict, shape: str, picture: Path) -> str:
                       shot["seed"], shape, SIZES[shape], SETTINGS["steps"], SETTINGS["frames"])
 
 
-def run(film_slug: str, collect: bool = False) -> int:
+def run(film_slug: str, collect: bool = False, shape: str | None = None) -> int:
     film = paths.film(film_slug)
     set_film(film.slug)
     try:
@@ -71,7 +76,8 @@ def run(film_slug: str, collect: bool = False) -> int:
         print(err, file=sys.stderr)
         return 1
 
-    out_dir, work = film.outputs / "video", film.outputs / "video" / "work"
+    tag = f"-{shape}" if shape else ""
+    out_dir, work = film.outputs / "video", film.outputs / "video" / f"work{tag}"
     cache = Cache(film, STAGE)
     wanted = [shot for shot in board["shots"] if shot["motion_mode"] == "video"]
     if not wanted:
@@ -80,24 +86,24 @@ def run(film_slug: str, collect: bool = False) -> int:
 
     # Tall clips for every shot first, then wide: if time runs out, the phone film is complete.
     clips, keys = [], {}
-    for shape in SIZES:
+    for clip_shape in ([shape] if shape else list(SIZES)):
         for shot in wanted:
             picture = film.outputs / "keyframes" / f"{shot['id']}.jpg"
             if not picture.exists():
                 print(f"video: no picture for {shot['id']}. Run make keyframes FILM={film.slug} first.", file=sys.stderr)
                 return 1
-            name = f"{shot['id']}.{shape}"
-            key = clip_key(shot, shape, picture)
+            name = f"{shot['id']}.{clip_shape}"
+            key = clip_key(shot, clip_shape, picture)
             keys[name] = key
             if not cache.fresh(name, key):
-                clips.append({"shot": shot["id"], "shape": shape, "file": f"{name}.jpg",
+                clips.append({"shot": shot["id"], "shape": clip_shape, "file": f"{name}.jpg",
                               "prompt": shot["motion_prompt"], "seed": shot["seed"]})
     if not clips:
         print(f"video: all {len(keys)} clips are up to date; no job sent.")
         return 0
 
     job = SETTINGS | {"clips": clips}
-    slug = f"heritage-short-video-{film.slug}"[:50]
+    slug = f"heritage-short-video-{film.slug}{tag}"[:50]
 
     def checked(report: dict) -> dict:
         """A job that made no clip is a failed call, and is logged as one."""
@@ -115,7 +121,7 @@ def run(film_slug: str, collect: bool = False) -> int:
         for clip in clips:
             prepare_input(film.outputs / "keyframes" / f"{clip['shot']}.jpg", clip["shape"], inputs / clip["file"])
         print(f"video: uploading {len(clips)} pictures to Kaggle ...")
-        dataset = kaggle.upload_dataset(f"heritage-short-frames-{film.slug}"[:50], inputs)
+        dataset = kaggle.upload_dataset(f"heritage-short-frames-{film.slug}{tag}"[:50], inputs)
         return checked(kaggle.run_job(slug, JOB_FILE, job, work, datasets=[dataset], timeout_s=5 * 3600, label="video"))
 
     try:
@@ -142,7 +148,7 @@ def run(film_slug: str, collect: bool = False) -> int:
             made.append(entry["clip"])
     history = load_json(out_dir / "job_reports.json") if (out_dir / "job_reports.json").exists() else []
     write_json(out_dir / "job_reports.json", history + [report])
-    write_json(out_dir / "job_report.json", report)
+    write_json(out_dir / f"job_report{tag}.json", report)
 
     if report.get("error"):
         print(f"video: the job reported an error: {report['error'][:400]}", file=sys.stderr)
@@ -161,8 +167,9 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--film", required=True, help="the film's folder name under films/")
     parser.add_argument("--collect", action="store_true", help="fetch the result of the job already on Kaggle; send nothing")
+    parser.add_argument("--shape", choices=list(SIZES), help="make one shape only, as its own job")
     args = parser.parse_args()
-    return run(args.film, args.collect)
+    return run(args.film, args.collect, args.shape)
 
 
 if __name__ == "__main__":

@@ -10,7 +10,7 @@ films/*/research/.text/
 films/*/outputs/shots/*.mp4
 films/*/outputs/film/work/
 films/*/outputs/music/work/
-films/*/outputs/video/work/
+films/*/outputs/video/work*/
 films/*/outputs/radio_cut/voice.wav
 
 # Secrets
