@@ -1,15 +1,14 @@
-"""Validate brief.json and storyboard.json. Exits non-zero if either breaks the contract.
+"""Validate a film's brief and storyboard. Exits non-zero if either breaks the contract.
 
 Usage:
-    python -m pipeline.validate                 # brief (with intent) and storyboard
-    python -m pipeline.validate --brief-only    # brief only, for use before a storyboard exists
+    python -m pipeline.validate --film gebisa-ejeta
+    python -m pipeline.validate --film gebisa-ejeta --brief-only   # before a storyboard exists
 """
 
 from __future__ import annotations
 
 import argparse
 import sys
-from pathlib import Path
 
 from core import paths
 from core.contracts import ValidationError, film_duration_s, load_brief, load_storyboard
@@ -17,23 +16,23 @@ from core.contracts import ValidationError, film_duration_s, load_brief, load_st
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    parser.add_argument("--brief", type=Path, default=paths.BRIEF_PATH)
-    parser.add_argument("--storyboard", type=Path, default=paths.STORYBOARD_PATH)
+    parser.add_argument("--film", required=True, help="the film's folder name under films/")
     parser.add_argument("--brief-only", action="store_true")
     args = parser.parse_args()
+    film = paths.film(args.film)
 
     failed = False
     try:
-        brief = load_brief(args.brief)
-        print(f"ok  {args.brief.name}: \"{brief['title']}\", languages {', '.join(brief['languages'])}")
+        brief = load_brief(film.brief)
+        print(f"ok  {film.slug}/brief.json: \"{brief['title']}\", languages {', '.join(brief['languages'])}")
     except ValidationError as err:
         print(err, file=sys.stderr)
         failed = True
 
     if not args.brief_only:
         try:
-            board = load_storyboard(args.storyboard)
-            print(f"ok  {args.storyboard.name}: {len(board['shots'])} shots, {film_duration_s(board):g} s")
+            board = load_storyboard(film.storyboard)
+            print(f"ok  {film.slug}/storyboard.json: {len(board['shots'])} shots, {film_duration_s(board):g} s")
         except ValidationError as err:
             print(err, file=sys.stderr)
             failed = True
