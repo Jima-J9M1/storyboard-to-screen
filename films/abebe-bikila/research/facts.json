@@ -1,0 +1,167 @@
+{
+  "sources": [
+    {
+      "source_id": "wikipedia",
+      "url": "https://en.wikipedia.org/w/index.php?oldid=1384645256"
+    }
+  ],
+  "model": "gemini-3.5-flash",
+  "facts": [
+    {
+      "id": "f01",
+      "source_id": "wikipedia",
+      "text": "Abebe Bikila was born on August 7, 1932, in Jato, Shewa.",
+      "quote": "Abebe Bikila was born on August 7, 1932, in the small community of Jato, then part of the Selale District of Shewa."
+    },
+    {
+      "id": "f02",
+      "source_id": "wikipedia",
+      "text": "He was the son of Wudinesh Beneberu and her second husband, Demissie.",
+      "quote": "Abebe was the son of Wudinesh Beneberu and her second husband, Demissie."
+    },
+    {
+      "id": "f03",
+      "source_id": "wikipedia",
+      "text": "During the Second Italo-Ethiopian War, his family was forced to move to Gorro.",
+      "quote": "During the Second Italo-Ethiopian War (1935–1937), his family was forced to move to the remote town of Gorro."
+    },
+    {
+      "id": "f04",
+      "source_id": "wikipedia",
+      "text": "As a boy, Abebe played gena, a traditional long-distance hockey game.",
+      "quote": "As a young boy, Abebe played gena, a traditional long-distance hockey game played with goalposts sometimes kilometres apart."
+    },
+    {
+      "id": "f05",
+      "source_id": "wikipedia",
+      "text": "Around 1952, Abebe joined the 5th Infantry Regiment of the Imperial Guard after moving to Addis Ababa.",
+      "quote": "Around 1952, he joined the 5th Infantry Regiment of the Imperial Guard after moving to Addis Ababa the year before."
+    },
+    {
+      "id": "f06",
+      "source_id": "wikipedia",
+      "text": "Abebe served in the Kagnew Battalion during the Korean War.",
+      "quote": "Abebe served in the Kagnew Battalion during the Korean War."
+    },
+    {
+      "id": "f07",
+      "source_id": "wikipedia",
+      "text": "Swedish coach Onni Niskanen noticed Abebe and began training him for the marathon.",
+      "quote": "Onni Niskanen, a Swedish coach employed by the Ethiopian government to train the Imperial Guard, soon noticed him and began training him for the marathon."
+    },
+    {
+      "id": "f08",
+      "source_id": "wikipedia",
+      "text": "In 1956, Abebe finished second in the Ethiopian Armed Forces championship.",
+      "quote": "In 1956, Abebe finished second to Wami Biratu in the Ethiopian Armed Forces championship."
+    },
+    {
+      "id": "f09",
+      "source_id": "wikipedia",
+      "text": "Abebe married Yewebdar Wolde-Giorgis on March 16, 1960.",
+      "quote": "Abebe was 27 when he married 15-year-old Yewebdar Wolde-Giorgis on March 16, 1960."
+    },
+    {
+      "id": "f10",
+      "source_id": "wikipedia",
+      "text": "Abebe was the first Ethiopian Olympic gold medalist, winning the marathon barefoot at the 1960 Rome Olympics.",
+      "quote": "He was the first Ethiopian Olympic gold medalist, winning his first gold medal at the 1960 Summer Olympics in Rome while running barefoot."
+    },
+    {
+      "id": "f11",
+      "source_id": "wikipedia",
+      "text": "Emperor Haile Selassie awarded Abebe the Star of Ethiopia and promoted him to corporal.",
+      "quote": "The Emperor awarded him the Star of Ethiopia and promoted him to the rank of asiraleqa (corporal)."
+    },
+    {
+      "id": "f12",
+      "source_id": "wikipedia",
+      "text": "Following an unsuccessful coup attempt in December 1960, Abebe was briefly arrested and questioned.",
+      "quote": "Although Abebe was not directly involved, he was briefly arrested and questioned."
+    },
+    {
+      "id": "f13",
+      "source_id": "wikipedia",
+      "text": "Abebe ran barefoot for the second and final time at the 1961 Athens Classical Marathon.",
+      "quote": "This was the second and last event in which he competed barefooted."
+    },
+    {
+      "id": "f14",
+      "source_id": "wikipedia",
+      "text": "He finished fifth in the 1963 Boston Marathon.",
+      "quote": "Abebe ran the 1963 Boston Marathon—which was between his Olympic wins in 1960 and 1964—and finished fifth in 2:24:43."
+    },
+    {
+      "id": "f15",
+      "source_id": "wikipedia",
+      "text": "Forty days before the 1964 Tokyo Olympics, Abebe underwent an appendectomy.",
+      "quote": "He was brought to the hospital and diagnosed with acute appendicitis, and had an appendectomy on September 16."
+    },
+    {
+      "id": "f16",
+      "source_id": "wikipedia",
+      "text": "At the 1964 Tokyo Olympics, Abebe won his second gold medal, becoming the first athlete to defend an Olympic marathon title.",
+      "quote": "At the 1964 Tokyo Olympics, he won his second gold medal, making him the first athlete to successfully defend an Olympic marathon title."
+    },
+    {
+      "id": "f17",
+      "source_id": "wikipedia",
+      "text": "After his 1964 victory, Emperor Haile Selassie promoted Abebe to lieutenant.",
+      "quote": "The Emperor promoted him to the commissioned-officer rank of metoaleqa (lieutenant)."
+    },
+    {
+      "id": "f18",
+      "source_id": "wikipedia",
+      "text": "In April 1965, Abebe and Mamo Wolde ran a ceremonial half-marathon to the Singer Bowl at the New York World's Fair.",
+      "quote": "On April 21, 1965, as part of the opening ceremonies for the second season of the 1964–1965 New York World's Fair, Abebe and fellow athlete and Imperial Guardsman Mamo Wolde, ran a ceremonial half-marathon from the Arsenal in Central Park (at 64th Street and Fifth Avenue in Manhattan) to the Singer Bowl at the fair."
+    },
+    {
+      "id": "f19",
+      "source_id": "wikipedia",
+      "text": "In July 1967, Abebe sustained a hamstring injury from which he never recovered.",
+      "quote": "He had injured his hamstring, an injury from which he would never recover."
+    },
+    {
+      "id": "f20",
+      "source_id": "wikipedia",
+      "text": "Abebe dropped out of the 1968 Olympic marathon after approximately 16 kilometres.",
+      "quote": "Abebe had to drop out of the race after approximately 16 km (10 mi) and Mamo Wolde won in 2:20:26.4."
+    },
+    {
+      "id": "f21",
+      "source_id": "wikipedia",
+      "text": "A car accident on March 22, 1969, left Abebe paralysed from the neck down.",
+      "quote": "The accident left him a quadriplegic, paralysed from the neck down; he never walked again."
+    },
+    {
+      "id": "f22",
+      "source_id": "wikipedia",
+      "text": "While receiving medical treatment in England, Abebe competed in archery and table tennis at the 1970 Stoke Mandeville Games.",
+      "quote": "While he was receiving medical treatment in England, Abebe competed in archery and table tennis at the 1970 Stoke Mandeville Games in London."
+    },
+    {
+      "id": "f23",
+      "source_id": "wikipedia",
+      "text": "At a 1971 competition for disabled people in Norway, Abebe won the cross-country sleigh-riding event.",
+      "quote": "He competed in both sports at a 1971 competition for disabled people in Norway and won its cross-country sleigh-riding event."
+    },
+    {
+      "id": "f24",
+      "source_id": "wikipedia",
+      "text": "Abebe died in Addis Ababa at age 41 on October 25, 1973, from a cerebral hemorrhage.",
+      "quote": "On October 25, 1973, Abebe died in Addis Ababa at age 41 of a cerebral hemorrhage, a complication related to his accident four years earlier."
+    },
+    {
+      "id": "f25",
+      "source_id": "wikipedia",
+      "text": "Abebe received a state funeral, and Emperor Haile Selassie declared a national day of mourning.",
+      "quote": "He received a state funeral, and Emperor Haile Selassie declared a national day of mourning."
+    },
+    {
+      "id": "f26",
+      "source_id": "wikipedia",
+      "text": "Five years after his death, the New York Road Runners inaugurated the annual Abebe Bikila Award.",
+      "quote": "Five years after his death, the New York Road Runners inaugurated the annual Abebe Bikila Award for contributions by an individual to long-distance running."
+    }
+  ]
+}

@@ -176,3 +176,30 @@ Three shots still needed their own descriptions reworded after v2: the feet were
 **Limits.** Run on the same machine that built the film, so the same FFmpeg and Python versions. A different FFmpeg may encode the clips differently; the film would then be re-cut, which takes a few more minutes but still needs no key. The production board was not part of this test.
 
 **Evidence.** The commands are in the README. The run log's line count is the check anyone can repeat.
+
+## E8. Does the pipeline work in Amharic, and where do the models fail?
+
+**Date:** 25 November 2026
+
+**Hypothesis.** The same pipeline can make a film narrated in Amharic with English subtitles: a Translator agent turns the English script into Amharic, the Gemini voice model speaks it, and the transcript check that guards the English narration will guard the Amharic one too.
+
+**Change.** A second film, `films/abebe-bikila`, with `"languages": ["am"]` in its brief. Nothing else about the pipeline was changed for it except what the language required: a Translator agent, and a word counter that recognises Ge'ez letters.
+
+**Result.**
+
+| Step | What happened |
+|---|---|
+| Translation | Ten English lines came back as ten Amharic lines in Ge'ez script on the first attempt, with years written out as words as instructed. One word in shot s05 looks like a misspelling to a non-speaker; unverified. |
+| Voice | Eight of ten lines recorded before the daily quota ran out (FAILURES.md, F7). |
+| Speed | 1.57 words a second, against 1.91 for the English film. Amharic words are longer, so the English planning figure does not carry over. |
+| Timing | The storyboard's shot lengths, estimated from the English lines, are too short for three of the eight recorded lines. Shot s04 was planned at 8.5 s and takes 11.3 s. |
+| Transcript check | It flagged two of eight lines, both wrongly: the transcriber wrote years and dates as digits ("1964") where the line has them as words, so the word counts differ. |
+| Transcript agreement | Comparing words, not counts: in one line 11 of 12 words matched, but in three lines only about half did. For example the line begins "አንድ ወጣት በሮም" and the transcript begins "አንድ ሁለቱ ባዶም". |
+
+**What this does and does not show.** The pipeline runs in Amharic end to end as far as the voice. But the automatic check that made the English narration trustworthy does not work here. When the transcript disagrees with the line, there is no way to tell from text alone whether the voice mispronounced the line or the transcriber misheard correct speech. Both models are weaker in Amharic than in English, and the check assumes at least one of them is reliable.
+
+**Decision.** For Amharic, a person who speaks the language must listen to every line; the transcript check is kept only as a warning for missing or extra speech. Shot lengths are always set from the recorded audio (`--fit`), never from the English estimate. The planning rate for Amharic is 1.57 words a second.
+
+**Limits.** Eight lines, one voice, one transcriber. No Amharic speaker has yet listened, so the quality of the narration itself is unknown. That listening is the missing half of this experiment.
+
+**Evidence.** `films/abebe-bikila/outputs/narration/timings.json` holds, for each line, its length, the model that spoke it and the transcript. `films/abebe-bikila/storyboard.json` holds the lines. `runs.jsonl`, stages `story` and `narration`, film `abebe-bikila`.

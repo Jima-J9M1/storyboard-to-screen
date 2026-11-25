@@ -1,0 +1,66 @@
+{
+  "s01.am": {
+    "input_hash": "76d210a4cf850763",
+    "outputs": [
+      "films/abebe-bikila/outputs/narration/s01.am.wav"
+    ],
+    "model": "gemini-3.8-flash-lite-tts",
+    "heard": "አንድ ሁለቱ ባዶም ጎዳኖች ላይ በባዶ እግሩ ሲሮጥ ነበር"
+  },
+  "s02.am": {
+    "input_hash": "6d2acdc3422db99f",
+    "outputs": [
+      "films/abebe-bikila/outputs/narration/s02.am.wav"
+    ],
+    "model": "gemini-3.8-flash-lite-tts",
+    "heard": "አበበ ቢቂላ በልጅነቱ ጋና የተባለውን ባህላዊ የሩቅ ርቀት ሆኪ ጨዋታ ይጫወት ነበር።"
+  },
+  "s03.am": {
+    "input_hash": "87847509a7aaeaa4",
+    "outputs": [
+      "films/abebe-bikila/outputs/narration/s03.am.wav"
+    ],
+    "model": "gemini-3.1-flash-tts-preview",
+    "heard": "ስዊድን አውሮፓ አሸናፊ እውን ኒስካነን አበበን አውጥቶ ለማራቶን ማሰልጠን ጀመረ።"
+  },
+  "s04.am": {
+    "input_hash": "d47f1cd3d4cb850f",
+    "outputs": [
+      "films/abebe-bikila/outputs/narration/s04.am.wav"
+    ],
+    "model": "gemini-3.1-flash-tts-preview",
+    "heard": "በ1960 የሮም ኦሎምፒክ አበበ በባዶ እግሩ ማራቶኑን በማሸነፍ የመጀመሪያው የኢትዮጵያ የወርቅ ሜዳሊያ ባለቤት ሆነ።"
+  },
+  "s05.am": {
+    "input_hash": "04ba5f727251cdce",
+    "outputs": [
+      "films/abebe-bikila/outputs/narration/s05.am.wav"
+    ],
+    "model": "gemini-3.1-flash-tts-preview",
+    "heard": "ነገሰነገስት ሃይለስላሴ ላዕለባ የኢትዮጵያ ኮከብ ኒሻን ሰጥተው ወደ አጥር አለቃነት አደገጉት።"
+  },
+  "s06.am": {
+    "input_hash": "1265f4fb08a92593",
+    "outputs": [
+      "films/abebe-bikila/outputs/narration/s06.am.wav"
+    ],
+    "model": "gemini-3.8-flash-tts",
+    "heard": "ከ1964ቱ የቶኪዮ ኦሎምፒክ 4 ቀናት በፊት አበባበ የትርፍ አንጀት ቀዶ ህክምና ተደረገለት።"
+  },
+  "s07.am": {
+    "input_hash": "266098421b9b295c",
+    "outputs": [
+      "films/abebe-bikila/outputs/narration/s07.am.wav"
+    ],
+    "model": "gemini-3.1-flash-tts-preview",
+    "heard": "በተከታታይ የኦሊምፒክ ማራቶን ሻምፒዮንነቱን ያስጠበቀ የመጀመሪያው ስፖርተኛ ሆነ።"
+  },
+  "s08.am": {
+    "input_hash": "3e5cada407f8668e",
+    "outputs": [
+      "films/abebe-bikila/outputs/narration/s08.am.wav"
+    ],
+    "model": "gemini-3.1-flash-tts-preview",
+    "heard": "በመጋቢት 22 ቀን 969 በደረሰበት የመኪና አደጋ አበበ ከአንገቱ በታች ሽባ ሆነ።"
+  }
+}

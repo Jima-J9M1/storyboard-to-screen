@@ -20,7 +20,7 @@ The film half (`pipeline/`) then renders the storyboard with no agent involved.
 | Screenwriter | `agents/story.py`, `prompts/screenwriter.md` | each shot's `narration`, `subtitle_en`, `fact_ids`; durations follow from the word count | Built |
 | Storyboard artist | `agents/story.py`, `prompts/storyboard_artist.md` | `style_block`, `world_block`, `reference_sheet`, and each shot's `size`, `image_prompt`, `motion_prompt`, `reason` | Built |
 | Composer | `agents/story.py`, `prompts/composer.md` | `music` | Built |
-| Translator | — | the extra languages in each shot's `narration` | Not built |
+| Translator | `agents/story.py`, `prompts/translator.md` | each shot's `narration` in every language other than English | Built |
 
 Order: Researcher → Screenwriter → Storyboard artist → Composer → Translator.
 

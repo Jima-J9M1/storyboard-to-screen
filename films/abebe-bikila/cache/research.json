@@ -1,0 +1,15 @@
+{
+  "facts": {
+    "input_hash": "079ebe6b752dc24e",
+    "outputs": [
+      "films/abebe-bikila/research/facts.json"
+    ]
+  },
+  "wikipedia": {
+    "input_hash": "e11d76431f9a2cfd",
+    "outputs": [
+      "films/abebe-bikila/research/source_wikipedia.json",
+      "films/abebe-bikila/research/subject.json"
+    ]
+  }
+}

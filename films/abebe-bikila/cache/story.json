@@ -1,0 +1,26 @@
+{
+  "composer": {
+    "input_hash": "4c47698e019858c3",
+    "outputs": [
+      "films/abebe-bikila/draft/composer.json"
+    ]
+  },
+  "screenwriter": {
+    "input_hash": "cac3bdea47338e76",
+    "outputs": [
+      "films/abebe-bikila/draft/screenwriter.json"
+    ]
+  },
+  "storyboard_artist": {
+    "input_hash": "3e819a62912c355c",
+    "outputs": [
+      "films/abebe-bikila/draft/storyboard_artist.json"
+    ]
+  },
+  "translator_am": {
+    "input_hash": "2d46509d9d8715c6",
+    "outputs": [
+      "films/abebe-bikila/draft/translator_am.json"
+    ]
+  }
+}

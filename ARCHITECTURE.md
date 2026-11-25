@@ -93,7 +93,7 @@ Each agent owns named fields of the storyboard and writes nothing else. `agents/
 | Screenwriter | narration, subtitles, fact ids | Gemini | Built |
 | Storyboard artist | style block, reference sheet, each shot's size, picture, movement and reason | Gemini | Built |
 | Composer | music caption, tempo, key, cues | Gemini | Built |
-| Translator | narration in the extra languages | Gemini | Planned |
+| Translator | narration in every language other than English | Gemini | Built |
 
 **Checks on every draft.** Code checks each agent's reply before it is saved: 8 to 12 shots, 130 to 190 words, a running time of 60 to 90 seconds worked out from the word count, every cited fact exists, no quotation marks, each shot size used at least twice, and no picture prompt names a subject who may not be shown. A reply that fails is retried.
 
@@ -235,5 +235,5 @@ The pictures reach Kaggle as a private dataset, and the clips come back as the j
 
 ## Open decisions
 
-- **More than one language.** The storyboard holds a narration line per language, but the Translator agent is not built, so a film has one language for now.
+- **Checking narration in languages other than English.** The transcript check cannot tell a mispronounced line from a mis-transcribed one in Amharic (EXPERIMENTS.md, E8). A second transcriber, or a human sign-off recorded in the storyboard, is needed.
 - **The music stage has its own copy of the Kaggle steps.** It was written first; it should be moved onto `core/kaggle.py`.

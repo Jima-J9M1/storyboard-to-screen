@@ -1,0 +1,68 @@
+{
+  "reference": {
+    "input_hash": "fc1251186455282b",
+    "outputs": [
+      "films/abebe-bikila/outputs/keyframes/reference.jpg"
+    ]
+  },
+  "s01": {
+    "input_hash": "e3fa36034d44c53a",
+    "outputs": [
+      "films/abebe-bikila/outputs/keyframes/s01.jpg"
+    ]
+  },
+  "s02": {
+    "input_hash": "ae9bb30381accca1",
+    "outputs": [
+      "films/abebe-bikila/outputs/keyframes/s02.jpg"
+    ]
+  },
+  "s03": {
+    "input_hash": "1e6391c6182811a3",
+    "outputs": [
+      "films/abebe-bikila/outputs/keyframes/s03.jpg"
+    ]
+  },
+  "s04": {
+    "input_hash": "f91844b11c62d001",
+    "outputs": [
+      "films/abebe-bikila/outputs/keyframes/s04.jpg"
+    ]
+  },
+  "s05": {
+    "input_hash": "98ffff263530ceda",
+    "outputs": [
+      "films/abebe-bikila/outputs/keyframes/s05.jpg"
+    ]
+  },
+  "s06": {
+    "input_hash": "56abbce07a5008f3",
+    "outputs": [
+      "films/abebe-bikila/outputs/keyframes/s06.jpg"
+    ]
+  },
+  "s07": {
+    "input_hash": "aa611d25d3d204c7",
+    "outputs": [
+      "films/abebe-bikila/outputs/keyframes/s07.jpg"
+    ]
+  },
+  "s08": {
+    "input_hash": "a47073e30340f677",
+    "outputs": [
+      "films/abebe-bikila/outputs/keyframes/s08.jpg"
+    ]
+  },
+  "s09": {
+    "input_hash": "bf75782e80570139",
+    "outputs": [
+      "films/abebe-bikila/outputs/keyframes/s09.jpg"
+    ]
+  },
+  "s10": {
+    "input_hash": "760daa94b709a994",
+    "outputs": [
+      "films/abebe-bikila/outputs/keyframes/s10.jpg"
+    ]
+  }
+}

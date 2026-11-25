@@ -1,0 +1,11 @@
+{
+  "candidates": {
+    "input_hash": "951ec54d54e91fc5",
+    "outputs": [
+      "films/abebe-bikila/outputs/music/candidate_1.m4a",
+      "films/abebe-bikila/outputs/music/candidate_2.m4a",
+      "films/abebe-bikila/outputs/music/candidate_3.m4a",
+      "films/abebe-bikila/outputs/music/job_report.json"
+    ]
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "agent": "screenwriter",
+  "model": "gemini-3.5-flash",
+  "seed": 1,
+  "temperature": 0.7,
+  "reply": {
+    "shots": [
+      {
+        "beat": "Barefoot runner in Rome",
+        "narration": "Why was a young man running barefoot through the streets of Rome?",
+        "fact_ids": [
+          "f10"
+        ]
+      },
+      {
+        "beat": "Growing up playing gena",
+        "narration": "As a boy, Abebe Bikila played gena, a traditional long distance hockey game.",
+        "fact_ids": [
+          "f04"
+        ]
+      },
+      {
+        "beat": "Meeting coach Onni Niskanen",
+        "narration": "Swedish coach Onni Niskanen noticed Abebe and began training him for the marathon.",
+        "fact_ids": [
+          "f07"
+        ]
+      },
+      {
+        "beat": "Winning gold barefoot in Rome",
+        "narration": "At the 1960 Rome Olympics, Abebe won the marathon barefoot as Ethiopia's first gold medalist.",
+        "fact_ids": [
+          "f10"
+        ]
+      },
+      {
+        "beat": "Honored by the Emperor",
+        "narration": "Emperor Haile Selassie awarded Abebe the Star of Ethiopia and promoted him to corporal.",
+        "fact_ids": [
+          "f11"
+        ]
+      },
+      {
+        "beat": "Appendectomy before Tokyo",
+        "narration": "Forty days before the 1964 Tokyo Olympics, Abebe underwent an appendectomy.",
+        "fact_ids": [
+          "f15"
+        ]
+      },
+      {
+        "beat": "Defending the Olympic marathon title",
+        "narration": "At the Tokyo Games, he became the first athlete to defend an Olympic marathon title.",
+        "fact_ids": [
+          "f16"
+        ]
+      },
+      {
+        "beat": "Tragic car accident paralysis",
+        "narration": "A car accident on March 22, 1969, left Abebe paralysed from the neck down.",
+        "fact_ids": [
+          "f21"
+        ]
+      },
+      {
+        "beat": "Winning in Norway despite disability",
+        "narration": "At a competition in Norway, he won the cross country sleigh riding event.",
+        "fact_ids": [
+          "f23"
+        ]
+      },
+      {
+        "beat": "National mourning and legacy",
+        "narration": "After Abebe died in Addis Ababa, Emperor Haile Selassie declared a national day of mourning.",
+        "fact_ids": [
+          "f24",
+          "f25"
+        ]
+      }
+    ]
+  }
+}

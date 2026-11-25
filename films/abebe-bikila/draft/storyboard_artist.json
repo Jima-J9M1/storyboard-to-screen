@@ -1,0 +1,73 @@
+{
+  "agent": "storyboard_artist",
+  "model": "gemini-3.5-flash",
+  "seed": 1,
+  "temperature": 0.7,
+  "reply": {
+    "style_block": "Cinematic 35mm color film photography with deep chiaroscuro lighting, natural film grain, rich earth tones, and tactile vintage 1960s photojournalism textures.",
+    "world_block": "Any person is an Ethiopian with dark brown skin and naturally textured hair, wearing mid-20th-century attire such as handwoven cotton netela wraps or vintage green athletic gear. Any rural home or tool is constructed from eucalyptus wood, mud plaster, and thatch, with handmade wooden gena sticks leaning against stone walls. Any landscape or crop is highland Ethiopian terrain featuring fine teff grain crops—distinguished from wheat by its delicate, hair-like panicles—and steep basalt cliffs under expansive skies. Any urban scene features 1960s cobblestone streets, vintage streetlamps, and mid-century stone architecture, with no modern asphalt markings, digital displays, or contemporary Western clothing.",
+    "reference_sheet_prompt": "A cinematic photo sheet showing 1960s Ethiopian highland landscapes with teff grain fields, illuminated ancient European cobblestone streets at night, dark skin tones, vintage athletic shoes, bare feet on damp stone, and classic 1960s green athletic singlets.",
+    "shots": [
+      {
+        "size": "close",
+        "image_prompt": "A low-angle close-up of dark-skinned bare feet running rhythmically across wet, gleaming cobblestones under warm lamplight in Rome at night, with the illuminated base of an ancient stone obelisk blurred in the background.",
+        "motion_prompt": "Low angle slow pan right following the running feet.",
+        "reason": "Captures immediate wonder and awe by focusing on the legendary bare feet on wet cobblestones."
+      },
+      {
+        "size": "wide",
+        "image_prompt": "A wide silhouette shot of village boys playing a traditional long-distance game using curved wooden sticks on a wide, sunlit grassy pasture in the Ethiopian highlands at dusk.",
+        "motion_prompt": "Static wide shot with soft wind movement in grass.",
+        "reason": "Establishes his humble highland origins to ground the story in a sense of relatable beginnings."
+      },
+      {
+        "size": "medium",
+        "image_prompt": "A medium shot taken from behind a dark-skinned athletic figure in green military physical-training clothes, looking toward a fair-skinned coach's hand holding a metal stopwatch on a red dirt track.",
+        "motion_prompt": "Slow push in toward the stopwatch.",
+        "reason": "Shows dedicated military training and discipline without revealing faces, building anticipation."
+      },
+      {
+        "size": "wide",
+        "image_prompt": "A wide dramatic view of the illuminated Arch of Constantine at night, where an athletic figure seen from behind in a green vest with a number pinned to it crosses a dark finish line with raised arms.",
+        "motion_prompt": "Slow tilt up from the ground to the illuminated arch.",
+        "reason": "Evokes intense national pride and awe at his historic first Olympic gold medal victory."
+      },
+      {
+        "size": "close",
+        "image_prompt": "A close-up shot of hands wearing formal cuffs pinning a gold Star of Ethiopia medal onto the lapel of an dark olive green military service uniform.",
+        "motion_prompt": "Static close-up with a subtle focus pull.",
+        "reason": "Focuses on national honor and recognition from the nation without using facial likenesses."
+      },
+      {
+        "size": "close",
+        "image_prompt": "A close-up of hands resting quietly on white linen bedsheets in a vintage hospital room, with white surgical gauze bandages visible around the lower abdomen.",
+        "motion_prompt": "Slow zoom out.",
+        "reason": "Highlights vulnerability and physical setback shortly before his second Olympic victory, reinforcing resilience."
+      },
+      {
+        "size": "medium",
+        "image_prompt": "A medium shot from behind of an athletic runner stretching on bright green stadium turf, surrounded by blurred running track lines under bright daylight.",
+        "motion_prompt": "Slow orbital pan around the runner.",
+        "reason": "Demonstrates astounding mastery and calm athletic dominance to inspire awe in young viewers."
+      },
+      {
+        "size": "wide",
+        "image_prompt": "A wide atmospheric shot of a vintage light-colored sedan resting off a muddy rural road amidst dense morning fog and towering pine trees.",
+        "motion_prompt": "Slow push in through mist.",
+        "reason": "Conveys tragic weight and sudden life-changing hardship respectfully without graphic detail."
+      },
+      {
+        "size": "medium",
+        "image_prompt": "A medium profile shot of a dark-skinned athlete seated in a specialized cross-country sled, using hand poles to propel through thick white snow under a dim winter sun.",
+        "motion_prompt": "Tracking shot moving alongside the sled.",
+        "reason": "Ignites pride by demonstrating that true determination adapts and conquers every physical limitation."
+      },
+      {
+        "size": "wide",
+        "image_prompt": "A wide high-angle view of a vast, quiet crowd gathered along a wide boulevard in Addis Ababa under dramatic afternoon sky clouds, with soft yellow and green banners visible.",
+        "motion_prompt": "Slow crane up above the crowd.",
+        "reason": "Leaves the audience with lasting pride, solemn unity, and a profound sense of immortal legacy."
+      }
+    ]
+  }
+}

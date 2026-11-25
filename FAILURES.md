@@ -110,3 +110,25 @@ What broke, what we tried, and what fixed it. Every entry points to the log line
 A third, smaller failure followed: the job had finished, but downloading its output timed out on the connection to Kaggle's file host. The stage now tries the download three times, and `--collect` fetches the result of a job that already ran without sending a new one.
 
 **Evidence.** `runs.jsonl`, stage `music`: an `error` line with a latency of 2,898 seconds (the Python failure), an `error` line for the download, and the `ok` line. `films/gebisa-ejeta/outputs/music/job_report_failed.json` and `job_report.json` are the jobs' own records.
+
+## F7. The free voice quota ran out with two lines of the Amharic film left
+
+**When:** 25 November 2026, recording the narration for the second film, `films/abebe-bikila`.
+
+**Symptom.** Eight of the ten Amharic lines were recorded. For the last two, all three Gemini voice models answered `HTTP 429 ... "You exceeded your current quota"`, and kept doing so when the stage was run again a few minutes later.
+
+**Cause.** A daily limit, not the per-minute one from F5. By the time it stopped, the three models had spoken 34 lines that day between them (14, 13 and 7) across both films and the voice experiments. Waiting 20 and 40 seconds, which fixed F5, cannot fix a limit that resets once a day.
+
+**What we tried.**
+1. Ran the stage again after a few minutes. Same refusal from all three models.
+2. Asked the second provider, Addis AI, for a cost estimate (a free request). It answered `can_generate: false`: the account's balance was −1.11 birr and the advertised sign-up credit was not on it.
+
+**What we did not do.** We did not record the two missing lines with a different voice. A film has one narrator (F5). The stage stopped, kept the eight finished lines, and named the two that are missing.
+
+**What changed in the code.** A model that refuses every attempt with a quota error is now skipped for the rest of that run. Before, each line waited a minute on the exhausted model before moving on, which is why eight lines took twenty minutes.
+
+**Status.** Open. The film cannot be cut until its last two lines are recorded. Two ways forward: wait for the daily quota to reset and run `make narration FILM=abebe-bikila` again (finished lines are reused), or put credit on the Addis AI account and record all ten lines with one of its Amharic voices.
+
+**What it taught us.** The free tier's voice limit is roughly three dozen lines a day across all three models. That is about three films' worth of narration, and experiments spend from the same budget. This belongs in the plan before the day starts, not after.
+
+**Evidence.** `runs.jsonl`, stage `narration`, film `abebe-bikila`. Counts of successful and refused calls per model are in `COSTS.md`.

@@ -1,0 +1,231 @@
+{
+  "title": "Abebe Bikila",
+  "languages": [
+    "am"
+  ],
+  "voice": {
+    "name": "Sulafat",
+    "style": "calm, warm, unhurried"
+  },
+  "style_block": "Cinematic 35mm color film photography with deep chiaroscuro lighting, natural film grain, rich earth tones, and tactile vintage 1960s photojournalism textures.",
+  "world_block": "Any person is Black and Ethiopian, with dark brown skin and short black natural hair; any hands, arms, legs or feet shown are dark brown. Any view of the runner is from behind, from far away or below the shoulders, never his face, and his feet are completely bare: no shoes and no socks. Any Ethiopian soldier or official wears a 1960s olive-green uniform; any villager wears a white hand-woven cotton shawl. Any street, car or building belongs to the 1950s to the 1970s: nothing modern.",
+  "reference_sheet": {
+    "prompt": "A reference sheet with no people in it: wet cobblestones under a warm street lamp at night, a red-earth road in the Ethiopian highlands, and an olive-green army tunic hanging on a wall, as 1960s 35mm colour film photographs with deep shadows and natural grain.",
+    "seed": 7
+  },
+  "music": {
+    "caption": "An inspiring instrumental ambient bed blending subtle traditional Ethiopian pentatonic motifs with acoustic guitar, soft woodwinds, and warm cinematic strings. The mood is noble and triumphant yet intimate, acting as a gentle, non-intrusive background texture under narration without any strong lead melody.",
+    "bpm": 76,
+    "key": "A major",
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "cues": [
+      {
+        "at_s": 0,
+        "note": "Gentle acoustic guitar and soft string texture establish rhythmic momentum"
+      },
+      {
+        "at_s": 22,
+        "note": "Warm string swell adds triumphant brightness for the iconic victory"
+      },
+      {
+        "at_s": 53.5,
+        "note": "Texture thins to low, somber cello pads following the tragic accident"
+      },
+      {
+        "at_s": 69,
+        "note": "Opening acoustic motif returns, building into a proud orchestral finale"
+      }
+    ]
+  },
+  "end_card": {
+    "text": "This film was made with AI.",
+    "duration_s": 3
+  },
+  "shots": [
+    {
+      "id": "s01",
+      "duration_s": 7.0,
+      "size": "close",
+      "image_prompt": "An extreme close-up at ground level of two bare human feet with dark brown skin, mid-stride, striking wet cobblestones at night under warm street lamps. The feet are naked: bare toes and bare heels are clearly visible, with no shoes, no sandals and no socks. Nothing above the ankles is in the picture.",
+      "use_reference": false,
+      "motion_mode": "ken_burns",
+      "motion_prompt": "Low angle slow pan right following the running feet.",
+      "narration": {
+        "am": "አንድ ወጣት በሮም ጎዳናዎች ላይ በባዶ እግሩ ለምን ይሮጥ ነበር፧"
+      },
+      "subtitle_en": "Why was a young man running barefoot through the streets of Rome?",
+      "reason": "Captures immediate wonder and awe by focusing on the legendary bare feet on wet cobblestones.",
+      "fact_ids": [
+        "f10"
+      ],
+      "seed": 1101
+    },
+    {
+      "id": "s02",
+      "duration_s": 7.5,
+      "size": "wide",
+      "image_prompt": "A wide silhouette shot of village boys playing a traditional long-distance game using curved wooden sticks on a wide, sunlit grassy pasture in the Ethiopian highlands at dusk.",
+      "use_reference": false,
+      "motion_mode": "ken_burns",
+      "motion_prompt": "Static wide shot with soft wind movement in grass.",
+      "narration": {
+        "am": "አበበ ቢቂላ በልጅነቱ ገና የተባለውን ባህላዊ የሩቅ ርቀት ሆኪ ጨዋታ ይጫወት ነበር።"
+      },
+      "subtitle_en": "As a boy, Abebe Bikila played gena, a traditional long distance hockey game.",
+      "reason": "Establishes his humble highland origins to ground the story in a sense of relatable beginnings.",
+      "fact_ids": [
+        "f04"
+      ],
+      "seed": 1002
+    },
+    {
+      "id": "s03",
+      "duration_s": 7.5,
+      "size": "medium",
+      "image_prompt": "A medium shot taken from behind a dark-skinned athletic figure in green military physical-training clothes, looking toward a fair-skinned coach's hand holding a metal stopwatch on a red dirt track.",
+      "use_reference": true,
+      "motion_mode": "ken_burns",
+      "motion_prompt": "Slow push in toward the stopwatch.",
+      "narration": {
+        "am": "ስዊድናዊው አሰልጣኝ ኦኒ ኒስካነን አበበን አስተውሎ ለማራቶን ማሰልጠን ጀመረ።"
+      },
+      "subtitle_en": "Swedish coach Onni Niskanen noticed Abebe and began training him for the marathon.",
+      "reason": "Shows dedicated military training and discipline without revealing faces, building anticipation.",
+      "fact_ids": [
+        "f07"
+      ],
+      "seed": 1003
+    },
+    {
+      "id": "s04",
+      "duration_s": 8.5,
+      "size": "wide",
+      "image_prompt": "A wide night view of an ancient Roman triumphal arch lit by floodlights. A lone barefoot runner in a plain green vest and red shorts, small in the frame and seen from behind, runs toward the arch along a dark road. Nothing is written on his vest.",
+      "use_reference": false,
+      "motion_mode": "ken_burns",
+      "motion_prompt": "Slow tilt up from the ground to the illuminated arch.",
+      "narration": {
+        "am": "በሺህ ዘጠኝ መቶ ስልሳው የሮም ኦሊምፒክ አበበ በባዶ እግሩ ማራቶኑን በማሸነፍ የመጀመሪያው የኢትዮጵያ የወርቅ ሜዳሊያ ባለቤት ሆነ።"
+      },
+      "subtitle_en": "At the 1960 Rome Olympics, Abebe won the marathon barefoot as Ethiopia's first gold medalist.",
+      "reason": "Evokes intense national pride and awe at his historic first Olympic gold medal victory.",
+      "fact_ids": [
+        "f10"
+      ],
+      "seed": 1004
+    },
+    {
+      "id": "s05",
+      "duration_s": 8.0,
+      "size": "close",
+      "image_prompt": "A close-up of an elderly Ethiopian man's dark brown hands in formal white cuffs pinning a gold star medal onto the chest of an olive-green army uniform. No faces are in the picture.",
+      "use_reference": true,
+      "motion_mode": "ken_burns",
+      "motion_prompt": "Static close-up with a subtle focus pull.",
+      "narration": {
+        "am": "ንጉሠ ነገሥት ኃይለ ሥላሴ ለአበበ የኢትዮጵያ ኮከብ ኒሻን ሰጥተው ወደ አስር አለቃነት አደገጉት።"
+      },
+      "subtitle_en": "Emperor Haile Selassie awarded Abebe the Star of Ethiopia and promoted him to corporal.",
+      "reason": "Focuses on national honor and recognition from the nation without using facial likenesses.",
+      "fact_ids": [
+        "f11"
+      ],
+      "seed": 1005
+    },
+    {
+      "id": "s06",
+      "duration_s": 6.5,
+      "size": "close",
+      "image_prompt": "A close-up of a man's dark brown hands resting still on white hospital bedsheets in a plain 1960s hospital room, in soft light from a window. No face is in the picture.",
+      "use_reference": true,
+      "motion_mode": "ken_burns",
+      "motion_prompt": "Slow zoom out.",
+      "narration": {
+        "am": "ከሺህ ዘጠኝ መቶ ስልሳ አራቱ የቶኪዮ ኦሊምፒክ አርባ ቀናት በፊት አበበ የትርፍ አንጀት ቀዶ ሕክምና ተደረገለት።"
+      },
+      "subtitle_en": "Forty days before the 1964 Tokyo Olympics, Abebe underwent an appendectomy.",
+      "reason": "Highlights vulnerability and physical setback shortly before his second Olympic victory, reinforcing resilience.",
+      "fact_ids": [
+        "f15"
+      ],
+      "seed": 1006
+    },
+    {
+      "id": "s07",
+      "duration_s": 8.5,
+      "size": "medium",
+      "image_prompt": "A wide view from high in the stands of a 1960s stadium running track in daylight. One small, distant Ethiopian runner with dark brown skin, in a green vest, seen from behind, is alone on the track far ahead of everyone else.",
+      "use_reference": false,
+      "motion_mode": "ken_burns",
+      "motion_prompt": "Slow orbital pan around the runner.",
+      "narration": {
+        "am": "በቶኪዮው ጨዋታዎች የኦሊምፒክ ማራቶን ሻምፒዮንነቱን ያስጠበቀ የመጀመሪያው ስፖርተኛ ሆነ።"
+      },
+      "subtitle_en": "At the Tokyo Games, he became the first athlete to defend an Olympic marathon title.",
+      "reason": "Demonstrates astounding mastery and calm athletic dominance to inspire awe in young viewers.",
+      "fact_ids": [
+        "f16"
+      ],
+      "seed": 1107
+    },
+    {
+      "id": "s08",
+      "duration_s": 8.0,
+      "size": "wide",
+      "image_prompt": "A wide atmospheric shot of a vintage light-colored sedan resting off a muddy rural road amidst dense morning fog and towering pine trees.",
+      "use_reference": false,
+      "motion_mode": "ken_burns",
+      "motion_prompt": "Slow push in through mist.",
+      "narration": {
+        "am": "በመጋቢት ሀያ ሁለት ቀን ሺህ ዘጠኝ መቶ ስልሳ ዘጠኝ በደረሰበት የመኪና አደጋ አበበ ከአንገቱ በታች ሽባ ሆነ።"
+      },
+      "subtitle_en": "A car accident on March 22, 1969, left Abebe paralysed from the neck down.",
+      "reason": "Conveys tragic weight and sudden life-changing hardship respectfully without graphic detail.",
+      "fact_ids": [
+        "f21"
+      ],
+      "seed": 1008
+    },
+    {
+      "id": "s09",
+      "duration_s": 7.5,
+      "size": "medium",
+      "image_prompt": "Seen from directly behind, so that only the back of his head and shoulders show: an Ethiopian man with dark brown skin and short black hair, in a heavy dark winter coat, seated on a low wooden sled and pushing himself with two short poles across deep snow in a Norwegian pine forest under a pale winter sun.",
+      "use_reference": false,
+      "motion_mode": "ken_burns",
+      "motion_prompt": "Tracking shot moving alongside the sled.",
+      "narration": {
+        "am": "በኖርዌይ በተደረገ ውድድር የሀገር አቋራጭ የስሌጅ ግልቢያ ውድድርን አሸነፈ።"
+      },
+      "subtitle_en": "At a competition in Norway, he won the cross country sleigh riding event.",
+      "reason": "Ignites pride by demonstrating that true determination adapts and conquers every physical limitation.",
+      "fact_ids": [
+        "f23"
+      ],
+      "seed": 1109
+    },
+    {
+      "id": "s10",
+      "duration_s": 8.5,
+      "size": "wide",
+      "image_prompt": "A wide high-angle view of a vast, quiet crowd gathered along a wide boulevard in Addis Ababa under dramatic afternoon sky clouds, with soft yellow and green banners visible.",
+      "use_reference": false,
+      "motion_mode": "ken_burns",
+      "motion_prompt": "Slow crane up above the crowd.",
+      "narration": {
+        "am": "አበበ በአዲስ አበባ ካረፈ በኋላ ንጉሠ ነገሥት ኃይለ ሥላሴ ብሔራዊ የሐዘን ቀን አወጁ።"
+      },
+      "subtitle_en": "After Abebe died in Addis Ababa, Emperor Haile Selassie declared a national day of mourning.",
+      "reason": "Leaves the audience with lasting pride, solemn unity, and a profound sense of immortal legacy.",
+      "fact_ids": [
+        "f24",
+        "f25"
+      ],
+      "seed": 1010
+    }
+  ]
+}

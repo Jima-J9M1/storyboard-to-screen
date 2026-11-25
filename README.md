@@ -130,7 +130,8 @@ films/<name>/brief.json ──> agents ──> films/<name>/storyboard.json ─�
 ## Limits to know about
 
 - Generated video is made at 480p on a free GPU and enlarged, so moving shots are softer than the still pictures. A shot the video model did not make gets a camera move over its picture instead.
-- A film has one narration language, and it must be English. The Translator agent is not built.
+- Narration in Amharic works as far as the script and the voice, but the automatic check on the recording is not reliable in Amharic (EXPERIMENTS.md, E8). An Amharic speaker must listen to every line.
+- The free voice quota is about three dozen lines a day. The second film, `films/abebe-bikila`, is unfinished because it ran out with two lines to record (FAILURES.md, F7).
 - The narration and the film were checked by measurement and by machine transcription, because the coding agent that built this cannot hear or watch. A person should listen before publishing.
 
 This film was made with AI: the facts were selected, and the script, pictures, voice and score were generated, by models. A person chose the subject, the audience and the feeling.
