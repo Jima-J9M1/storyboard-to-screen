@@ -31,6 +31,12 @@ LOCAL_VOICE = "macos-say"
 RATE_LIMIT_WAIT_S = 20.0
 
 
+# Models that refused every attempt with "quota exceeded" during this run. A daily quota does
+# not come back in a minute, so they are skipped for the remaining lines instead of being
+# waited on again for each one.
+_spent: set[str] = set()
+
+
 class VoiceUnavailable(Exception):
     """No voice model could speak a line. Finished lines stay cached; run again later."""
 SAMPLE_RATE = 24000
@@ -113,6 +119,8 @@ def speak(text: str, out: Path, *, voice: str, style: str, stage: str, item: str
     params = {"voice": voice, "style": style, "chars": len(text)}
 
     for model in VOICE_MODELS:
+        if model in _spent:
+            continue
         def call(model=model):
             raw, mime, usage = _gemini(model, text, voice, style, api_key)
             _to_wav(raw, mime, out)
@@ -126,6 +134,8 @@ def speak(text: str, out: Path, *, voice: str, style: str, stage: str, item: str
             )
             return model
         except RuntimeError as err:
+            if "HTTP 429" in str(err):
+                _spent.add(model)
             print(f"{str(err).splitlines()[0][:160]} Trying the next voice.")
 
     if allow_local and shutil.which("say"):

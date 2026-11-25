@@ -1,7 +1,8 @@
 """Story agents: draft a film's storyboard from its brief and researched facts.
 
-Three agents run in order, and each owns part of the storyboard:
-    Screenwriter       the narration line and source facts of every shot
+Four agents run in order, and each owns part of the storyboard:
+    Screenwriter       the narration line (in English) and source facts of every shot
+    Translator         the narration in every other language the brief asks for
     Storyboard artist  the look of the film and the picture, movement and reason of every shot
     Composer           the brief for the score
 
@@ -84,6 +85,14 @@ VISUALS_SCHEMA = {
             }}},
     },
 }
+LINES_SCHEMA = {
+    "type": "object", "required": ["lines"], "additionalProperties": False,
+    "properties": {"lines": {"type": "array", "items": {"type": "string", "minLength": 2}}},
+}
+LANGUAGE_NAMES = {"am": "Amharic", "om": "Afaan Oromo", "ti": "Tigrinya", "so": "Somali", "sw": "Swahili", "en": "English"}
+# Languages written in Ge'ez script. A translation into one of them that is mostly Latin letters is wrong.
+ETHIOPIC = {"am", "ti"}
+
 MUSIC_SCHEMA = {
     "type": "object", "required": ["caption", "bpm", "key", "cues"], "additionalProperties": False,
     "properties": {
@@ -134,6 +143,22 @@ def script_problems(reply: dict, fact_ids: set[str]) -> list[str]:
     return problems
 
 
+def translation_problems(reply: dict, english: list[str], language: str) -> list[str]:
+    problems = []
+    lines = reply["lines"]
+    if len(lines) != len(english):
+        return [f"{len(lines)} translated lines for {len(english)} English lines; give exactly one each, in order"]
+    for n, line in enumerate(lines, start=1):
+        letters = [ch for ch in line if ch.isalpha()]
+        if language in ETHIOPIC and letters:
+            ethiopic = sum("\u1200" <= ch <= "\u139f" for ch in letters)
+            if ethiopic / len(letters) < 0.8:
+                problems.append(f"line {n} is not written in Ge'ez script")
+        if any(mark in line for mark in '"“”'):
+            problems.append(f"line {n} uses quotation marks")
+    return problems
+
+
 def _name_words(title: str) -> list[str]:
     return [word.lower() for word in title.split() if len(word) > 2]
 
@@ -146,7 +171,9 @@ def visuals_problems(reply: dict, shot_count: int, title: str, likeness_policy: 
     for size in ("wide", "medium", "close"):
         if sizes.count(size) < 2:
             problems.append(f"only {sizes.count(size)} {size} shot(s); use each size at least twice")
-    if likeness_policy == "no_likeness":
+    # "review" is a real person who has died. Until the director records a decision in ETHICS.md
+    # they are treated like a living one: not shown, and not named in a picture prompt.
+    if likeness_policy in ("no_likeness", "review"):
         prompts = [("reference_sheet_prompt", reply["reference_sheet_prompt"])]
         prompts += [(f"shot {n} image_prompt", s["image_prompt"]) for n, s in enumerate(reply["shots"], start=1)]
         for where, prompt in prompts:
@@ -174,21 +201,26 @@ def music_problems(reply: dict, shot_starts: list[float], film_s: float) -> list
 
 # ---------- running one agent ----------
 
-def ask(film: paths.Film, cache: Cache, name: str, prompt: str, schema: dict, check, refresh: bool) -> dict:
-    """Ask one agent, or reuse its saved reply if its inputs have not changed."""
-    out = film.dir / "draft" / f"{name}.json"
+def ask(film: paths.Film, cache: Cache, name: str, prompt: str, schema: dict, check, refresh: bool,
+        save_as: str | None = None) -> dict:
+    """Ask one agent, or reuse its saved reply if its inputs have not changed.
+
+    save_as  the name to file the reply under, when one agent is asked several times (once per language)
+    """
+    item = save_as or name
+    out = film.dir / "draft" / f"{item}.json"
     system = (PROMPTS / f"{name}.md").read_text(encoding="utf-8")
     key = llm.request_key(system, prompt, TEMPERATURE, SEED)
-    if cache.fresh(name, key) and not refresh:
-        print(f"story: {name} is up to date; no model call made.")
+    if cache.fresh(item, key) and not refresh:
+        print(f"story: {item} is up to date; no model call made.")
         return load_json(out)["reply"]
     reply, model = llm.generate_json(
-        prompt, schema, stage=STAGE, item=name, system=system, key=key,
+        prompt, schema, stage=STAGE, item=item, system=system, key=key,
         temperature=TEMPERATURE, seed=SEED, check=check,
     )
     write_json(out, {"agent": name, "model": model, "seed": SEED, "temperature": TEMPERATURE, "reply": reply})
-    cache.store(name, key, [out])
-    print(f"story: {name} drafted by {model}.")
+    cache.store(item, key, [out])
+    print(f"story: {item} drafted by {model}.")
     return reply
 
 
@@ -198,12 +230,17 @@ def _intent(brief: dict) -> str:
 
 # ---------- putting the storyboard together ----------
 
-def assemble(brief: dict, script: dict, visuals: dict, music: dict) -> dict:
-    language = brief["languages"][0]
+def assemble(brief: dict, script: dict, visuals: dict, music: dict,
+             translations: dict[str, list[str]] | None = None) -> dict:
+    """Put the agents' work together. translations maps a language code to one line per shot."""
+    translations = translations or {}
     shots = []
     for n, (line, picture) in enumerate(zip(script["shots"], visuals["shots"]), start=1):
+        narration = {lang: line["narration"] if lang == "en" else translations[lang][n - 1] for lang in brief["languages"]}
         shots.append({
             "id": f"s{n:02d}",
+            # An estimate from the English word count. The voice stage's --fit replaces it with
+            # the measured length of the spoken line, which matters most for other languages.
             "duration_s": shot_duration_s(line["narration"]),
             "size": picture["size"],
             "image_prompt": picture["image_prompt"],
@@ -214,7 +251,7 @@ def assemble(brief: dict, script: dict, visuals: dict, music: dict) -> dict:
             # The director changes chosen shots to "video" once the film works end to end.
             "motion_mode": "ken_burns",
             "motion_prompt": picture["motion_prompt"],
-            "narration": {language: line["narration"]},
+            "narration": narration,
             "subtitle_en": line["narration"],
             "reason": picture["reason"],
             "fact_ids": line["fact_ids"],
@@ -222,7 +259,7 @@ def assemble(brief: dict, script: dict, visuals: dict, music: dict) -> dict:
         })
     return {
         "title": brief["title"],
-        "languages": [language],
+        "languages": brief["languages"],
         "voice": VOICE,
         "style_block": visuals["style_block"],
         "world_block": visuals["world_block"],
@@ -246,15 +283,6 @@ def run(film_slug: str, replace: bool = False, refresh: bool = False) -> int:
     if not facts_path.exists():
         print(f"story: no facts yet. Run make research FILM={film.slug} first.", file=sys.stderr)
         return 1
-    if len(brief["languages"]) > 1:
-        print("story: the Translator is not built yet, so a film can have one narration language for now. "
-              "Leave only the first language in the brief.", file=sys.stderr)
-        return 1
-    if brief["languages"][0] != "en":
-        print("story: narration in a language other than English needs the Translator for subtitles, "
-              "which is not built yet.", file=sys.stderr)
-        return 1
-
     facts = load_json(facts_path)["facts"]
     subject = load_json(film.research / "subject.json")
     policy = subject.get("likeness_policy", "review")
@@ -290,7 +318,20 @@ def run(film_slug: str, replace: bool = False, refresh: bool = False) -> int:
         MUSIC_SCHEMA, lambda reply: music_problems(reply, starts, film_s), refresh,
     )
 
-    board = assemble(brief, script, visuals, music)
+    translations = {}
+    for language in brief["languages"]:
+        if language == "en":
+            continue
+        name = LANGUAGE_NAMES.get(language, language)
+        numbered = "\n".join(f"{n}. {line}" for n, line in enumerate(lines, start=1))
+        reply = ask(
+            film, cache, "translator", f"Target language: {name} (code {language})\n\nEnglish lines:\n{numbered}",
+            LINES_SCHEMA, lambda r, language=language: translation_problems(r, lines, language), refresh,
+            save_as=f"translator_{language}",
+        )
+        translations[language] = reply["lines"]
+
+    board = assemble(brief, script, visuals, music, translations)
     draft_path = film.dir / "storyboard.draft.json"
     write_json(draft_path, board)
     try:
@@ -299,6 +340,9 @@ def run(film_slug: str, replace: bool = False, refresh: bool = False) -> int:
         print(err, file=sys.stderr)
         return 1
 
+    if translations:
+        print(f"story: shot lengths are estimates from the English lines. After the voice is recorded, "
+              f"run the narration stage with --fit to set them from the {LANGUAGE_NAMES.get(brief['languages'][0], 'spoken')} audio.")
     words = sum(len(line.split()) for line in lines)
     print(f"story: draft has {len(lines)} shots, {words} words, {film_s:g} s. Saved to {film.slug}/storyboard.draft.json.")
     if film.storyboard.exists() and not replace:

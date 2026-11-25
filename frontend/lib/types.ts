@@ -41,6 +41,7 @@ export type Shot = {
   motion_prompt: string;
   reason: string;
   narration: Record<string, string>;
+  subtitle_en: string;
   fact_ids: string[];
   seed: number;
 };
@@ -102,6 +103,7 @@ export type FilmState = {
     languages: string[];
     voice: { name: string; style: string };
     style_block: string;
+    world_block: string;
     reference_sheet: { prompt: string; seed: number };
     music: { caption: string; bpm: number; key: string; seeds: number[]; chosen_seed?: number };
     shots: Shot[];
@@ -122,6 +124,9 @@ export type FilmState = {
 export type FilmSummary = {
   slug: string;
   title: string;
+  languages: string[];
+  poster: MediaFile | null;
+  has_film: boolean;
   description: string | null;
   stages: { id: string; name: string; status: StageStatus; who: Who }[];
   done: number;

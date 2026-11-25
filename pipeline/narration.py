@@ -49,7 +49,8 @@ EXTRA_WORDS_ALLOWED = 2  # a transcript may differ slightly: "8" for "eight", a 
 
 
 def _words(text: str) -> list[str]:
-    return re.findall(r"[a-z0-9']+", text.lower())
+    # \w matches letters of every script, so Amharic lines are counted as well as English ones.
+    return re.findall(r"[\w']+", text.lower())
 
 
 def heard_problem(line: str, heard: str) -> str | None:
@@ -57,9 +58,11 @@ def heard_problem(line: str, heard: str) -> str | None:
     if not heard:
         return "could not be transcribed, so it was not checked"
     said, meant = _words(heard), _words(line)
-    if len(said) > len(meant) + EXTRA_WORDS_ALLOWED:
+    # A transcript of a language without fixed word spacing can split words differently.
+    allowed = max(EXTRA_WORDS_ALLOWED, round(len(meant) * 0.2))
+    if len(said) > len(meant) + allowed:
         return f"says {len(said) - len(meant)} more words than its line: \"{heard}\""
-    if len(said) < len(meant) - EXTRA_WORDS_ALLOWED:
+    if len(said) < len(meant) - allowed:
         return f"says {len(meant) - len(said)} fewer words than its line: \"{heard}\""
     return None
 

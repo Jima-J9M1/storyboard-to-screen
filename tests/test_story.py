@@ -3,7 +3,8 @@
 import unittest
 
 from agents.story import (
-    assemble, film_length_s, music_problems, script_problems, shot_duration_s, visuals_problems,
+    assemble, film_length_s, music_problems, script_problems, shot_duration_s, translation_problems,
+    visuals_problems,
 )
 from core.contracts import _schema_problems, _storyboard_rule_problems
 
@@ -89,6 +90,30 @@ class VisualsCheckTests(unittest.TestCase):
         self.assertEqual(visuals_problems(reply, 10, "Test Subject", "no_likeness"),
                          ["shot 5 image_prompt names the subject, who may not be shown"])
         self.assertEqual(visuals_problems(reply, 10, "Test Subject", "unrestricted"), [])
+        # a real person who has died is not named either, until the director decides otherwise
+        self.assertEqual(len(visuals_problems(reply, 10, "Test Subject", "review")), 1)
+
+
+class TranslationCheckTests(unittest.TestCase):
+    ENGLISH = ["He ran barefoot.", "He won."]
+
+    def test_a_good_amharic_translation_passes(self):
+        self.assertEqual(translation_problems({"lines": ["በባዶ እግሩ ሮጠ።", "አሸነፈ።"]}, self.ENGLISH, "am"), [])
+
+    def test_one_line_per_english_line(self):
+        self.assertIn("1 translated lines for 2", translation_problems({"lines": ["አሸነፈ።"]}, self.ENGLISH, "am")[0])
+
+    def test_latin_letters_are_not_amharic(self):
+        self.assertEqual(translation_problems({"lines": ["Be bado egru rote.", "አሸነፈ።"]}, self.ENGLISH, "am"),
+                         ["line 1 is not written in Ge'ez script"])
+
+    def test_a_film_can_be_narrated_in_amharic_with_english_subtitles(self):
+        brief = BRIEF | {"languages": ["am"]}
+        board = assemble(brief, script(), visuals(), MUSIC, {"am": ["መስመር።"] * 10})
+        self.assertEqual(_schema_problems(board, "storyboard.schema.json"), [])
+        self.assertEqual(_storyboard_rule_problems(board), [])
+        self.assertEqual(board["shots"][0]["narration"], {"am": "መስመር።"})
+        self.assertEqual(board["shots"][0]["subtitle_en"], LINE)
 
 
 class MusicCheckTests(unittest.TestCase):

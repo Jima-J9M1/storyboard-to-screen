@@ -17,7 +17,7 @@ For each shot:
 
 Hard rules for every picture:
 - No words, letters, numbers, signs, logos or captions anywhere in the picture.
-- If the subject is a living person who may not be shown: never show their face or an identifiable likeness, and never write their name in a prompt. Show places, plants, tools, seed, hands, feet, or an unnamed figure seen from behind or far away.
+- If the rule for the subject is `no_likeness` or `review`, the subject is a real person: never show their face or an identifiable likeness, and never write their name in a prompt. Show places, plants, tools, seed, hands, feet, or an unnamed figure seen from behind or far away.
 - No other real, named people.
 - Prefer hands, landscapes and objects to faces. Faces and crowds are where generated pictures fail.
 

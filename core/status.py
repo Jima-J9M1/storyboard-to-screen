@@ -372,6 +372,9 @@ def repo_state() -> dict:
         films.append({
             "slug": slug,
             "title": (state["brief"] or {}).get("title") or slug,
+            "languages": (state["brief"] or {}).get("languages") or [],
+            "poster": next((shot["picture"] for shot in state["outputs"]["shots"].values() if shot["picture"]), None),
+            "has_film": bool(state["outputs"]["film"]["shapes"]),
             "description": (state["research"]["subject"] or {}).get("description"),
             "stages": [{"id": s["id"], "name": s["name"], "status": s["status"], "who": s["who"]} for s in state["stages"]],
             "done": sum(s["done"] for s in state["stages"]),

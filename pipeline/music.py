@@ -38,7 +38,7 @@ from pathlib import Path
 
 from core import audio, env, paths
 from core.cache import Cache
-from core.contracts import ValidationError, film_duration_s, load_brief, load_storyboard
+from core.contracts import MAX_FILM_S, ValidationError, film_duration_s, load_brief, load_storyboard
 from core.files import load_json, write_json
 from core.runlog import input_hash, logged_call, set_film
 from pipeline import assemble
@@ -168,7 +168,9 @@ def run(film_slug: str, collect: bool = False) -> int:
 
     music = board["music"]
     job = {"caption": music["caption"], "bpm": music["bpm"], "key": music["key"], "seeds": music["seeds"],
-           "duration_s": math.ceil(film_duration_s(board))}
+           # Always the longest a film may be, so the score does not have to be remade when the
+           # narration is re-timed. The Edit stage fades it out where the film ends.
+           "duration_s": MAX_FILM_S}
     out_dir, work = film.outputs / "music", film.outputs / "music" / "work"
     candidates = [out_dir / f"candidate_{seed}.m4a" for seed in music["seeds"]]
     key = input_hash(job, JOB_FILE.read_text(encoding="utf-8"))

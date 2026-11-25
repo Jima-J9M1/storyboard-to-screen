@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLive } from "@/lib/useLive";
 import type { FilmState, MediaFile, Stage, Who } from "@/lib/types";
 
@@ -11,6 +11,8 @@ const clock = (ts: string) =>
 // The address of a generated file. The version makes the browser fetch it again when it changes.
 const media = (slug: string, file: MediaFile) => `/api/films/${slug}/media/${file.path}?v=${file.v}`;
 const megabytes = (file: MediaFile) => `${(file.bytes / 1_000_000).toFixed(1)} MB`;
+
+const LANGUAGES: Record<string, string> = { en: "English", am: "Amharic", om: "Afaan Oromo", ti: "Tigrinya", so: "Somali" };
 
 const WHO: Record<Who, string> = { you: "You", agent: "Agents", code: "Code" };
 
@@ -44,17 +46,24 @@ export function Board({ initial, stage }: { initial: FilmState; stage?: string }
         <div>
           <h1 className="film-name">{brief.title || film.slug}</h1>
           <p className="film-kind">
-            {[film.research.subject?.description, brief.languages && `Narrated in ${brief.languages.join(", ")}`]
+            {[film.research.subject?.description, brief.languages && `Narrated in ${brief.languages.map((code) => LANGUAGES[code] ?? code).join(", ")}`]
               .filter(Boolean)
               .join(". ")}
           </p>
         </div>
-        <p className="progress">
-          {current
-            ? `${done} of ${film.stages.length} stages are done. The film is at ${current.name}.`
-            : `All ${film.stages.length} stages are done.`}{" "}
-          Choose a stage to see what it made.
-        </p>
+        <div className="progress">
+          <p>
+            {current
+              ? `${done} of ${film.stages.length} stages are done. The film is at ${current.name}.`
+              : `All ${film.stages.length} stages are done.`}{" "}
+            Choose a stage to see what it made.
+          </p>
+          {Object.keys(film.outputs.film.shapes).length > 0 && shown.id !== "assembly" && (
+            <button type="button" className="watch" onClick={() => pick("assembly")}>
+              Watch the film
+            </button>
+          )}
+        </div>
       </header>
 
       <div className="strip-scroll">
@@ -302,12 +311,28 @@ function ScriptOutput({ film }: { film: FilmState }) {
               {shot.size}
             </div>
             <div className="body">
-              <div className="line">{shot.narration[language] || "No narration"}</div>
-              <p className="why">Why: {shot.reason}</p>
-              <p className="pic">Picture: {shot.image_prompt}</p>
-              <p className="pic">
-                Camera: {shot.motion_prompt}. Facts used: {shot.fact_ids.join(", ") || "none"}.
-              </p>
+              <div className="line" lang={language}>
+                {shot.narration[language] || "No narration"}
+              </div>
+              {language !== "en" && <p className="sub">English subtitle: {shot.subtitle_en}</p>}
+              <dl className="facts-of-shot">
+                <div>
+                  <dt>Why</dt>
+                  <dd>{shot.reason}</dd>
+                </div>
+                <div>
+                  <dt>Picture</dt>
+                  <dd>{shot.image_prompt}</dd>
+                </div>
+                <div>
+                  <dt>Motion</dt>
+                  <dd>{shot.motion_prompt}</dd>
+                </div>
+                <div>
+                  <dt>Facts used</dt>
+                  <dd>{shot.fact_ids.join(", ") || "none"}</dd>
+                </div>
+              </dl>
             </div>
           </li>
         ))}
@@ -345,48 +370,107 @@ function RadioCutOutput({ film }: { film: FilmState }) {
   );
 }
 
+type Picture = { file: MediaFile; title: string; text: string };
+
 function PicturesOutput({ film }: { film: FilmState }) {
   const out = film.outputs;
   const shots = film.storyboard?.shots ?? [];
-  if (!out.reference && shots.every((shot) => !out.shots[shot.id]?.picture)) return <Nothing>No pictures yet.</Nothing>;
+  const [open, setOpen] = useState<number | null>(null);
+
+  const pictures: Picture[] = [];
+  if (out.reference) {
+    pictures.push({ file: out.reference, title: "Reference sheet", text: film.storyboard?.reference_sheet.prompt ?? "" });
+  }
+  const missing: string[] = [];
+  for (const shot of shots) {
+    const picture = out.shots[shot.id]?.picture;
+    if (!picture) {
+      missing.push(shot.id);
+      continue;
+    }
+    pictures.push({
+      file: picture,
+      title: `${shot.id}, seed ${shot.seed}, ${shot.use_reference ? "guided by the reference sheet" : "style description only"}`,
+      text: shot.image_prompt,
+    });
+  }
+  if (pictures.length === 0) return <Nothing>No pictures yet.</Nothing>;
+
   return (
     <>
       <p className="lede">
-        The reference sheet fixes the look. Then one picture per shot. Click a picture to open it full size.
+        The reference sheet fixes the look. Then one picture per shot, each painted from the description under it.
+        Choose a picture to see it large.
       </p>
+      {film.storyboard && (
+        <dl className="brief">
+          <div>
+            <dt>Who and where</dt>
+            <dd>{film.storyboard.world_block}</dd>
+          </div>
+          <div>
+            <dt>Look</dt>
+            <dd>{film.storyboard.style_block}</dd>
+          </div>
+        </dl>
+      )}
       <ul className="gallery">
-        {out.reference && (
-          <li>
-            <a href={media(film.slug, out.reference)} target="_blank" rel="noreferrer">
+        {pictures.map((picture, n) => (
+          <li key={picture.file.path}>
+            <button type="button" className="open" onClick={() => setOpen(n)} aria-label={`Open ${picture.title}`}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={media(film.slug, out.reference)} alt="The film's reference sheet" loading="lazy" />
-            </a>
-            <b>Reference sheet</b>
-            <span>{film.storyboard?.reference_sheet.prompt}</span>
+              <img src={media(film.slug, picture.file)} alt="" loading="lazy" />
+            </button>
+            <b>{picture.title}</b>
+            <span>{picture.text}</span>
           </li>
-        )}
-        {shots.map((shot) => {
-          const picture = out.shots[shot.id]?.picture;
-          return (
-            <li key={shot.id}>
-              {picture ? (
-                <a href={media(film.slug, picture)} target="_blank" rel="noreferrer">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={media(film.slug, picture)} alt={`Picture for shot ${shot.id}`} loading="lazy" />
-                </a>
-              ) : (
-                <div className="none">Not made yet</div>
-              )}
-              <b>
-                {shot.id}, seed {shot.seed}
-                {shot.use_reference ? ", guided by the reference sheet" : ", style description only"}
-              </b>
-              <span>{shot.image_prompt}</span>
-            </li>
-          );
-        })}
+        ))}
       </ul>
+      {missing.length > 0 && <p className="quiet">Not made yet: {missing.join(", ")}.</p>}
+      {open !== null && pictures[open] && (
+        <Viewer slug={film.slug} pictures={pictures} at={open} go={setOpen} />
+      )}
     </>
+  );
+}
+
+function Viewer({ slug, pictures, at, go }: { slug: string; pictures: Picture[]; at: number; go: (n: number | null) => void }) {
+  const picture = pictures[at];
+  const step = (by: number) => go((at + by + pictures.length) % pictures.length);
+  useEffect(() => {
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") go(null);
+      if (event.key === "ArrowRight") step(1);
+      if (event.key === "ArrowLeft") step(-1);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  });
+  return (
+    <div className="viewer" role="dialog" aria-modal="true" aria-label={picture.title} onClick={() => go(null)}>
+      <figure onClick={(event) => event.stopPropagation()}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={media(slug, picture.file)} alt={picture.text} />
+        <figcaption>
+          <b>{picture.title}</b>
+          {picture.text}
+        </figcaption>
+        <div className="viewer-keys">
+          <button type="button" onClick={() => step(-1)}>
+            Previous
+          </button>
+          <span>
+            {at + 1} of {pictures.length}
+          </span>
+          <button type="button" onClick={() => step(1)}>
+            Next
+          </button>
+          <button type="button" onClick={() => go(null)} autoFocus>
+            Close
+          </button>
+        </div>
+      </figure>
+    </div>
   );
 }
 
@@ -415,17 +499,15 @@ function ShotsOutput({ film }: { film: FilmState }) {
               <b>
                 {shot.id}, {shot.duration_s} s
               </b>
-              <span>
-                Asked for: {shot.motion_prompt}. Made: {output?.move ?? "nothing yet"}.
-                {wide && (
-                  <>
-                    {" "}
-                    <a href={media(film.slug, wide)} target="_blank" rel="noreferrer">
-                      Play the wide clip
-                    </a>
-                  </>
-                )}
+              <span className={output?.move?.includes("generated") ? "ok" : undefined}>
+                {output?.move ?? "Not made yet"}
               </span>
+              <span>Asked for: {shot.motion_prompt}</span>
+              {wide && (
+                <a href={media(film.slug, wide)} target="_blank" rel="noreferrer">
+                  Play the wide clip
+                </a>
+              )}
             </li>
           );
         })}
@@ -523,7 +605,10 @@ function VoiceOutput({ film }: { film: FilmState }) {
             <li key={shot.id}>
               <span className="id">{shot.id}</span>
               <div>
-                <div className="line">{shot.narration[language] || "No narration"}</div>
+                <div className="line" lang={language}>
+                  {shot.narration[language] || "No narration"}
+                </div>
+                {language !== "en" && <p className="sub">English subtitle: {shot.subtitle_en}</p>}
                 {voice ? (
                   <>
                     <audio controls preload="none" src={media(film.slug, voice)} />

@@ -11,13 +11,22 @@ function where(film: FilmSummary): string {
   return `${lead} ${film.current.name}. ${film.done} of ${film.total} stages done.`;
 }
 
+const LANGUAGES: Record<string, string> = { en: "English", am: "Amharic", om: "Afaan Oromo", ti: "Tigrinya", so: "Somali" };
+
 function FilmRow({ film }: { film: FilmSummary }) {
+  const spoken = film.languages.map((code) => LANGUAGES[code] ?? code).join(", ");
   return (
     <li>
-      <Link className="film-row" href={`/films/${film.slug}`}>
+      <Link className="film-row" href={`/films/${film.slug}${film.has_film ? "?stage=assembly" : ""}`}>
+        {film.poster ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img className="poster" src={`/api/films/${film.slug}/media/${film.poster.path}?v=${film.poster.v}`} alt="" loading="lazy" />
+        ) : (
+          <div className="poster none" aria-hidden="true" />
+        )}
         <div className="about">
           <span className="film-title">{film.title}</span>
-          {film.description && <span className="quiet">{film.description}</span>}
+          <span className="quiet">{[film.description, spoken && `Narrated in ${spoken}`].filter(Boolean).join(". ")}</span>
           <span className="where">{where(film)}</span>
         </div>
         <ol className="strip mini" aria-hidden="true">
