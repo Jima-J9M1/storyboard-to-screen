@@ -125,6 +125,7 @@ films/<name>/brief.json ──> agents ──> films/<name>/storyboard.json ─�
 | [FAILURES.md](FAILURES.md) | what broke and what fixed it |
 | [COSTS.md](COSTS.md) | measured time and usage |
 | [ETHICS.md](ETHICS.md) | consent, sources, licences, labelling |
+| [REPORT.md](REPORT.md) | the project report |
 | [AGENTS.md](AGENTS.md) | the rules any coding agent follows in this repo |
 
 ## Limits to know about

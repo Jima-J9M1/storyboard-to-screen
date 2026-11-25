@@ -99,16 +99,24 @@ def run(film_slug: str, collect: bool = False) -> int:
     job = SETTINGS | {"clips": clips}
     slug = f"heritage-short-video-{film.slug}"[:50]
 
+    def checked(report: dict) -> dict:
+        """A job that made no clip is a failed call, and is logged as one."""
+        if not any(clip.get("made") for clip in report.get("clips", [])):
+            (film.outputs / "video").mkdir(parents=True, exist_ok=True)
+            write_json(film.outputs / "video" / "job_report_failed.json", report)
+            raise RuntimeError(f"the job made no clips: {(report.get('error') or 'no reason given')[:400]}")
+        return report
+
     def send() -> dict:
         if collect:
-            return kaggle.collect(slug, work)
+            return checked(kaggle.collect(slug, work))
         inputs = work / "inputs"
         shutil.rmtree(inputs, ignore_errors=True)
         for clip in clips:
             prepare_input(film.outputs / "keyframes" / f"{clip['shot']}.jpg", clip["shape"], inputs / clip["file"])
         print(f"video: uploading {len(clips)} pictures to Kaggle ...")
         dataset = kaggle.upload_dataset(f"heritage-short-frames-{film.slug}"[:50], inputs)
-        return kaggle.run_job(slug, JOB_FILE, job, work, datasets=[dataset], timeout_s=5 * 3600, label="video")
+        return checked(kaggle.run_job(slug, JOB_FILE, job, work, datasets=[dataset], timeout_s=5 * 3600, label="video"))
 
     try:
         report = logged_call(
