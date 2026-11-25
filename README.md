@@ -76,7 +76,7 @@ Each one works on one film, chosen with `FILM=<name>`. The default is `gebisa-ej
 
 | Command | What it does |
 |---|---|
-| `make film` | every stage in order: validate, voice, pictures, video, moving shots, music, edit |
+| `make film` | every stage in order: validate, voice, pictures, moving shots, music, edit |
 | `make new TITLE="..."` | start a film from a title |
 | `make research` | read the sources and list quoted facts |
 | `make story` | draft the storyboard from the facts |

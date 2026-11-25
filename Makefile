@@ -82,11 +82,12 @@ assemble: .venv
 
 # The one command. Every stage runs in order and skips whatever is already up to date,
 # so from a clean clone this rebuilds the film from the committed storyboard and outputs.
+# Generated video is not part of it: `make video` is a separate, hours-long GPU job, and the
+# shots stage uses its clips when they exist and a camera move over the picture when they do not.
 film: .venv
 	$(PY) -m pipeline.validate --film $(FILM)
 	$(PY) -m pipeline.narration --film $(FILM)
 	$(PY) -m pipeline.keyframes --film $(FILM)
-	-$(PY) -m pipeline.video --film $(FILM)   # if the GPU job fails, shots fall back to camera moves
 	$(PY) -m pipeline.shots --film $(FILM)
 	$(PY) -m pipeline.music --film $(FILM)
 	$(PY) -m pipeline.assemble --film $(FILM)
