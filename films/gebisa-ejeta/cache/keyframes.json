@@ -1,0 +1,68 @@
+{
+  "reference": {
+    "input_hash": "57e26b64ce43d045",
+    "outputs": [
+      "films/gebisa-ejeta/outputs/keyframes/reference.jpg"
+    ]
+  },
+  "s01": {
+    "input_hash": "b6d68171644f51d8",
+    "outputs": [
+      "films/gebisa-ejeta/outputs/keyframes/s01.jpg"
+    ]
+  },
+  "s02": {
+    "input_hash": "4a6f4e4cfead81c4",
+    "outputs": [
+      "films/gebisa-ejeta/outputs/keyframes/s02.jpg"
+    ]
+  },
+  "s03": {
+    "input_hash": "387258a2276f839d",
+    "outputs": [
+      "films/gebisa-ejeta/outputs/keyframes/s03.jpg"
+    ]
+  },
+  "s04": {
+    "input_hash": "a1e637dcb7a5c920",
+    "outputs": [
+      "films/gebisa-ejeta/outputs/keyframes/s04.jpg"
+    ]
+  },
+  "s05": {
+    "input_hash": "bb3a8fb7aa396dd0",
+    "outputs": [
+      "films/gebisa-ejeta/outputs/keyframes/s05.jpg"
+    ]
+  },
+  "s06": {
+    "input_hash": "bfff4f63a611a97a",
+    "outputs": [
+      "films/gebisa-ejeta/outputs/keyframes/s06.jpg"
+    ]
+  },
+  "s07": {
+    "input_hash": "889022ce91276dea",
+    "outputs": [
+      "films/gebisa-ejeta/outputs/keyframes/s07.jpg"
+    ]
+  },
+  "s08": {
+    "input_hash": "976a786006038a01",
+    "outputs": [
+      "films/gebisa-ejeta/outputs/keyframes/s08.jpg"
+    ]
+  },
+  "s09": {
+    "input_hash": "863887cbbdc4ba10",
+    "outputs": [
+      "films/gebisa-ejeta/outputs/keyframes/s09.jpg"
+    ]
+  },
+  "s10": {
+    "input_hash": "3d642d80ead560cf",
+    "outputs": [
+      "films/gebisa-ejeta/outputs/keyframes/s10.jpg"
+    ]
+  }
+}

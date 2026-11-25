@@ -1,0 +1,241 @@
+{
+  "title": "Gebisa Ejeta",
+  "languages": [
+    "en"
+  ],
+  "voice": {
+    "name": "Sulafat",
+    "style": "calm, warm, unhurried"
+  },
+  "style_block": "Rich oil painting style with textured canvas grain, warm amber and earth-toned palette, volumetric golden hour light, and organic tactile detail.",
+  "reference_sheet": {
+    "prompt": "A reference sheet showing the rural Ethiopian landscape with terraced green fields, deep amber soil, tall golden sorghum crops, laboratory glassware with green sprouts, warm golden hour lighting, rich painterly canvas texture.",
+    "seed": 7
+  },
+  "music": {
+    "caption": "An inspiring contemporary instrumental score featuring gentle warm strings, subtle East African pentatonic lyre accents, and delicate ambient pads. Designed as a soft background texture under narration, it evolves smoothly with no aggressive lead melody.",
+    "bpm": 78,
+    "key": "A major",
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "cues": [
+      {
+        "at_s": 0,
+        "note": "Quiet ambient shimmer with delicate plucked string motif"
+      },
+      {
+        "at_s": 17.5,
+        "note": "Warm cellos enter adding subtle rhythmic forward motion"
+      },
+      {
+        "at_s": 42,
+        "note": "Luminous orchestral swell marking key breakthrough"
+      },
+      {
+        "at_s": 65,
+        "note": "Full rich texture evoking continental pride and hope"
+      },
+      {
+        "at_s": 72,
+        "note": "Return to soft opening motif with quiet lingering resolve"
+      }
+    ]
+  },
+  "end_card": {
+    "text": "This film was made with AI.",
+    "duration_s": 3
+  },
+  "shots": [
+    {
+      "id": "s01",
+      "duration_s": 9.0,
+      "size": "wide",
+      "image_prompt": "Bare feet walking along a long, winding dirt path through the sun-drenched Ethiopian highlands at dusk.",
+      "use_reference": false,
+      "motion_mode": "ken_burns",
+      "motion_prompt": "slow pan right to right, fixed horizon",
+      "narration": {
+        "en": "Why would a young boy walk twenty kilometres across Ethiopia every Sunday evening just to attend primary school?"
+      },
+      "subtitle_en": "Why would a young boy walk twenty kilometres across Ethiopia every Sunday evening just to attend primary school?",
+      "reason": "Establishes humble beginnings and immense sacrifice, connecting directly to the youth's own daily struggles.",
+      "fact_ids": [
+        "f02"
+      ],
+      "seed": 1001
+    },
+    {
+      "id": "s02",
+      "duration_s": 8.5,
+      "size": "close",
+      "image_prompt": "A mother's weathered hands gently wrapping a young student's hands around a worn wooden pencil beside a warm hearth fire.",
+      "use_reference": true,
+      "motion_mode": "ken_burns",
+      "motion_prompt": "slow push in",
+      "narration": {
+        "en": "Gebisa Ejeta was born in Wollonkomi to Oromo parents, encouraged constantly by his mother to pursue education."
+      },
+      "subtitle_en": "Gebisa Ejeta was born in Wollonkomi to Oromo parents, encouraged constantly by his mother to pursue education.",
+      "reason": "Evokes deep cultural respect for mothers and the transformative power of quiet family encouragement.",
+      "fact_ids": [
+        "f01",
+        "f02"
+      ],
+      "seed": 1002
+    },
+    {
+      "id": "s03",
+      "duration_s": 8.5,
+      "size": "medium",
+      "image_prompt": "A young man seen from behind, standing at a vista looking out over rich agricultural terraced fields under soft morning light.",
+      "use_reference": true,
+      "motion_mode": "ken_burns",
+      "motion_prompt": "slow tilt up",
+      "narration": {
+        "en": "He intended to study engineering, but his mother convinced him he could accomplish more working in agriculture."
+      },
+      "subtitle_en": "He intended to study engineering, but his mother convinced him he could accomplish more working in agriculture.",
+      "reason": "Highlights the critical pivotal choice to dedicate one's life to feeding the land.",
+      "fact_ids": [
+        "f03",
+        "f04"
+      ],
+      "seed": 1003
+    },
+    {
+      "id": "s04",
+      "duration_s": 8.5,
+      "size": "medium",
+      "image_prompt": "Hands wearing clear laboratory gloves holding a glass beaker containing a bright green plant sprout against a softly blurred greenhouse background.",
+      "use_reference": true,
+      "motion_mode": "ken_burns",
+      "motion_prompt": "slow push in",
+      "narration": {
+        "en": "After studying at Haramaya University, Ejeta earned his doctorate in plant breeding from Purdue University in 1978."
+      },
+      "subtitle_en": "After studying at Haramaya University, Ejeta earned his doctorate in plant breeding from Purdue University in 1978.",
+      "reason": "Shows academic dedication and the transition from traditional farming to world-class scientific inquiry.",
+      "fact_ids": [
+        "f05",
+        "f06"
+      ],
+      "seed": 1004
+    },
+    {
+      "id": "s05",
+      "duration_s": 7.5,
+      "size": "wide",
+      "image_prompt": "Vast cracked dry soil in a drought-stricken plain under a harsh golden sun, with a single resilient green shoot rising from the center.",
+      "use_reference": false,
+      "motion_mode": "ken_burns",
+      "motion_prompt": "slow pull back",
+      "narration": {
+        "en": "He went to work in rain-starved northern Sudan, researching sorghum crops for five straight years."
+      },
+      "subtitle_en": "He went to work in rain-starved northern Sudan, researching sorghum crops for five straight years.",
+      "reason": "Dramatizes the extreme hardship of hunger and drought that science was called upon to solve.",
+      "fact_ids": [
+        "f07",
+        "f08"
+      ],
+      "seed": 1005
+    },
+    {
+      "id": "s06",
+      "duration_s": 8.5,
+      "size": "wide",
+      "image_prompt": "A massive, thriving field of tall golden sorghum swaying under a vibrant blue sky during a rich golden harvest.",
+      "use_reference": false,
+      "motion_mode": "ken_burns",
+      "motion_prompt": "slow pan left to right, fixed horizon",
+      "narration": {
+        "en": "His drought-tolerant hybrid produced yields up to 150 percent higher, covering one million acres in Sudan yearly."
+      },
+      "subtitle_en": "His drought-tolerant hybrid produced yields up to 150 percent higher, covering one million acres in Sudan yearly.",
+      "reason": "Instills pride by showing the immense visual scale of triumph over crop failure.",
+      "fact_ids": [
+        "f08",
+        "f09",
+        "f10"
+      ],
+      "seed": 1006
+    },
+    {
+      "id": "s07",
+      "duration_s": 7.5,
+      "size": "close",
+      "image_prompt": "A detailed macro view of a healthy golden crop root system growing strong and untouched in deep rich soil.",
+      "use_reference": true,
+      "motion_mode": "ken_burns",
+      "motion_prompt": "slow push in",
+      "narration": {
+        "en": "At Purdue, he developed a mechanism to stop parasitic Striga weeds from attacking sorghum crops."
+      },
+      "subtitle_en": "At Purdue, he developed a mechanism to stop parasitic Striga weeds from attacking sorghum crops.",
+      "reason": "Focuses on scientific mastery and the elegant solution to a microscopic agricultural threat.",
+      "fact_ids": [
+        "f11",
+        "f13"
+      ],
+      "seed": 1007
+    },
+    {
+      "id": "s08",
+      "duration_s": 7.0,
+      "size": "medium",
+      "image_prompt": "Hands cupping a cascade of golden seed grains pouring into rustic woven burlap sacks stacked on a wooden platform.",
+      "use_reference": true,
+      "motion_mode": "ken_burns",
+      "motion_prompt": "slow tilt down",
+      "narration": {
+        "en": "In 1994, eight tons of his resistant seeds were distributed to twelve African nations."
+      },
+      "subtitle_en": "In 1994, eight tons of his resistant seeds were distributed to twelve African nations.",
+      "reason": "Translates abstract scientific discovery into tangible, bountiful reality for a whole continent.",
+      "fact_ids": [
+        "f14"
+      ],
+      "seed": 1008
+    },
+    {
+      "id": "s09",
+      "duration_s": 7.0,
+      "size": "medium",
+      "image_prompt": "Calloused, hardworking hands holding a massive harvest bundle of ripe grain heads in a sunlit field.",
+      "use_reference": true,
+      "motion_mode": "ken_burns",
+      "motion_prompt": "slow push in",
+      "narration": {
+        "en": "Farmers planting them reported crop yields up to four times larger than traditional harvests."
+      },
+      "subtitle_en": "Farmers planting them reported crop yields up to four times larger than traditional harvests.",
+      "reason": "Centers the ultimate purpose of the work on empowering local farmers and creating food abundance.",
+      "fact_ids": [
+        "f15"
+      ],
+      "seed": 1009
+    },
+    {
+      "id": "s10",
+      "duration_s": 7.0,
+      "size": "wide",
+      "image_prompt": "A gleaming gold medal resting on a dark navy velvet cushion lit by a soft spotlight in a grand hall, surrounded by soft bokeh lights.",
+      "use_reference": false,
+      "motion_mode": "ken_burns",
+      "motion_prompt": "slow push in",
+      "narration": {
+        "en": "President Biden awarded this scientist from Wollonkomi the National Medal of Science in 2023."
+      },
+      "subtitle_en": "President Biden awarded this scientist from Wollonkomi the National Medal of Science in 2023.",
+      "reason": "Leaves the audience with immense inspiration, proving that world-level recognition can start from home.",
+      "fact_ids": [
+        "f01",
+        "f19"
+      ],
+      "seed": 1010
+    }
+  ]
+}

@@ -1,0 +1,169 @@
+{
+  "planned_s": 89.5,
+  "end_card": {
+    "text": "This film was made with AI.",
+    "duration_s": 2.5
+  },
+  "music": "candidate_2.m4a",
+  "placeholder_music": false,
+  "films": {
+    "9x16": {
+      "file": "film_9x16.mp4",
+      "frame": [
+        1080,
+        1920
+      ],
+      "duration_s": 89.48,
+      "loudness_lufs": -14.06,
+      "true_peak_db": -1.38,
+      "subtitle_cards": 22,
+      "longest_subtitle_line": 30
+    },
+    "16x9": {
+      "file": "film_16x9.mp4",
+      "frame": [
+        1920,
+        1080
+      ],
+      "duration_s": 89.48,
+      "loudness_lufs": -14.06,
+      "true_peak_db": -1.38,
+      "subtitle_cards": 20,
+      "longest_subtitle_line": 42
+    }
+  },
+  "subtitles_9x16": [
+    {
+      "shot": "s01",
+      "on_s": 0.1,
+      "off_s": 4.059,
+      "text": "Why would a young boy walk\ntwenty kilometres across"
+    },
+    {
+      "shot": "s01",
+      "on_s": 4.059,
+      "off_s": 8.716,
+      "text": "Ethiopia every Sunday evening\njust to attend primary school?"
+    },
+    {
+      "shot": "s02",
+      "on_s": 9.15,
+      "off_s": 13.766,
+      "text": "Gebisa Ejeta was born in\nWollonkomi to Oromo parents,"
+    },
+    {
+      "shot": "s02",
+      "on_s": 13.766,
+      "off_s": 18.642,
+      "text": "encouraged constantly by his\nmother to pursue education."
+    },
+    {
+      "shot": "s03",
+      "on_s": 19.05,
+      "off_s": 22.12,
+      "text": "He intended to study\nengineering, but his mother"
+    },
+    {
+      "shot": "s03",
+      "on_s": 22.12,
+      "off_s": 25.254,
+      "text": "convinced him he could\naccomplish more working in"
+    },
+    {
+      "shot": "s03",
+      "on_s": 25.254,
+      "off_s": 26.022,
+      "text": "agriculture."
+    },
+    {
+      "shot": "s04",
+      "on_s": 26.45,
+      "off_s": 31.131,
+      "text": "After studying at Haramaya\nUniversity, Ejeta earned his"
+    },
+    {
+      "shot": "s04",
+      "on_s": 31.131,
+      "off_s": 35.642,
+      "text": "doctorate in plant breeding\nfrom Purdue University in"
+    },
+    {
+      "shot": "s04",
+      "on_s": 35.642,
+      "off_s": 36.067,
+      "text": "1978."
+    },
+    {
+      "shot": "s05",
+      "on_s": 36.5,
+      "off_s": 40.065,
+      "text": "He went to work in rain-\nstarved northern Sudan,"
+    },
+    {
+      "shot": "s05",
+      "on_s": 40.065,
+      "off_s": 43.779,
+      "text": "researching sorghum crops for\nfive straight years."
+    },
+    {
+      "shot": "s06",
+      "on_s": 44.2,
+      "off_s": 48.818,
+      "text": "His drought-tolerant hybrid\nproduced yields up to 150"
+    },
+    {
+      "shot": "s06",
+      "on_s": 48.818,
+      "off_s": 53.959,
+      "text": "percent higher, covering one\nmillion acres in Sudan yearly."
+    },
+    {
+      "shot": "s07",
+      "on_s": 54.4,
+      "off_s": 58.642,
+      "text": "At Purdue, he developed a\nmechanism to stop parasitic"
+    },
+    {
+      "shot": "s07",
+      "on_s": 58.642,
+      "off_s": 62.004,
+      "text": "Striga weeds from attacking\nsorghum crops."
+    },
+    {
+      "shot": "s08",
+      "on_s": 62.4,
+      "off_s": 66.607,
+      "text": "In 1994, eight tons of his\nresistant seeds were"
+    },
+    {
+      "shot": "s08",
+      "on_s": 66.607,
+      "off_s": 70.009,
+      "text": "distributed to twelve African\nnations."
+    },
+    {
+      "shot": "s09",
+      "on_s": 70.45,
+      "off_s": 75.225,
+      "text": "Farmers planting them reported\ncrop yields up to four times"
+    },
+    {
+      "shot": "s09",
+      "on_s": 75.225,
+      "off_s": 77.896,
+      "text": "larger than traditional\nharvests."
+    },
+    {
+      "shot": "s10",
+      "on_s": 78.3,
+      "off_s": 83.595,
+      "text": "President Biden awarded this\nscientist from Wollonkomi the"
+    },
+    {
+      "shot": "s10",
+      "on_s": 83.595,
+      "off_s": 86.699,
+      "text": "National Medal of Science in\n2023."
+    }
+  ]
+}

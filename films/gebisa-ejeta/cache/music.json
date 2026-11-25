@@ -1,0 +1,29 @@
+{
+  "audition_1": {
+    "input_hash": "c0f7dc36905d1bfa",
+    "outputs": [
+      "films/gebisa-ejeta/outputs/music/audition_1.m4a"
+    ]
+  },
+  "audition_2": {
+    "input_hash": "d2dc0fe930bda82c",
+    "outputs": [
+      "films/gebisa-ejeta/outputs/music/audition_2.m4a"
+    ]
+  },
+  "audition_3": {
+    "input_hash": "f986dd017e49808e",
+    "outputs": [
+      "films/gebisa-ejeta/outputs/music/audition_3.m4a"
+    ]
+  },
+  "candidates": {
+    "input_hash": "b72d6fabeb3088c0",
+    "outputs": [
+      "films/gebisa-ejeta/outputs/music/candidate_1.m4a",
+      "films/gebisa-ejeta/outputs/music/candidate_2.m4a",
+      "films/gebisa-ejeta/outputs/music/candidate_3.m4a",
+      "films/gebisa-ejeta/outputs/music/job_report.json"
+    ]
+  }
+}

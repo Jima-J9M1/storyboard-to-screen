@@ -1,0 +1,72 @@
+{
+  "agent": "storyboard_artist",
+  "model": "gemini-3.5-flash",
+  "seed": 1,
+  "temperature": 0.7,
+  "reply": {
+    "style_block": "Rich oil painting style with textured canvas grain, warm amber and earth-toned palette, volumetric golden hour light, and organic tactile detail.",
+    "reference_sheet_prompt": "A reference sheet showing the rural Ethiopian landscape with terraced green fields, deep amber soil, tall golden sorghum crops, laboratory glassware with green sprouts, warm golden hour lighting, rich painterly canvas texture.",
+    "shots": [
+      {
+        "size": "wide",
+        "image_prompt": "Bare feet walking along a long, winding dirt path through the sun-drenched Ethiopian highlands at dusk.",
+        "motion_prompt": "slow pan right to right, fixed horizon",
+        "reason": "Establishes humble beginnings and immense sacrifice, connecting directly to the youth's own daily struggles."
+      },
+      {
+        "size": "close",
+        "image_prompt": "A mother's weathered hands gently wrapping a young student's hands around a worn wooden pencil beside a warm hearth fire.",
+        "motion_prompt": "slow push in",
+        "reason": "Evokes deep cultural respect for mothers and the transformative power of quiet family encouragement."
+      },
+      {
+        "size": "medium",
+        "image_prompt": "A young man seen from behind, standing at a vista looking out over rich agricultural terraced fields under soft morning light.",
+        "motion_prompt": "slow tilt up",
+        "reason": "Highlights the critical pivotal choice to dedicate one's life to feeding the land."
+      },
+      {
+        "size": "medium",
+        "image_prompt": "Hands wearing clear laboratory gloves holding a glass beaker containing a bright green plant sprout against a softly blurred greenhouse background.",
+        "motion_prompt": "slow push in",
+        "reason": "Shows academic dedication and the transition from traditional farming to world-class scientific inquiry."
+      },
+      {
+        "size": "wide",
+        "image_prompt": "Vast cracked dry soil in a drought-stricken plain under a harsh golden sun, with a single resilient green shoot rising from the center.",
+        "motion_prompt": "slow pull back",
+        "reason": "Dramatizes the extreme hardship of hunger and drought that science was called upon to solve."
+      },
+      {
+        "size": "wide",
+        "image_prompt": "A massive, thriving field of tall golden sorghum swaying under a vibrant blue sky during a rich golden harvest.",
+        "motion_prompt": "slow pan left to right, fixed horizon",
+        "reason": "Instills pride by showing the immense visual scale of triumph over crop failure."
+      },
+      {
+        "size": "close",
+        "image_prompt": "A detailed macro view of a healthy golden crop root system growing strong and untouched in deep rich soil.",
+        "motion_prompt": "slow push in",
+        "reason": "Focuses on scientific mastery and the elegant solution to a microscopic agricultural threat."
+      },
+      {
+        "size": "medium",
+        "image_prompt": "Hands cupping a cascade of golden seed grains pouring into rustic woven burlap sacks stacked on a wooden platform.",
+        "motion_prompt": "slow tilt down",
+        "reason": "Translates abstract scientific discovery into tangible, bountiful reality for a whole continent."
+      },
+      {
+        "size": "medium",
+        "image_prompt": "Calloused, hardworking hands holding a massive harvest bundle of ripe grain heads in a sunlit field.",
+        "motion_prompt": "slow push in",
+        "reason": "Centers the ultimate purpose of the work on empowering local farmers and creating food abundance."
+      },
+      {
+        "size": "wide",
+        "image_prompt": "A gleaming gold medal resting on a dark navy velvet cushion lit by a soft spotlight in a grand hall, surrounded by soft bokeh lights.",
+        "motion_prompt": "slow push in",
+        "reason": "Leaves the audience with immense inspiration, proving that world-level recognition can start from home."
+      }
+    ]
+  }
+}

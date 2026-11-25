@@ -1,0 +1,10 @@
+{
+  "film": {
+    "input_hash": "d821f25ae53a4a73",
+    "outputs": [
+      "films/gebisa-ejeta/outputs/film/film_9x16.mp4",
+      "films/gebisa-ejeta/outputs/film/film_16x9.mp4",
+      "films/gebisa-ejeta/outputs/film/report.json"
+    ]
+  }
+}

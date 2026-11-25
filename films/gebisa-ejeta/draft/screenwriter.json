@@ -1,0 +1,88 @@
+{
+  "agent": "screenwriter",
+  "model": "gemini-3.5-flash",
+  "seed": 1,
+  "temperature": 0.7,
+  "reply": {
+    "shots": [
+      {
+        "beat": "Questioning opening image",
+        "narration": "Why would a young boy walk twenty kilometres across Ethiopia every Sunday evening just to attend primary school?",
+        "fact_ids": [
+          "f02"
+        ]
+      },
+      {
+        "beat": "Origins and upbringing",
+        "narration": "Gebisa Ejeta was born in Wollonkomi to Oromo parents, encouraged constantly by his mother to pursue education.",
+        "fact_ids": [
+          "f01",
+          "f02"
+        ]
+      },
+      {
+        "beat": "Life turn towards agriculture",
+        "narration": "He intended to study engineering, but his mother convinced him he could accomplish more working in agriculture.",
+        "fact_ids": [
+          "f03",
+          "f04"
+        ]
+      },
+      {
+        "beat": "Academic path",
+        "narration": "After studying at Haramaya University, Ejeta earned his doctorate in plant breeding from Purdue University in 1978.",
+        "fact_ids": [
+          "f05",
+          "f06"
+        ]
+      },
+      {
+        "beat": "Early research in Sudan",
+        "narration": "He went to work in rain-starved northern Sudan, researching sorghum crops for five straight years.",
+        "fact_ids": [
+          "f07",
+          "f08"
+        ]
+      },
+      {
+        "beat": "First major breakthrough",
+        "narration": "His drought-tolerant hybrid produced yields up to 150 percent higher, covering one million acres in Sudan yearly.",
+        "fact_ids": [
+          "f08",
+          "f09",
+          "f10"
+        ]
+      },
+      {
+        "beat": "Defeating parasitic weeds",
+        "narration": "At Purdue, he developed a mechanism to stop parasitic Striga weeds from attacking sorghum crops.",
+        "fact_ids": [
+          "f11",
+          "f13"
+        ]
+      },
+      {
+        "beat": "Continental seed distribution",
+        "narration": "In 1994, eight tons of his resistant seeds were distributed to twelve African nations.",
+        "fact_ids": [
+          "f14"
+        ]
+      },
+      {
+        "beat": "Impact on African farmers",
+        "narration": "Farmers planting them reported crop yields up to four times larger than traditional harvests.",
+        "fact_ids": [
+          "f15"
+        ]
+      },
+      {
+        "beat": "Highest recognition and legacy",
+        "narration": "President Biden awarded this scientist from Wollonkomi the National Medal of Science in 2023.",
+        "fact_ids": [
+          "f01",
+          "f19"
+        ]
+      }
+    ]
+  }
+}

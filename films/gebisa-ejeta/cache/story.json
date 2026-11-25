@@ -1,0 +1,20 @@
+{
+  "composer": {
+    "input_hash": "3ca72775b62ab606",
+    "outputs": [
+      "films/gebisa-ejeta/draft/composer.json"
+    ]
+  },
+  "screenwriter": {
+    "input_hash": "6ff1ed3e84c7cd08",
+    "outputs": [
+      "films/gebisa-ejeta/draft/screenwriter.json"
+    ]
+  },
+  "storyboard_artist": {
+    "input_hash": "5de13b88dc374876",
+    "outputs": [
+      "films/gebisa-ejeta/draft/storyboard_artist.json"
+    ]
+  }
+}

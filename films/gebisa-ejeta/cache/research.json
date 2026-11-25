@@ -1,15 +1,27 @@
 {
-  "gebisa-ejeta": {
-    "input_hash": "0bb3f395607f3c64",
+  "facts": {
+    "input_hash": "5b4c3432093539ce",
     "outputs": [
-      "research/gebisa-ejeta/source_wikipedia.json",
-      "research/gebisa-ejeta/subject.json"
+      "films/gebisa-ejeta/research/facts.json"
     ]
   },
-  "gebisa-ejeta:facts": {
-    "input_hash": "c5c99013ad3d09e6",
+  "web1": {
+    "input_hash": "0f539f54013a4184",
     "outputs": [
-      "research/gebisa-ejeta/facts.json"
+      "films/gebisa-ejeta/research/source_web1.json"
+    ]
+  },
+  "web2": {
+    "input_hash": "2d888ff20f459441",
+    "outputs": [
+      "films/gebisa-ejeta/research/source_web2.json"
+    ]
+  },
+  "wikipedia": {
+    "input_hash": "0bb3f395607f3c64",
+    "outputs": [
+      "films/gebisa-ejeta/research/source_wikipedia.json",
+      "films/gebisa-ejeta/research/subject.json"
     ]
   }
 }

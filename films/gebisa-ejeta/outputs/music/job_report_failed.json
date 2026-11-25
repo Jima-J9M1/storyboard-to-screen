@@ -1,0 +1,40 @@
+{
+  "job": {
+    "caption": "An inspiring contemporary instrumental score featuring gentle warm strings, subtle East African pentatonic lyre accents, and delicate ambient pads. Designed as a soft background texture under narration, it evolves smoothly with no aggressive lead melody.",
+    "bpm": 78,
+    "key": "A major",
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "duration_s": 90
+  },
+  "started": 1795601805.0041466,
+  "candidates": [],
+  "error": "RuntimeError: install failed: ERROR: Package 'ace-step' requires a different Python: 3.13.16 not in '<3.13,>=3.11'\n",
+  "steps": [
+    {
+      "step": "gpu",
+      "seconds": 0.0,
+      "code": 0,
+      "tail": "Tesla T4, 15360 MiB\nTesla T4, 15360 MiB\n"
+    },
+    {
+      "step": "clone",
+      "seconds": 1.5,
+      "code": 0,
+      "tail": "Cloning into '/kaggle/working/ACE-Step-1.5'...\n"
+    },
+    {
+      "step": "install",
+      "seconds": 7.6,
+      "code": 1,
+      "tail": "ERROR: Package 'ace-step' requires a different Python: 3.13.16 not in '<3.13,>=3.11'\n"
+    }
+  ],
+  "gpu": "Tesla T4, 15360 MiB\nTesla T4, 15360 MiB",
+  "python": "3.13.16",
+  "traceback": "Traceback (most recent call last):\n  File \"/kaggle/src/script.py\", line 41, in <module>\n    step(\"install\", f\"cd {REPO} && pip install -q -e .\")\n    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/kaggle/src/script.py\", line 32, in step\n    raise RuntimeError(f\"{name} failed: {(done.stdout + done.stderr)[-800:]}\")\nRuntimeError: install failed: ERROR: Package 'ace-step' requires a different Python: 3.13.16 not in '<3.13,>=3.11'\n\n",
+  "total_seconds": 9.2
+}

@@ -1,0 +1,82 @@
+{
+  "s01.en": {
+    "input_hash": "3ec835e521b005f6",
+    "outputs": [
+      "films/gebisa-ejeta/outputs/narration/s01.en.wav"
+    ],
+    "model": "gemini-3.8-flash-tts",
+    "heard": "Why would a young boy walk 20 kilometers across Ethiopia every Sunday evening just to attend primary school?"
+  },
+  "s02.en": {
+    "input_hash": "9aec2938f590ef89",
+    "outputs": [
+      "films/gebisa-ejeta/outputs/narration/s02.en.wav"
+    ],
+    "model": "gemini-3.8-flash-tts",
+    "heard": "Gebisa Ejeta was born in Wollonkomi, to Oromo parents, encouraged constantly by his mother to pursue education."
+  },
+  "s03.en": {
+    "input_hash": "eecfa1a4319cfc1e",
+    "outputs": [
+      "films/gebisa-ejeta/outputs/narration/s03.en.wav"
+    ],
+    "model": "gemini-3.8-flash-tts",
+    "heard": "He intended to study engineering, but his mother convinced him he could accomplish more working in agriculture."
+  },
+  "s04.en": {
+    "input_hash": "5177ccacc38377c3",
+    "outputs": [
+      "films/gebisa-ejeta/outputs/narration/s04.en.wav"
+    ],
+    "model": "gemini-3.1-flash-tts-preview",
+    "heard": "After studying at Haramaya University, Ejeta earned his doctorate in plant breeding from Purdue University in 1978."
+  },
+  "s05.en": {
+    "input_hash": "8b88a673384c156f",
+    "outputs": [
+      "films/gebisa-ejeta/outputs/narration/s05.en.wav"
+    ],
+    "model": "gemini-3.8-flash-lite-tts",
+    "heard": "He went to work in rain-starved Northern Sudan, researching sorghum crops for five straight years."
+  },
+  "s06.en": {
+    "input_hash": "1c2da42aeb383e22",
+    "outputs": [
+      "films/gebisa-ejeta/outputs/narration/s06.en.wav"
+    ],
+    "model": "gemini-3.8-flash-tts",
+    "heard": "His drought tolerant hybrid produced yields up to 150% higher, covering 1 million acres in Sudan yearly."
+  },
+  "s07.en": {
+    "input_hash": "9f7d5d2f634b6598",
+    "outputs": [
+      "films/gebisa-ejeta/outputs/narration/s07.en.wav"
+    ],
+    "model": "gemini-3.8-flash-tts",
+    "heard": "At Purdue, he developed a mechanism to stop parasitic striga weeds from attacking sorghum crops."
+  },
+  "s08.en": {
+    "input_hash": "c2e29b3a9ea7a87c",
+    "outputs": [
+      "films/gebisa-ejeta/outputs/narration/s08.en.wav"
+    ],
+    "model": "gemini-3.8-flash-lite-tts",
+    "heard": "In 1994, 8 tons of his resistant seeds were distributed to 12 African nations."
+  },
+  "s09.en": {
+    "input_hash": "4d326b811fb5ca10",
+    "outputs": [
+      "films/gebisa-ejeta/outputs/narration/s09.en.wav"
+    ],
+    "model": "gemini-3.1-flash-tts-preview",
+    "heard": "Farmers planting them reported crop yields up to four times larger than traditional harvests."
+  },
+  "s10.en": {
+    "input_hash": "f6c405983ff59f48",
+    "outputs": [
+      "films/gebisa-ejeta/outputs/narration/s10.en.wav"
+    ],
+    "model": "gemini-3.8-flash-tts",
+    "heard": "President Biden awarded this scientist from Wlamcaney the National Medal of Science in 2023."
+  }
+}

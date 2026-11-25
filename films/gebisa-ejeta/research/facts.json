@@ -1,71 +1,132 @@
 {
-  "source_id": "wikipedia",
-  "source_permalink": "https://en.wikipedia.org/w/index.php?oldid=1384816634",
+  "sources": [
+    {
+      "source_id": "wikipedia",
+      "url": "https://en.wikipedia.org/w/index.php?oldid=1384816634"
+    },
+    {
+      "source_id": "web1",
+      "url": "https://www.purdue.edu/uns/x/2009b/091014EjetaPrize.html"
+    },
+    {
+      "source_id": "web2",
+      "url": "https://www.purdue.edu/uns/x/2009a/090611EjetaFoodprize.html"
+    }
+  ],
   "model": "gemini-3.5-flash",
   "facts": [
     {
       "id": "f01",
-      "text": "Gebisa Ejeta was born in 1950.",
-      "quote": "Gebisa Ejeta (born 1950) is an Ethiopian American plant breeder, geneticist and Professor at Purdue University."
-    },
-    {
-      "id": "f02",
-      "text": "Ejeta was born to Oromo parents in the remote village of Wollonkomi, Ethiopia.",
+      "source_id": "wikipedia",
+      "text": "Gebisa Ejeta was born in Wollonkomi, Ethiopia, to Oromo parents.",
       "quote": "Ejeta was born in the remote village Wollonkomi, Ethiopia to Oromo parents."
     },
     {
-      "id": "f03",
-      "text": "Encouraged by his mother, Ejeta walked 20 kilometres to the nearest elementary school every Sunday evening to spend the week there.",
+      "id": "f02",
+      "source_id": "wikipedia",
+      "text": "Encouraged by his mother, Ejeta walked 20 kilometres to the nearest elementary school every Sunday evening to stay there for the week.",
       "quote": "Encouraged by his mother, he walked 20 kilometres to the nearest elementary school every Sunday evening and spend the week there."
     },
     {
-      "id": "f04",
-      "text": "During primary school, Ejeta planned to study engineering when he reached college age.",
+      "id": "f03",
+      "source_id": "wikipedia",
+      "text": "During primary school, Ejeta intended to study engineering when he reached college age.",
       "quote": "During primary school, Ejeta planned to study engineering when he reached college age."
     },
     {
-      "id": "f05",
-      "text": "Ejeta's mother convinced him that he could do more working in agriculture.",
+      "id": "f04",
+      "source_id": "wikipedia",
+      "text": "Ejeta's mother convinced him that he could accomplish more by working in agriculture.",
       "quote": "However, his mother convinced him he could do more working in agriculture."
     },
     {
-      "id": "f06",
-      "text": "With assistance from Oklahoma State University, Ejeta attended an agricultural and technical secondary school in Ethiopia and studied at what is now Haramaya University.",
+      "id": "f05",
+      "source_id": "wikipedia",
+      "text": "With help from Oklahoma State University, Ejeta attended an agricultural and technical secondary school in Ethiopia and studied at what is now Haramaya University.",
       "quote": "With assistance from the Oklahoma State University, he attended an agricultural and technical secondary school in Ethiopia, and also studied at what is now Haramaya University."
     },
     {
+      "id": "f06",
+      "source_id": "web2",
+      "text": "Ejeta earned his master's and doctoral degrees in plant breeding and genetics from Purdue University in 1976 and 1978, respectively.",
+      "quote": "Ejeta received his master's and doctoral degrees in plant breeding and genetics from Purdue in 1976 and 1978, respectively."
+    },
+    {
       "id": "f07",
-      "text": "The university and the U.S. Agency for International Development helped Ejeta earn a doctorate from Purdue University.",
-      "quote": "The university and the U.S. Agency for International Development helped him earn a doctorate from Purdue University."
+      "source_id": "web1",
+      "text": "After receiving his doctorate from Purdue in 1978, Ejeta went to work in rain-starved northern Sudan.",
+      "quote": "His work took him to rain-starved northern Sudan after receiving a doctoral degree in plant breeding and genetics from Purdue in 1978."
     },
     {
       "id": "f08",
-      "text": "While working in Sudan in the early 1980s, Ejeta developed Africa's first commercial hybrid variety of sorghum tolerant to drought.",
-      "quote": "Working in Sudan during the early 1980s, Ejeta developed Africa's first commercial hybrid variety of sorghum tolerant to drought."
+      "source_id": "web2",
+      "text": "In the early 1980s, after five years of research in northern Sudan, Ejeta developed Hageen Dura-1, Africa's first commercial drought-tolerant sorghum hybrid.",
+      "quote": "Five years of research in rain-starved northern Sudan produced his first breakthrough in sorghum research in the early 1980s, when Ejeta developed the drought-tolerant cultivar Hageen Dura-1, the first commercial sorghum hybrid in Africa."
     },
     {
       "id": "f09",
-      "text": "With a colleague at Purdue University in Indiana, Ejeta discovered the chemical basis of the relationship between striga and sorghum and produced sorghum varieties resistant to both drought and striga.",
-      "quote": "Later, with a Purdue University colleague in Indiana, he discovered the chemical basis of the relationship between the deadly parasitic weed striga and sorghum, and was able to produce sorghum varieties resistant to both drought and striga."
+      "source_id": "web2",
+      "text": "Hageen Dura-1 produced yields up to 150 percent higher than traditional sorghum cultivars.",
+      "quote": "Hageen Dura-1 produced yields up to 150 percent higher than traditional sorghum cultivars."
     },
     {
       "id": "f10",
-      "text": "Ejeta is an Ethiopian American plant breeder, geneticist, and Professor at Purdue University.",
-      "quote": "Gebisa Ejeta (born 1950) is an Ethiopian American plant breeder, geneticist and Professor at Purdue University."
+      "source_id": "web2",
+      "text": "About 1 million acres of Hageen Dura-1 sorghum are grown in Sudan each year.",
+      "quote": "About 1 million acres of the drought-tolerant sorghum is grown in Sudan annually."
     },
     {
       "id": "f11",
-      "text": "In 2009, Ejeta won the World Food Prize for his contributions in the production of sorghum.",
-      "quote": "In 2009, he won the World Food Prize for his major contributions in the production of sorghum."
+      "source_id": "web2",
+      "text": "Ejeta joined the faculty at Purdue University in 1984.",
+      "quote": "He joined the Purdue faculty in 1984."
     },
     {
       "id": "f12",
-      "text": "In 2011, President Barack Obama appointed Ejeta as a member of the Board for International Food and Agricultural Development.",
-      "quote": "In 2011 President Barack Obama appointed Gebisa Ejeta as Member, Board for International Food and Agricultural Development."
+      "source_id": "web2",
+      "text": "Working with Purdue colleague Larry Butler, Ejeta identified the chemical exudate from sorghum that attracts parasitic Striga rootlets.",
+      "quote": "Working with late Purdue colleague Larry Butler, Ejeta identified the exudate - chemical signal - from sorghum that is picked up by Striga rootlets."
     },
     {
       "id": "f13",
-      "text": "President Biden awarded the National Medal of Science to Ejeta in 2023.",
+      "source_id": "web2",
+      "text": "Ejeta developed a biological mechanism to disrupt the chemical signal that attracts Striga to sorghum.",
+      "quote": "From there, he was able to develop a biological mechanism for interrupting the exudation process."
+    },
+    {
+      "id": "f14",
+      "source_id": "web2",
+      "text": "In 1994, eight tons of Ejeta's drought-tolerant and Striga-resistant sorghum seeds grown at a Purdue research farm were distributed to twelve African nations.",
+      "quote": "In 1994 eight tons of Ejeta's drought-tolerant and Striga-resistant sorghum seeds produced at a Purdue agricultural research farm were distributed to Eritrea, Ethiopia, Kenya, Mali, Mozambique, Niger, Rwanda, Senegal, Somalia, Sudan, Tanzania and Zimbabwe."
+    },
+    {
+      "id": "f15",
+      "source_id": "web2",
+      "text": "Farmers who planted the distributed seeds reported sorghum yields up to four times larger than traditional crops.",
+      "quote": "Farmers reported yields of as much as four times larger than traditional sorghum crops."
+    },
+    {
+      "id": "f16",
+      "source_id": "web2",
+      "text": "Secretary of State Hillary Clinton and World Food Prize Foundation President Kenneth Quinn announced Ejeta's World Food Prize at the U.S. Department of State.",
+      "quote": "The award announcement was made at the U.S. Department of State in Washington, D.C., by Secretary of State Hillary Clinton and World Food Prize Foundation President Kenneth Quinn."
+    },
+    {
+      "id": "f17",
+      "source_id": "web1",
+      "text": "Ejeta received the World Food Prize on October 15, 2009, for developing sorghum varieties resistant to drought and Striga.",
+      "quote": "On Thursday (Oct. 15), the plant breeder and geneticist received the World Food Prize for his work in developing sorghum varieties resistant to drought and Striga, a parasitic weed common on the African continent."
+    },
+    {
+      "id": "f18",
+      "source_id": "wikipedia",
+      "text": "President Barack Obama appointed Ejeta to the Board for International Food and Agricultural Development in 2011.",
+      "quote": "In 2011 President Barack Obama appointed Gebisa Ejeta as Member, Board for International Food and Agricultural Development."
+    },
+    {
+      "id": "f19",
+      "source_id": "wikipedia",
+      "text": "President Biden awarded Ejeta the National Medal of Science in 2023.",
       "quote": "The National Medal of Science was awarded to Ejeta by President Biden in 2023."
     }
   ]
