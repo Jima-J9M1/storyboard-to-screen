@@ -32,7 +32,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-from core import audio, paths, titles
+from core import audio, motion, paths, titles
 from core.cache import Cache
 from core.contracts import ValidationError, film_duration_s, load_brief, load_storyboard
 from core.files import write_json
@@ -201,7 +201,7 @@ def run(film_slug: str) -> int:
     key = input_hash(
         [_fingerprint(p) for p in needed], _fingerprint(score) if score else PLACEHOLDER,
         [(s["id"], s["duration_s"], s["subtitle_en"]) for s in board["shots"]], board["end_card"],
-        LAYOUT, TARGET_LUFS, TARGET_PEAK_DB, DUCK, VOICE_LEAD_S, "crf24",
+        LAYOUT, TARGET_LUFS, TARGET_PEAK_DB, DUCK, VOICE_LEAD_S, "crf24", "motion-report",
     )
     cache = Cache(film, STAGE)
     if cache.fresh("film", key):
@@ -234,6 +234,8 @@ def run(film_slug: str) -> int:
             }
             for shape, out in outputs.items()
         },
+        # Where the picture moves and where it stands still, measured from the film itself.
+        "motion_9x16": motion.shot_motion(outputs["9x16"], [(s["id"], s["duration_s"]) for s in board["shots"]]),
         "subtitles_9x16": [{k: c[k] for k in ("shot", "on_s", "off_s", "text")} for c in plans["9x16"]],
     }
     write_json(report_path, report)
@@ -242,6 +244,9 @@ def run(film_slug: str) -> int:
     for shape, facts in report["films"].items():
         print(f"assemble: {facts['file']}  {facts['duration_s']} s, {facts['loudness_lufs']} LUFS, "
               f"peak {facts['true_peak_db']} dB, {facts['subtitle_cards']} subtitle cards.")
+    still = sum(shot["still_s"] for shot in report["motion_9x16"])
+    freeze = max(shot["longest_freeze_s"] for shot in report["motion_9x16"])
+    print(f"assemble: the picture stands still for {still:.1f} s of the film; the longest freeze is {freeze:.1f} s.")
     if score is None:
         print("assemble: this is a rough cut. The music is a placeholder chord until a score is chosen.")
     return 0

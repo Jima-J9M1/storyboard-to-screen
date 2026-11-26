@@ -276,3 +276,41 @@ Frames taken from four clips showed the motion that was asked for: feet stepping
 **The run for the film.** The job was then run on the repainted pictures as two jobs at once, one per shape. Both made all ten clips with no retries: the tall job in 130 minutes (12.4 minutes a clip), the wide job in 144 minutes (13.7 minutes a clip). The change between first and last frame ranged from 4.8 (the dry soil) to 35.0 (the harvest bundle). All ten shots of the film now use generated video in both shapes; none fell back to a camera move.
 
 **Evidence.** `films/gebisa-ejeta/outputs/video/job_report-9x16.json` and `job_report-16x9.json` for the film's clips. `films/gebisa-ejeta/outputs/video_first_run/job_report.json` has the settings, time and peak memory for every clip of the first full run. `films/gebisa-ejeta/outputs/video/job_reports.json` keeps the failed run as well. `runs.jsonl`, stage `video`.
+
+## E11. Why does the generated video look paused, and how should a 3.4-second clip fill a 9-second shot?
+
+**Date:** 26 November 2026
+
+**Why.** The director watched the film with generated video and said the picture and the narration were out of balance: the video stops and waits for the narrator to finish, and looks paused.
+
+**Measuring it.** The film was sampled five times a second and each sample compared with the one before (`core/motion.py`). Only the upper part of the frame is compared, so a subtitle changing over a frozen picture does not count as movement. A stretch with no change is a freeze.
+
+**Hypothesis.** The freezes come from how the clip was fitted to the shot, not from the video model. A clip is 3.4 seconds; it was slowed to twice its length (6.75 s) and its last frame was then held until the shot ended. Stretching the clip across the whole shot, with computed in-between frames and a slow push-in, will remove the freeze.
+
+**Change.** Same clips, same film. Only the fitting changed: from "slow by two, then hold the last frame" to "stretch to the shot's exact length (2.2 to 3 times), no hold, plus a 5 % push-in over the whole shot".
+
+**Result.**
+
+| Shot | Length (s) | Still before (s) | Longest freeze before (s) | Still after (s) | Longest freeze after (s) |
+|---|---|---|---|---|---|
+| s01 | 9.05 | 2.2 | 2.2 | 0.0 | 0.0 |
+| s02 | 9.9 | 3.2 | 3.2 | 0.0 | 0.0 |
+| s03 | 7.4 | 1.2 | 0.8 | 0.0 | 0.0 |
+| s04 | 10.05 | 3.4 | 3.4 | 0.0 | 0.0 |
+| s05 | 7.7 | 6.0 | 4.4 | 0.0 | 0.0 |
+| s06 | 10.2 | 3.4 | 3.4 | 0.0 | 0.0 |
+| s07 | 8.0 | 1.4 | 1.4 | 0.0 | 0.0 |
+| s08 | 8.05 | 1.4 | 1.4 | 0.0 | 0.0 |
+| s09 | 7.85 | 1.2 | 1.2 | 0.0 | 0.0 |
+| s10 | 8.8 | 3.6 | 2.2 | 1.2 | 0.2 |
+| **Film** | **87.0** | **27.0** | **4.4** | **1.2** | **0.2** |
+
+The picture stood still for 27 of the film's 87 seconds of shots before, and 1.2 after. The time left is in the last shot, a medal on a table, where the clip itself has almost no movement.
+
+**A fault found on the way.** The first version of the new fitting produced clips about 0.2 seconds shorter than their shots, because the frame interpolator cannot make frames after the last real one. Ten shots made the film two seconds short and would have put the narration out of step with the pictures by the end. The stage now allows for it and refuses to save a clip whose length is wrong.
+
+**Decision.** Generated clips are stretched to fill their shots and are never held on a frozen frame. The Edit stage now measures and reports the film's standing-still time every time it cuts.
+
+**Limits.** No freeze does not mean good motion. Stretched three times, a clip is slow motion, with two of every three frames invented by FFmpeg. Fifteen frames were inspected and looked clean, but in shot s04 the glass beaker changes shape as the hands move, which is the video model's own distortion. The better fix is more real motion per shot: a second clip for each shot, continuing from the first one's last frame, was sent to Kaggle and will halve the stretch.
+
+**Evidence.** `films/gebisa-ejeta/outputs/film/report.json`, field `motion_9x16`, for the current film. `core/motion.py` for the method. `films/gebisa-ejeta/outputs/shots/moves.json` records how much each clip was slowed.

@@ -137,7 +137,7 @@ try:
     budget_s, last_s = JOB["budget_min"] * 60, 0.0
 
     for clip in JOB["clips"]:
-        name = f"{clip['shot']}.{clip['shape']}"
+        name = clip.get("name") or f"{clip['shot']}.{clip['shape']}"
         if time.time() - report["started"] + last_s * 1.15 > budget_s:
             report["skipped"].append(name)
             continue

@@ -18,9 +18,15 @@ A clip takes about 12.6 minutes on a Tesla T4 (EXPERIMENTS.md, E10), so ten shot
 shape is a two-hour job. `--shape` sends one shape only, as its own job, so the tall and the
 wide clips can be made side by side on two GPUs.
 
+A clip is 3.4 seconds and a shot is 7 to 10, so one clip cannot fill a shot without being
+slowed until it looks like slow motion, or frozen on its last frame (EXPERIMENTS.md, E11).
+`--part b` makes a second clip for each shot that starts from the last frame of the first
+and carries the motion on. The Moving shots stage joins the two.
+
 Usage:
     python -m pipeline.video --film gebisa-ejeta
     python -m pipeline.video --film gebisa-ejeta --shape 9x16   # the tall clips only, as their own job
+    python -m pipeline.video --film gebisa-ejeta --shape 9x16 --part b   # the second clip of each shot
     python -m pipeline.video --film gebisa-ejeta --collect      # fetch a job that already ran
 """
 
@@ -66,7 +72,18 @@ def clip_key(shot: dict, shape: str, picture: Path) -> str:
                       shot["seed"], shape, SIZES[shape], SETTINGS["steps"], SETTINGS["frames"])
 
 
-def run(film_slug: str, collect: bool = False, shape: str | None = None) -> int:
+def continuation_key(first_key: str, first_clip: Path) -> str:
+    """What a shot's second clip was made from: the first clip itself, since it starts from its last frame."""
+    return input_hash(first_key, "b", hashlib.sha256(first_clip.read_bytes()).hexdigest()[:16])
+
+
+def last_frame(clip: Path, out: Path) -> None:
+    out.parent.mkdir(parents=True, exist_ok=True)
+    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-sseof", "-0.2", "-i", str(clip),
+                    "-update", "1", "-frames:v", "1", "-q:v", "2", str(out)], check=True, capture_output=True)
+
+
+def run(film_slug: str, collect: bool = False, shape: str | None = None, part: str = "a") -> int:
     film = paths.film(film_slug)
     set_film(film.slug)
     try:
@@ -76,7 +93,7 @@ def run(film_slug: str, collect: bool = False, shape: str | None = None) -> int:
         print(err, file=sys.stderr)
         return 1
 
-    tag = f"-{shape}" if shape else ""
+    tag = (f"-{shape}" if shape else "") + ("-b" if part == "b" else "")
     out_dir, work = film.outputs / "video", film.outputs / "video" / f"work{tag}"
     cache = Cache(film, STAGE)
     wanted = [shot for shot in board["shots"] if shot["motion_mode"] == "video"]
@@ -94,6 +111,16 @@ def run(film_slug: str, collect: bool = False, shape: str | None = None) -> int:
                 return 1
             name = f"{shot['id']}.{clip_shape}"
             key = clip_key(shot, clip_shape, picture)
+            if part == "b":
+                first = out_dir / f"{name}.mp4"
+                if not (first.exists() and cache.fresh(name, key)):
+                    continue   # a second clip needs an up-to-date first clip to start from
+                name, key = f"{name}.b", continuation_key(key, first)
+                keys[name] = key
+                if not cache.fresh(name, key):
+                    clips.append({"shot": shot["id"], "shape": clip_shape, "file": f"{name}.jpg", "name": name,
+                                  "prompt": shot["motion_prompt"], "seed": shot["seed"] + 1, "from_clip": str(first)})
+                continue
             keys[name] = key
             if not cache.fresh(name, key):
                 clips.append({"shot": shot["id"], "shape": clip_shape, "file": f"{name}.jpg",
@@ -119,7 +146,10 @@ def run(film_slug: str, collect: bool = False, shape: str | None = None) -> int:
         inputs = work / "inputs"
         shutil.rmtree(inputs, ignore_errors=True)
         for clip in clips:
-            prepare_input(film.outputs / "keyframes" / f"{clip['shot']}.jpg", clip["shape"], inputs / clip["file"])
+            if clip.get("from_clip"):
+                last_frame(Path(clip.pop("from_clip")), inputs / clip["file"])
+            else:
+                prepare_input(film.outputs / "keyframes" / f"{clip['shot']}.jpg", clip["shape"], inputs / clip["file"])
         print(f"video: uploading {len(clips)} pictures to Kaggle ...")
         dataset = kaggle.upload_dataset(f"heritage-short-frames-{film.slug}{tag}"[:50], inputs)
         return checked(kaggle.run_job(slug, JOB_FILE, job, work, datasets=[dataset], timeout_s=5 * 3600, label="video"))
@@ -127,8 +157,8 @@ def run(film_slug: str, collect: bool = False, shape: str | None = None) -> int:
     try:
         report = logged_call(
             send, stage=STAGE, item=f"{len(clips)} clips", model=MODEL, seed=clips[0]["seed"],
-            params={k: v for k, v in SETTINGS.items()} | {"clips": [f"{c['shot']}.{c['shape']}" for c in clips]},
-            key=input_hash([keys[f"{c['shot']}.{c['shape']}"] for c in clips]), attempts=1,
+            params={k: v for k, v in SETTINGS.items()} | {"clips": [c.get("name") or f"{c['shot']}.{c['shape']}" for c in clips]},
+            key=input_hash([keys[c.get("name") or f"{c['shot']}.{c['shape']}"] for c in clips]), attempts=1,
             measure=lambda r: {"gpu_seconds": r.get("total_seconds"), "gpu": r.get("gpu"),
                                "per_candidate_s": [c["seconds"] for c in r.get("clips", []) if c.get("made")],
                                "clips_made": [c["clip"] for c in r.get("clips", []) if c.get("made")]},
@@ -156,7 +186,8 @@ def run(film_slug: str, collect: bool = False, shape: str | None = None) -> int:
     if made:
         print(f"video: {len(made)} clip(s) made ({', '.join(made)}), about {sum(times) / len(times) / 60:.1f} minutes each, "
               f"in a {report.get('total_seconds', 0) / 60:.0f}-minute GPU session.")
-    not_made = [f"{c['shot']}.{c['shape']}" for c in clips if f"{c['shot']}.{c['shape']}" not in made]
+    asked = [c.get("name") or f"{c['shot']}.{c['shape']}" for c in clips]
+    not_made = [name for name in asked if name not in made]
     if not_made:
         print(f"video: not made this time: {', '.join(not_made)}. Those shots keep their camera move. "
               "Run the stage again to ask for them.")
@@ -168,8 +199,10 @@ def main() -> int:
     parser.add_argument("--film", required=True, help="the film's folder name under films/")
     parser.add_argument("--collect", action="store_true", help="fetch the result of the job already on Kaggle; send nothing")
     parser.add_argument("--shape", choices=list(SIZES), help="make one shape only, as its own job")
+    parser.add_argument("--part", choices=["a", "b"], default="a",
+                        help="b makes each shot's second clip, continuing from the last frame of its first")
     args = parser.parse_args()
-    return run(args.film, args.collect, args.shape)
+    return run(args.film, args.collect, args.shape, args.part)
 
 
 if __name__ == "__main__":

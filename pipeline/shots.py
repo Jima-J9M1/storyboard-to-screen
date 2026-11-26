@@ -9,8 +9,9 @@ this machine. The move comes from the shot's motion_prompt: push in, pull back, 
 The picture is square; the tall and the wide clip are both cut from its middle.
 
 A shot whose motion_mode is "video" uses the clip the Video stage generated for it
-(outputs/video/<shot>.<shape>.mp4), if there is one. The model makes about three seconds;
-the clip is slowed, up to twice as long, and then holds its last frame to fill the shot.
+(outputs/video/<shot>.<shape>.mp4), if there is one, joined to its continuation (.b.mp4) if
+that exists too. The clips are stretched to last exactly as long as the shot, with a slow
+push-in over the whole of it, so the picture never stands still.
 If no generated clip exists for a shot, it gets the camera move instead and is listed as
 a fallback, so the film can always be cut.
 
@@ -32,7 +33,7 @@ from core.cache import Cache
 from core.contracts import ValidationError, load_brief, load_storyboard
 from core.files import write_json
 from core.runlog import input_hash
-from pipeline.video import STAGE as VIDEO_STAGE, clip_key
+from pipeline.video import STAGE as VIDEO_STAGE, clip_key, continuation_key
 
 STAGE = "shots"
 FPS = 25
@@ -92,7 +93,7 @@ def render(picture, out, shape: str, frames: int, expressions: tuple[str, str, s
     )
 
 
-MAX_SLOW = 2.0   # slower than this and generated motion starts to look like a slideshow
+PUSH = 0.05   # a generated clip also gets a slow 5 % push-in over the whole shot, so the frame is never dead
 
 
 def probe_seconds(path) -> float:
@@ -101,26 +102,45 @@ def probe_seconds(path) -> float:
     return float(done.stdout.strip())
 
 
-def render_generated(clip, out, shape: str, frames: int) -> tuple[float, float]:
-    """Fit a generated clip to its shot: slow it, hold the last frame, enlarge it. Returns (slow factor, seconds held)."""
+def render_generated(clips: list, out, shape: str, frames: int) -> float:
+    """Fit a shot's generated clips to the shot. Returns how much they were slowed.
+
+    The clips (one, or two where the second continues the first) are joined and stretched to
+    last exactly as long as the shot, with new in-between frames computed so the slower motion
+    stays smooth. Nothing is held on a frozen frame: a first version slowed the clip by two and
+    then froze its last frame, and the film stood still for 27 of its 87 seconds
+    (EXPERIMENTS.md, E11).
+    """
     width, height, _, _ = SHAPES[shape]
     target = frames / FPS
-    raw = probe_seconds(clip)
-    slow = max(1.0, min(MAX_SLOW, target / raw))
-    hold = max(0.0, target - raw * slow)
+    raw = sum(probe_seconds(clip) for clip in clips)
+    # The frame interpolator cannot make frames after the last real one, so the stretched clip
+    # comes out about two source frames short. The stretch allows for that, and one cloned
+    # frame's worth of padding guarantees the length; the push-in keeps running through it.
+    slow = max(1.0, target / (raw - 2 / 24))
+    inputs = [arg for clip in clips for arg in ("-i", str(clip))]
+    joined = "".join(f"[{n}:v]" for n in range(len(clips))) + f"concat=n={len(clips)}:v=1:a=0,"
+    last = max(frames - 1, 1)
     graph = (
-        f"setpts={slow:.4f}*PTS,"
-        f"minterpolate=fps={FPS}:mi_mode=mci:mc_mode=aobmc:me_mode=bidir:vsbmc=1,"   # new in-between frames, so slow motion stays smooth
-        f"tpad=stop_mode=clone:stop_duration={hold + 0.5:.3f},"
-        f"scale={width}:{height}:force_original_aspect_ratio=increase:flags=lanczos,crop={width}:{height},format=yuv420p"
+        f"{joined}setpts={slow:.4f}*PTS,"
+        f"minterpolate=fps={FPS}:mi_mode=mci:mc_mode=aobmc:me_mode=bidir:vsbmc=1:scd=none,"
+        f"tpad=stop_mode=clone:stop_duration=0.5,"
+        f"scale={width}:{height}:force_original_aspect_ratio=increase:flags=lanczos,crop={width}:{height},"
+        # the push-in: the frame grows a little every frame and its middle is kept
+        f"scale=w='2*trunc({width}*(1+{PUSH}*n/{last})/2)':h='2*trunc({height}*(1+{PUSH}*n/{last})/2)':eval=frame:flags=bicubic,"
+        f"crop={width}:{height},format=yuv420p"
     )
     out.parent.mkdir(parents=True, exist_ok=True)
     subprocess.run(
-        ["ffmpeg", "-y", "-loglevel", "error", "-i", str(clip), "-vf", graph, "-frames:v", str(frames),
+        ["ffmpeg", "-y", "-loglevel", "error", *inputs, "-filter_complex", graph, "-frames:v", str(frames),
          "-r", str(FPS), "-an", "-c:v", "libx264", "-preset", "medium", "-crf", "18", str(out)],
         check=True, capture_output=True, text=True,
     )
-    return slow, hold
+    made = probe_seconds(out)
+    if abs(made - target) > 1.5 / FPS:
+        # A clip of the wrong length puts every later narration line out of step with its picture.
+        raise RuntimeError(f"{out.name} is {made:.2f} s but its shot is {target:.2f} s")
+    return slow
 
 
 def run(film_slug: str) -> int:
@@ -150,25 +170,36 @@ def run(film_slug: str) -> int:
         for shape in SHAPES:
             item, out = f"{shot['id']}.{shape}", out_dir / f"{shot['id']}.{shape}.mp4"
             generated = film.outputs / "video" / f"{shot['id']}.{shape}.mp4"
+            second = film.outputs / "video" / f"{shot['id']}.{shape}.b.mp4"
             # A generated clip is used only if it was made from this shot's current picture and motion.
+            first_key = clip_key(shot, shape, picture)
             use_generated = (shot["motion_mode"] == "video" and generated.exists()
-                             and generated_clips.fresh(item, clip_key(shot, shape, picture)))
+                             and generated_clips.fresh(item, first_key))
+            clips = [generated]
+            if use_generated and second.exists() and generated_clips.fresh(f"{item}.b", continuation_key(first_key, generated)):
+                clips.append(second)   # the second clip carries the motion on from the first one's last frame
             if use_generated:
-                key = input_hash("generated", hashlib.sha256(generated.read_bytes()).hexdigest()[:16],
-                                 frames, SHAPES[shape], FPS, MAX_SLOW)
+                key = input_hash("generated-v3", [hashlib.sha256(c.read_bytes()).hexdigest()[:16] for c in clips],
+                                 frames, SHAPES[shape], FPS, PUSH)
+                seconds = sum(probe_seconds(c) for c in clips)
+                made_by[shape] = (f"{'two generated clips joined' if len(clips) == 2 else 'generated video'}, "
+                                  f"slowed {max(1.0, frames / FPS / seconds):.1f}x to fill the shot")
             else:
                 key = input_hash(look, frames, expressions, SHAPES[shape], FPS)
-            made_by[shape] = "generated video" if use_generated else f"camera move: {name}"
+                made_by[shape] = f"camera move: {name}"
             if cache.fresh(item, key):
                 reused += 1
                 continue
             try:
                 if use_generated:
-                    render_generated(generated, out, shape, frames)
+                    render_generated(clips, out, shape, frames)
                 else:
                     render(picture, out, shape, frames, expressions)
             except subprocess.CalledProcessError as err:
                 print(f"shots: FFmpeg failed on {item}:\n{err.stderr}", file=sys.stderr)
+                return 1
+            except RuntimeError as err:
+                print(f"shots: {err}", file=sys.stderr)
                 return 1
             cache.store(item, key, [out])
             made += 1
