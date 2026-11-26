@@ -32,6 +32,7 @@ Two halves, with a film's `storyboard.json` between them. Every command works on
 | `core/` | Shared plumbing: paths, contracts, run log, cache, HTTP, the text-model client, the status report. | Both halves use it; it depends on neither. |
 | `films/<name>/` | One film: its brief, storyboard, `research/`, `outputs/` and `cache/`. | Films never read each other's folders. `research/`, `outputs/` and `cache/` are written by runs, never by hand. |
 | `frontend/` | The production board, a Next.js app. | It gets every fact and every list of files from `python -m core.status`, and never decides a status itself. It serves the pictures, audio and video that list names, from a film's `outputs/` folder only. It changes the repo only through pipeline code, never by writing files itself: starting a new film (`core.films`), passing the director's note on one item to the Reviser (`agents.reviser`), and starting a stage (`core.run_stage`, which holds the list of stages that may be started this way). |
+| `deploy/` | The upload script and instructions for running the board and pipeline on a server (`Dockerfile` in the repo root). | It sends committed files only and sets no secrets. On a server every change needs `BOARD_PASSWORD` (`frontend/lib/guard.ts`). |
 | `schema/` | JSON Schemas for `brief.json` and `storyboard.json`. | Change the schema and its tests together. |
 | `tests/` | Unit tests. They use no network and no keys. | `make test` passes before any commit. |
 | `.claude/agents/` | Checker subagents used while building. | Never part of a run. |

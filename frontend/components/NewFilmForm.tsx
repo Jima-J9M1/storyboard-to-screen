@@ -1,5 +1,6 @@
 "use client";
 
+import { send } from "@/lib/send";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -15,17 +16,13 @@ export function NewFilmForm() {
     setBusy(true);
     setProblem(null);
     try {
-      const response = await fetch("/api/films", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
+      const response = await send("/api/films", {
           title: field("title"),
           audience: field("audience"),
           feeling: field("feeling"),
           languages: [field("language")],
           story: field("story"),
-        }),
-      });
+        });
       const body = await response.json();
       if (!response.ok) throw new Error(body.error || "The film could not be started.");
       router.push(`/films/${body.slug}`);

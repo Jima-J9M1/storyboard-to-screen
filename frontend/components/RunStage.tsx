@@ -1,5 +1,6 @@
 "use client";
 
+import { send } from "@/lib/send";
 import { useState } from "react";
 
 // A button that starts one stage, and shows what the stage said when it finished.
@@ -13,11 +14,7 @@ export function RunStage({ slug, stage, label, busy }: { slug: string; stage: st
     setResult(null);
     setProblem(null);
     try {
-      const response = await fetch(`/api/films/${slug}/run`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ stage }),
-      });
+      const response = await send(`/api/films/${slug}/run`, { stage });
       const body = await response.json();
       if (!response.ok) throw new Error(body.error || "The stage could not be started.");
       setResult(body);

@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // The board is a local tool. Nothing here is meant to be deployed.
+  // The board runs on the director's machine, or on a server behind a password (lib/guard.ts).
   devIndicators: false,
 };
 

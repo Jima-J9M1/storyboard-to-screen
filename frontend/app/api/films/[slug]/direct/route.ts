@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { refuse } from "@/lib/guard";
 import { direct, DIRECTABLE, isFilmName, PipelineError, type Directable } from "@/lib/pipeline";
 
 export const dynamic = "force-dynamic";
@@ -10,10 +11,8 @@ const fail = (status: number, error: string) => NextResponse.json({ error }, { s
 // the storyboard and remakes it; the note, the text before and the text after are recorded
 // in the film's direction log. Besides starting a film, this is the only thing the board changes.
 export async function POST(request: Request, { params }: { params: Promise<{ slug: string }> }) {
-  const origin = request.headers.get("origin");
-  if (origin && new URL(origin).host !== request.headers.get("host")) {
-    return fail(403, "This request did not come from the board.");
-  }
+  const refused = refuse(request);
+  if (refused) return refused;
   const { slug } = await params;
   if (!isFilmName(slug)) return fail(404, "Not a film name.");
 

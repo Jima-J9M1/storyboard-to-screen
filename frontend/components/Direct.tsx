@@ -1,5 +1,6 @@
 "use client";
 
+import { send } from "@/lib/send";
 import { useState } from "react";
 
 type Result = { after: string; what_changed: string; next: string };
@@ -29,16 +30,12 @@ export function Direct({
   const [problem, setProblem] = useState<string | null>(null);
   const [result, setResult] = useState<Result | null>(null);
 
-  async function send(again: boolean) {
+  async function sendNote(again: boolean) {
     setBusy(true);
     setProblem(null);
     setResult(null);
     try {
-      const response = await fetch(`/api/films/${slug}/direct`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ target, shot, note, reroll: again }),
-      });
+      const response = await send(`/api/films/${slug}/direct`, { target, shot, note, reroll: again });
       const body = await response.json();
       if (!response.ok) throw new Error(body.error || "The change could not be made.");
       setResult(body);
@@ -62,7 +59,7 @@ export function Direct({
       className="direct"
       onSubmit={(event) => {
         event.preventDefault();
-        send(false);
+        sendNote(false);
       }}
     >
       <label>
@@ -81,7 +78,7 @@ export function Direct({
           {busy ? waiting : "Make this change"}
         </button>
         {reroll && (
-          <button type="button" className="quiet-button" disabled={busy} onClick={() => send(true)}>
+          <button type="button" className="quiet-button" disabled={busy} onClick={() => sendNote(true)}>
             {reroll}
           </button>
         )}

@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { refuse } from "@/lib/guard";
 import { createFilm, isFilmName, PipelineError, repoState } from "@/lib/pipeline";
 
 export const dynamic = "force-dynamic";
@@ -17,11 +18,8 @@ export async function GET() {
 // Start a new film. This is the only thing the board can change, so it is checked twice:
 // here, and again by the pipeline before anything is written.
 export async function POST(request: Request) {
-  // Refuse requests that another website made the browser send.
-  const origin = request.headers.get("origin");
-  if (origin && new URL(origin).host !== request.headers.get("host")) {
-    return fail(403, "This request did not come from the board.");
-  }
+  const refused = refuse(request);
+  if (refused) return refused;
 
   let body: Record<string, unknown>;
   try {

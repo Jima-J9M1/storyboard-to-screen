@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { refuse } from "@/lib/guard";
 import { isFilmName, PipelineError, runStage } from "@/lib/pipeline";
 
 export const dynamic = "force-dynamic";
@@ -9,10 +10,8 @@ const fail = (status: number, error: string) => NextResponse.json({ error }, { s
 // Start one stage of a film from the board. Which stages may be started here, and what
 // starting one does, is decided by the pipeline (core/run_stage.py), not by this page.
 export async function POST(request: Request, { params }: { params: Promise<{ slug: string }> }) {
-  const origin = request.headers.get("origin");
-  if (origin && new URL(origin).host !== request.headers.get("host")) {
-    return fail(403, "This request did not come from the board.");
-  }
+  const refused = refuse(request);
+  if (refused) return refused;
   const { slug } = await params;
   if (!isFilmName(slug)) return fail(404, "Not a film name.");
   let body: Record<string, unknown>;

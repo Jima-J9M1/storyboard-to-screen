@@ -1,0 +1,11 @@
+.git
+.env
+.venv
+.private
+The Heritage Short*.md
+frontend/node_modules
+frontend/.next
+**/__pycache__
+films/*/outputs/film/work
+films/*/outputs/music/work
+films/*/outputs/video/work*

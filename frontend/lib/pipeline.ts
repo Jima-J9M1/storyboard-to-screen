@@ -8,7 +8,8 @@ import { execFile } from "node:child_process";
 import path from "node:path";
 
 const REPO = path.resolve(process.cwd(), "..");
-const PYTHON = path.join(REPO, ".venv", "bin", "python");
+// On a server the Python that has the pipeline's packages is named in BOARD_PYTHON.
+const PYTHON = process.env.BOARD_PYTHON || path.join(REPO, ".venv", "bin", "python");
 
 export class PipelineError extends Error {}
 
