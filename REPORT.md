@@ -79,7 +79,7 @@ With the reference sheet passed to the picture model as a guide image, the two w
 | GPU time for this film's video | 153 and 167 minutes on a Tesla T4 |
 | GPU time for this film's three score candidates | 5.0 minutes |
 
-More than half of all attempts failed, almost all because a free tier refused the call. On the day this film was made, the Script stage alone needed 103 attempts for 12 successes. The retry, fallback and cache code is what turned that into a finished film.
+More than half of all attempts failed, almost all because a free tier refused the call. Across the three films, the Script stage needed 103 attempts for 12 successes. The retry, fallback and cache code is what turned that into a finished film.
 
 The Addis AI voice is not in the assignment's free stack. It was used because the free Gemini voice quota was exhausted (F7). The committed audio is reused, so a clean clone rebuilds the film with no key and no call.
 
