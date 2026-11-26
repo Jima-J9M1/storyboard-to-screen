@@ -48,6 +48,16 @@ All three have free tiers and none needs a payment card. `.env` is ignored by gi
 
 Open `films/gebisa-ejeta/storyboard.json`, change one shot's `image_prompt` or its narration line, and run `make film` again. Only that shot's picture or audio is regenerated; everything else is reused. `runs.jsonl` gains one line per new model call, which is how you can see it.
 
+## Direct it with a note
+
+You do not have to edit the storyboard by hand. Say what is wrong with one thing and how to fix it:
+
+```
+python -m agents.reviser --film gebisa-ejeta --target picture --shot s08 --note "There are three hands. Show only two."
+```
+
+The Reviser rewrites that one picture's description and the picture is repainted; nothing else is touched. The same works for a narration `line`, a shot's `motion`, the `score` brief, the film's `look`, and its `world` (who and where). On the production board each picture and line has a button for this. Every note is kept in `films/<name>/direction.jsonl`.
+
 ## Make a film of your own
 
 ```

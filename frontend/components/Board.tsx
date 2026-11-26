@@ -1,8 +1,10 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useLive } from "@/lib/useLive";
 import type { FilmState, MediaFile, Stage, Who } from "@/lib/types";
+import { Direct } from "./Direct";
 
 const plural = (n: number, word: string) => `${n} ${word}${n === 1 ? "" : "s"}`;
 const clock = (ts: string) =>
@@ -13,6 +15,8 @@ const media = (slug: string, file: MediaFile) => `/api/films/${slug}/media/${fil
 const megabytes = (file: MediaFile) => `${(file.bytes / 1_000_000).toFixed(1)} MB`;
 
 const LANGUAGES: Record<string, string> = { en: "English", am: "Amharic", om: "Afaan Oromo", ti: "Tigrinya", so: "Somali" };
+
+const runtime = (seconds: number) => `${Math.floor(seconds / 60)} min ${Math.round(seconds % 60)} s`;
 
 const WHO: Record<Who, string> = { you: "You", agent: "Agents", code: "Code" };
 
@@ -25,6 +29,7 @@ function frameLabel(stage: Stage): string {
 export function Board({ initial, stage }: { initial: FilmState; stage?: string }) {
   const { value: film, problem } = useLive<FilmState>(`/api/films/${initial.slug}`, initial);
   const [picked, setPicked] = useState<string | null>(stage ?? null);
+  const [theatre, setTheatre] = useState(false);
 
   // Keep the chosen stage in the address, so a refresh or a shared link opens the same stage.
   function pick(id: string) {
@@ -35,6 +40,7 @@ export function Board({ initial, stage }: { initial: FilmState; stage?: string }
   const brief = film.brief ?? {};
   const current = film.stages.find((stage) => stage.current);
   const done = film.stages.filter((stage) => stage.done).length;
+  const hasFilm = Object.keys(film.outputs.film.shapes).length > 0;
   // The stage on show: the one the director clicked, otherwise the one the film is at.
   const shown = film.stages.find((stage) => stage.id === picked) ?? current ?? film.stages[film.stages.length - 1];
 
@@ -42,31 +48,61 @@ export function Board({ initial, stage }: { initial: FilmState; stage?: string }
     <>
       {problem && <p className="fail">The board lost touch with the repo: {problem}</p>}
 
-      <header className="wrap top">
-        <div>
+      <header className="hero">
+        {film.backdrop && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img className="hero-backdrop" src={media(film.slug, film.backdrop)} alt="" />
+        )}
+        <div className="wrap hero-inner">
+          <Link className="back" href="/">
+            All films
+          </Link>
           <h1 className="film-name">{brief.title || film.slug}</h1>
-          <p className="film-kind">
-            {[film.research.subject?.description, brief.languages && `Narrated in ${brief.languages.map((code) => LANGUAGES[code] ?? code).join(", ")}`]
-              .filter(Boolean)
-              .join(". ")}
-          </p>
-        </div>
-        <div className="progress">
-          <p>
-            {current
-              ? `${done} of ${film.stages.length} stages are done. The film is at ${current.name}.`
-              : `All ${film.stages.length} stages are done.`}{" "}
-            Choose a stage to see what it made.
-          </p>
-          {Object.keys(film.outputs.film.shapes).length > 0 && shown.id !== "assembly" && (
-            <button type="button" className="watch" onClick={() => pick("assembly")}>
-              Watch the film
-            </button>
-          )}
+          <ul className="meta">
+            {film.runtime_s != null && <li>{runtime(film.runtime_s)}</li>}
+            {brief.languages && (
+              <li>Narrated in {brief.languages.map((code) => LANGUAGES[code] ?? code).join(", ")}</li>
+            )}
+            {film.storyboard && <li>English subtitles</li>}
+            {film.storyboard && <li>{plural(film.storyboard.shots.length, "shot")}</li>}
+            <li className={hasFilm && !film.outputs.film.placeholder_music ? "tag done" : "tag"}>
+              {!hasFilm ? `${done} of ${film.stages.length} stages done` : film.outputs.film.placeholder_music ? "Rough cut" : "Finished"}
+            </li>
+          </ul>
+          {film.research.subject?.description && <p className="film-kind">{film.research.subject.description}</p>}
+          {brief.feeling && <p className="logline">{brief.feeling}</p>}
+          <div className="hero-keys">
+            {hasFilm && (
+              <button type="button" className="watch" onClick={() => setTheatre(true)}>
+                Watch the film
+              </button>
+            )}
+            <a className="how" href="#stages">
+              {current ? `See the stages. It is at ${current.name}.` : "See how it was made"}
+            </a>
+          </div>
         </div>
       </header>
 
-      <div className="strip-scroll">
+      {film.credits.length > 1 && (
+        <section className="credits" aria-label="Credits">
+          <dl className="wrap">
+            {film.credits.map((credit) => (
+              <div key={credit.role}>
+                <dt>{credit.role}</dt>
+                <dd>
+                  {credit.who}
+                  {credit.note && <span>{credit.note}</span>}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+      )}
+
+      {theatre && hasFilm && <Theatre film={film} close={() => setTheatre(false)} />}
+
+      <div className="strip-scroll" id="stages">
         <ol className="strip full" aria-label="Production stages. Choose one to see what it made.">
           {film.stages.map((stage) => (
             <li key={stage.id}>
@@ -131,10 +167,46 @@ export function Board({ initial, stage }: { initial: FilmState; stage?: string }
           <h3 className="made">What {shown.name} made</h3>
           <StageOutput stage={shown} film={film} />
           <StageCalls stage={shown} film={film} />
+          <DirectionLog film={film} />
         </section>
         <p className="foot">Read from the repo every five seconds. This page changes nothing.</p>
       </main>
     </>
+  );
+}
+
+// ---------- watching the film ----------
+
+function Theatre({ film, close }: { film: FilmState; close: () => void }) {
+  const shapes = film.outputs.film.shapes;
+  const [shape, setShape] = useState(shapes["16x9"] ? "16x9" : Object.keys(shapes)[0]);
+  const names: Record<string, string> = { "9x16": "Tall", "16x9": "Wide" };
+  useEffect(() => {
+    const onKey = (event: KeyboardEvent) => event.key === "Escape" && close();
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  });
+  const file = shapes[shape];
+  return (
+    <div className="theatre" role="dialog" aria-modal="true" aria-label={`${film.brief?.title ?? film.slug}, the film`} onClick={close}>
+      <div className={`screen s${shape}`} onClick={(event) => event.stopPropagation()}>
+        <video key={file.path + file.v} controls autoPlay src={media(film.slug, file)} />
+        <div className="theatre-keys">
+          {Object.keys(shapes).map((name) => (
+            <button key={name} type="button" aria-pressed={name === shape} onClick={() => setShape(name)}>
+              {names[name] ?? name}
+            </button>
+          ))}
+          <span>
+            {film.outputs.film.placeholder_music ? "Rough cut: placeholder music. " : ""}
+            {film.film_is_stale ? "Older than its storyboard." : ""}
+          </span>
+          <button type="button" onClick={close}>
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -333,6 +405,24 @@ function ScriptOutput({ film }: { film: FilmState }) {
                   <dd>{shot.fact_ids.join(", ") || "none"}</dd>
                 </div>
               </dl>
+              <div className="direct-row">
+                <Direct
+                  slug={film.slug}
+                  target="line"
+                  shot={shot.id}
+                  label="Change this line"
+                  placeholder="What should the narrator say differently? It may only use the facts listed for this shot."
+                  waiting="Rewriting and re-recording, about a minute"
+                />
+                <Direct
+                  slug={film.slug}
+                  target="motion"
+                  shot={shot.id}
+                  label="Change the motion"
+                  placeholder="What should move, and how should the camera move?"
+                  waiting="Rewriting"
+                />
+              </div>
             </div>
           </li>
         ))}
@@ -370,7 +460,7 @@ function RadioCutOutput({ film }: { film: FilmState }) {
   );
 }
 
-type Picture = { file: MediaFile; title: string; text: string };
+type Picture = { file: MediaFile; title: string; text: string; shot?: string };
 
 function PicturesOutput({ film }: { film: FilmState }) {
   const out = film.outputs;
@@ -392,6 +482,7 @@ function PicturesOutput({ film }: { film: FilmState }) {
       file: picture,
       title: `${shot.id}, seed ${shot.seed}, ${shot.use_reference ? "guided by the reference sheet" : "style description only"}`,
       text: shot.image_prompt,
+      shot: shot.id,
     });
   }
   if (pictures.length === 0) return <Nothing>No pictures yet.</Nothing>;
@@ -423,9 +514,36 @@ function PicturesOutput({ film }: { film: FilmState }) {
             </button>
             <b>{picture.title}</b>
             <span>{picture.text}</span>
+            {picture.shot && (
+              <Direct
+                slug={film.slug}
+                target="picture"
+                shot={picture.shot}
+                label="Fix this picture"
+                placeholder="What is wrong, and how should it look? For example: there are three hands, show only two."
+                waiting="Repainting, about a minute"
+                reroll="Just try another version"
+              />
+            )}
           </li>
         ))}
       </ul>
+      <div className="direct-row">
+        <Direct
+          slug={film.slug}
+          target="world"
+          label="Change who and where, for every picture"
+          placeholder="What is wrong with the people, dress, homes or land across the film?"
+          waiting="Repainting every picture, several minutes"
+        />
+        <Direct
+          slug={film.slug}
+          target="look"
+          label="Change the look of every picture"
+          placeholder="How should the style change? For example: less golden, cooler morning light."
+          waiting="Repainting every picture, several minutes"
+        />
+      </div>
       {missing.length > 0 && <p className="quiet">Not made yet: {missing.join(", ")}.</p>}
       {open !== null && pictures[open] && (
         <Viewer slug={film.slug} pictures={pictures} at={open} go={setOpen} />
@@ -531,6 +649,13 @@ function MusicOutput({ film }: { film: FilmState }) {
           </div>
         </dl>
       )}
+      <Direct
+        slug={film.slug}
+        target="score"
+        label="Change the score brief"
+        placeholder="How should the music be different? For example: slower, with a krar, no strings."
+        waiting="Rewriting"
+      />
       {music.candidates.length === 0 ? (
         <Nothing>
           No score candidates yet. They are generated on a Kaggle GPU, which can wait in a queue before it starts.
@@ -707,6 +832,12 @@ function EditOutput({ film }: { film: FilmState }) {
   if (shapes.length === 0) return <Nothing>No film yet.</Nothing>;
   return (
     <>
+      {film.film_is_stale && (
+        <div className="notice">
+          <strong>This film is older than its storyboard</strong>
+          Something was changed after it was cut. Run <code>make film FILM={film.slug}</code> to cut it again.
+        </div>
+      )}
       {out.placeholder_music && (
         <div className="notice">
           <strong>This is a rough cut</strong>
@@ -730,6 +861,34 @@ function EditOutput({ film }: { film: FilmState }) {
         ))}
       </div>
     </>
+  );
+}
+
+// ---------- what the director has asked for ----------
+
+const DIRECTED: Record<string, string> = {
+  picture: "Picture", line: "Line", motion: "Motion", score: "Score brief", look: "Look", world: "Who and where",
+};
+
+function DirectionLog({ film }: { film: FilmState }) {
+  if (film.direction.length === 0) return null;
+  return (
+    <details className="calls">
+      <summary>{plural(film.direction.length, "note")} you have given on this film</summary>
+      <ol className="notes">
+        {film.direction.map((entry, n) => (
+          <li key={`${entry.ts}-${n}`}>
+            <b>
+              {DIRECTED[entry.target] ?? entry.target}
+              {entry.shot ? `, ${entry.shot}` : ""}
+            </b>
+            <span className="quiet"> {new Date(entry.ts).toLocaleString()}</span>
+            <p>&ldquo;{entry.note}&rdquo;</p>
+            <p className="quiet">{entry.what_changed}</p>
+          </li>
+        ))}
+      </ol>
+    </details>
   );
 }
 

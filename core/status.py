@@ -351,6 +351,61 @@ def _outputs(film: paths.Film, board: dict | None) -> dict:
     }
 
 
+def _credits(film: paths.Film, board: dict | None, research: dict, outputs: dict) -> list[dict]:
+    """Who made what, as a film's credits: the director, and the model behind each part."""
+    credits = [{"role": "Directed by", "who": "You", "note": "story, audience, feeling, and every approval"}]
+
+    def draft_model(name: str) -> str | None:
+        return (_read_json(film.dir / "draft" / f"{name}.json") or {}).get("model")
+
+    if research["facts"]:
+        credits.append({"role": "Research", "who": research["facts_model"] or "not recorded",
+                        "note": f"{len(research['facts'])} facts from {len(research['sources'])} sources"})
+    if board:
+        for role, name in (("Script", "screenwriter"), ("Storyboard", "storyboard_artist"), ("Score brief", "composer")):
+            if draft_model(name):
+                credits.append({"role": role, "who": draft_model(name), "note": ""})
+        for language in board["languages"]:
+            if language != "en" and draft_model(f"translator_{language}"):
+                credits.append({"role": "Translation", "who": draft_model(f"translator_{language}"), "note": language})
+        shots = outputs["shots"].values()
+        if any(shot["picture"] for shot in shots):
+            credits.append({"role": "Pictures", "who": "FLUX.2 klein 4B", "note": "on Cloudflare Workers AI"})
+        voices = sorted({line["model"] for shot in shots for line in shot["narration"].values() if line.get("model")})
+        if voices:
+            credits.append({"role": "Narrator", "who": ", ".join(voices), "note": f"voice \"{board['voice']['name']}\""})
+        generated = sum(1 for shot in shots if shot["move"] and "generated" in shot["move"])
+        moved = sum(1 for shot in shots if shot["move"])
+        if moved:
+            who = "Wan 2.2 TI2V-5B" if generated == moved else "FFmpeg camera moves" if generated == 0 else "Wan 2.2 TI2V-5B and FFmpeg camera moves"
+            credits.append({"role": "Motion", "who": who, "note": f"{generated} of {moved} shots are generated video"})
+        if outputs["music"]["candidates"]:
+            chosen = outputs["music"]["chosen_seed"]
+            credits.append({"role": "Score", "who": "ACE-Step 1.5",
+                            "note": f"candidate {chosen}, chosen by you" if chosen is not None else "no candidate chosen yet"})
+        if outputs["film"]["shapes"]:
+            credits.append({"role": "Edit", "who": "FFmpeg and Pillow", "note": "cut, mix, subtitles, end card"})
+    return credits
+
+
+def _direction(film: paths.Film) -> list[dict]:
+    """The notes the director has given, newest first."""
+    path = film.dir / "direction.jsonl"
+    if not path.exists():
+        return []
+    notes = [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
+    return [{k: n.get(k) for k in ("ts", "target", "shot", "note", "before", "after", "what_changed")} for n in reversed(notes)]
+
+
+def _film_is_stale(film: paths.Film) -> bool:
+    """True when the storyboard or a picture has changed since the film was cut."""
+    cut = film.outputs / "film" / "report.json"
+    if not cut.exists() or not film.storyboard.exists():
+        return False
+    newest = max([film.storyboard.stat().st_mtime, *(p.stat().st_mtime for p in (film.outputs / "keyframes").glob("s*.jpg"))])
+    return newest > cut.stat().st_mtime
+
+
 def film_state(slug: str) -> dict:
     """Everything about one film."""
     film = paths.film(slug)
@@ -359,13 +414,20 @@ def film_state(slug: str) -> dict:
     brief, brief_problems = _brief(film)
     research = _research(film)
     board, board_problems = _storyboard(film)
+    outputs = _outputs(film, board)
+    shapes = outputs["film"]["shapes"]
     return {
         "slug": slug,
         "brief": brief,
         "stages": _stages(film, brief_problems, research, board, board_problems),
         "research": research,
         "storyboard": board,
-        "outputs": _outputs(film, board),
+        "outputs": outputs,
+        "credits": _credits(film, board, research, outputs),
+        "runtime_s": next((shape["duration_s"] for shape in shapes.values()), None),
+        "backdrop": next((shot["picture"] for shot in outputs["shots"].values() if shot["picture"]), None),
+        "direction": _direction(film),
+        "film_is_stale": _film_is_stale(film),
         "runs": _runs(slug),
     }
 
@@ -390,6 +452,11 @@ def repo_state() -> dict:
             "languages": (state["brief"] or {}).get("languages") or [],
             "poster": next((shot["picture"] for shot in state["outputs"]["shots"].values() if shot["picture"]), None),
             "has_film": bool(state["outputs"]["film"]["shapes"]),
+            "rough_cut": bool(state["outputs"]["film"]["placeholder_music"]),
+            "runtime_s": state["runtime_s"],
+            "feeling": (state["brief"] or {}).get("feeling"),
+            "film": state["outputs"]["film"]["shapes"],
+            "shots": len((state["storyboard"] or {}).get("shots", [])),
             "description": (state["research"]["subject"] or {}).get("description"),
             "stages": [{"id": s["id"], "name": s["name"], "status": s["status"], "who": s["who"]} for s in state["stages"]],
             "done": sum(s["done"] for s in state["stages"]),

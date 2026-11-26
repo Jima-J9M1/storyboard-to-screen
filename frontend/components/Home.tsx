@@ -6,32 +6,66 @@ import type { FilmSummary, RepoState } from "@/lib/types";
 import { NewFilmForm } from "./NewFilmForm";
 
 function where(film: FilmSummary): string {
+  if (!film.current && film.rough_cut) return "Rough cut: no score chosen yet.";
   if (!film.current) return `All ${film.total} stages are done.`;
   const lead = film.current.who === "you" ? "Your turn:" : film.current.status === "blocked" ? "Blocked at" : "Up next:";
   return `${lead} ${film.current.name}. ${film.done} of ${film.total} stages done.`;
 }
 
 const LANGUAGES: Record<string, string> = { en: "English", am: "Amharic", om: "Afaan Oromo", ti: "Tigrinya", so: "Somali" };
+const spokenIn = (film: FilmSummary) => film.languages.map((code) => LANGUAGES[code] ?? code).join(", ");
+const runtime = (seconds: number) => `${Math.floor(seconds / 60)} min ${Math.round(seconds % 60)} s`;
+const still = (film: FilmSummary) => (film.poster ? `/api/films/${film.slug}/media/${film.poster.path}?v=${film.poster.v}` : null);
 
-function FilmRow({ film }: { film: FilmSummary }) {
-  const spoken = film.languages.map((code) => LANGUAGES[code] ?? code).join(", ");
+// The film at the top of the page: the most finished one.
+function Featured({ film }: { film: FilmSummary }) {
+  const picture = still(film);
+  return (
+    <header className="hero home">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      {picture && <img className="hero-backdrop" src={picture} alt="" />}
+      <div className="wrap hero-inner">
+        <p className="now-showing">{film.rough_cut ? "Latest rough cut" : "Now showing"}</p>
+        <h1 className="film-name">{film.title}</h1>
+        <ul className="meta">
+          {film.runtime_s != null && <li>{runtime(film.runtime_s)}</li>}
+          {spokenIn(film) && <li>Narrated in {spokenIn(film)}</li>}
+          <li>English subtitles</li>
+          <li>{film.shots} shots</li>
+        </ul>
+        {film.feeling && <p className="logline">{film.feeling}</p>}
+        <div className="hero-keys">
+          <Link className="watch" href={`/films/${film.slug}?stage=assembly`}>
+            Watch the film
+          </Link>
+          <Link className="how" href={`/films/${film.slug}`}>
+            See how it was made
+          </Link>
+        </div>
+      </div>
+    </header>
+  );
+}
+
+function FilmCard({ film }: { film: FilmSummary }) {
+  const picture = still(film);
   return (
     <li>
-      <Link className="film-row" href={`/films/${film.slug}${film.has_film ? "?stage=assembly" : ""}`}>
-        {film.poster ? (
+      <Link className="card" href={`/films/${film.slug}${film.has_film ? "?stage=assembly" : ""}`}>
+        {picture ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img className="poster" src={`/api/films/${film.slug}/media/${film.poster.path}?v=${film.poster.v}`} alt="" loading="lazy" />
+          <img className="card-poster" src={picture} alt="" loading="lazy" />
         ) : (
-          <div className="poster none" aria-hidden="true" />
+          <div className="card-poster none">No picture yet</div>
         )}
-        <div className="about">
-          <span className="film-title">{film.title}</span>
-          <span className="quiet">{[film.description, spoken && `Narrated in ${spoken}`].filter(Boolean).join(". ")}</span>
-          <span className="where">{where(film)}</span>
-        </div>
-        <ol className="strip mini" aria-hidden="true">
+        <span className="film-title">{film.title}</span>
+        <span className="quiet">
+          {[film.runtime_s != null && runtime(film.runtime_s), spokenIn(film)].filter(Boolean).join(", ")}
+        </span>
+        <span className="where">{where(film)}</span>
+        <ol className="bar" aria-hidden="true">
           {film.stages.map((stage) => (
-            <li key={stage.id} className={`frame ${stage.status}`} title={stage.name} />
+            <li key={stage.id} className={stage.status} title={stage.name} />
           ))}
         </ol>
       </Link>
@@ -42,23 +76,27 @@ function FilmRow({ film }: { film: FilmSummary }) {
 export function Home({ initial }: { initial: RepoState }) {
   const { value: state, problem } = useLive<RepoState>("/api/films", initial);
   const written = state.docs.filter((doc) => doc.exists).length;
+  // Feature a finished film if there is one, otherwise the latest rough cut.
+  const featured = state.films.find((film) => film.has_film && !film.rough_cut) ?? state.films.find((film) => film.has_film);
 
   return (
     <>
       {problem && <p className="fail">The board lost touch with the repo: {problem}</p>}
-      <header className="wrap masthead">
-        <h1>Films</h1>
-        <p>
-          Each film starts as a title. Agents research it and draft a storyboard, you direct it, and the pipeline
-          renders it. This page reads the repo every five seconds.
-        </p>
-      </header>
+      {featured ? (
+        <Featured film={featured} />
+      ) : (
+        <header className="wrap masthead">
+          <h1>Films</h1>
+          <p>Each film starts as a title. Agents research it and draft a storyboard, you direct it, and the pipeline renders it.</p>
+        </header>
+      )}
 
       <main className="wrap">
+        <h2 className="shelf">All films</h2>
         {state.films.length ? (
-          <ul className="films">
+          <ul className="cards">
             {state.films.map((film) => (
-              <FilmRow key={film.slug} film={film} />
+              <FilmCard key={film.slug} film={film} />
             ))}
           </ul>
         ) : (

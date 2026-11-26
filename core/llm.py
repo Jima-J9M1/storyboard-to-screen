@@ -19,6 +19,10 @@ API_URL = "https://generativelanguage.googleapis.com/v1beta/models/{model}:gener
 # Tried in order. A model is given three attempts before the next one is used, because the
 # free tier answers "503 high demand" for minutes at a time on the newest model.
 TEXT_MODELS = ["gemini-3.8-flash", "gemini-3.7-flash", "gemini-3.5-flash"]
+# Tried after those when all three are over their daily quota, which happened on the second
+# morning. They are kept out of TEXT_MODELS because that list is part of every agent's cache
+# key: adding to it would make all the finished drafts look out of date.
+LAST_RESORT_MODELS = ["gemini-3.5-flash-lite", "gemini-3.1-flash-lite"]
 
 
 def worth_retrying(err: Exception) -> bool:
@@ -102,7 +106,7 @@ def generate_json(
         return response
 
     key = key or request_key(system, prompt, temperature, seed, models)
-    for model in models:
+    for model in [*models, *(m for m in LAST_RESORT_MODELS if m not in models)]:
         try:
             logged_call(
                 lambda: call(model), stage=stage, item=item, model=model, params=params,

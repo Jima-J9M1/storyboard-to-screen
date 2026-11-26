@@ -99,6 +99,8 @@ Each agent owns named fields of the storyboard and writes nothing else. `agents/
 
 **Who and where.** The storyboard carries a `world_block`: conditional rules for how the story's people, homes, land and crops look when they appear ("Any person is ...", "Any village home is ..."). The Storyboard artist writes it from the researched facts and the picture stage adds it to every prompt. Without it the picture model drew people and places from its own defaults; written as a plain description it put villagers into every shot (EXPERIMENTS.md, E6).
 
+**Directing with a note.** Editing a JSON file is a poor way to direct. The director can instead say what is wrong with one thing a stage made ("there are three hands, show only two"). The Reviser agent rewrites the one storyboard field that produced it, under the same checks as the first draft, and the stage remakes that one item; the cache leaves everything else alone. Every note is appended to the film's `direction.jsonl` with the text before and after, so the film's history shows what a person decided. The film's rules outrank a note: a note cannot get a protected person named in a picture.
+
 **The director owns the storyboard.** The agents write `storyboard.json` only when the film has none. After that a new draft goes to `storyboard.draft.json`, so re-running the agents can never undo the director's edits.
 
 **The quote check.** A language model can state things its source does not say. So the Researcher must return, with every fact, the exact words from the source that support it, and code checks that those words are in the text of the source the fact names. A reply with a quote that is not there word for word is rejected and retried. Later agents may only narrate facts from this list.
@@ -196,7 +198,7 @@ The cost and latency tables in `COSTS.md` will be generated from this file by a 
 | Page | Shows |
 |---|---|
 | `/` | every film with a strip of its nine stages, a form to start a new film, and the repo's paperwork: required documents, experiments, failures |
-| `/films/<name>` | one film: its brief, the stage it is at and what blocks it; the finished films, radio cut and score candidates, playable in the page; the storyboard with each shot's picture and narration audio; the sources and facts; its part of the run log |
+| `/films/<name>` | one film, laid out like a film's page on a film site: its picture behind its title, running time and language, a button that plays it full screen, and credits naming the model behind each part. Below that, its brief, the stage it is at and what blocks it; the finished films, radio cut and score candidates, playable in the page; the storyboard with each shot's picture and narration audio; the sources and facts; its part of the run log |
 
 **Problem.** A second program that reads the repo would need its own idea of what "done" and "valid" mean, and the two would drift apart.
 
@@ -204,7 +206,7 @@ The cost and latency tables in `COSTS.md` will be generated from this file by a 
 
 The board also serves the generated files themselves, so they can be looked at and played. It serves only what the status report lists, only pictures, sound and video, and only from inside a film's `outputs/` folder; a request for anything else gets "not found".
 
-The board can change one thing: it can start a new film, by running `python -m core.films new`, which validates the brief before writing it. It cannot run a stage, edit a storyboard or call a model. It listens on this machine only, runs commands without a shell, and refuses a request to start a film that comes from another website. The pipeline does not need it.
+The board changes the repo in two ways, both by running pipeline code and never by writing files itself. It can start a new film (`python -m core.films new`), and it can pass the director's note on one item to the Reviser (`python -m agents.reviser`), which is the one place the board causes a model to be called. It cannot run a whole stage or edit a storyboard directly. It listens on this machine only, runs commands without a shell, and refuses a request to start a film that comes from another website. The pipeline does not need it.
 
 ## Text on screen
 

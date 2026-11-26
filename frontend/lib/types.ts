@@ -112,6 +112,14 @@ export type FilmState = {
     end_card: { text: string; duration_s: number };
   } | null;
   outputs: Outputs;
+  // Who made what: the director, and the model behind each part.
+  credits: { role: string; who: string; note: string }[];
+  runtime_s: number | null;
+  backdrop: MediaFile | null;
+  // Notes the director has given, newest first.
+  direction: { ts: string; target: string; shot: string | null; note: string; before: string; after: string; what_changed: string }[];
+  // True when the storyboard or a picture is newer than the film that was cut from them.
+  film_is_stale: boolean;
   runs: {
     attempts: number;
     ok: number;
@@ -129,6 +137,10 @@ export type FilmSummary = {
   languages: string[];
   poster: MediaFile | null;
   has_film: boolean;
+  rough_cut: boolean;
+  runtime_s: number | null;
+  feeling: string | null;
+  shots: number;
   description: string | null;
   stages: { id: string; name: string; status: StageStatus; who: Who }[];
   done: number;

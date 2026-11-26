@@ -22,7 +22,19 @@ The film half (`pipeline/`) then renders the storyboard with no agent involved.
 | Composer | `agents/story.py`, `prompts/composer.md` | `music` | Built |
 | Translator | `agents/story.py`, `prompts/translator.md` | each shot's `narration` in every language other than English | Built |
 
-Order: Researcher → Screenwriter → Storyboard artist → Composer → Translator.
+| Reviser | `agents/reviser.py`, `prompts/reviser.md` | whichever single field the director's note is about: one shot's picture, line or motion, or the film's score brief, look or world | Built |
+
+Order: Researcher → Screenwriter → Storyboard artist → Composer → Translator. The Reviser runs afterwards, whenever the director gives a note.
+
+## Directing with a note
+The director looks at what a stage made and writes what is wrong and how to fix it. The Reviser rewrites the one field that produced it, under the same rules the first draft was held to, and the stage remakes that one item. Each note is appended to `films/<name>/direction.jsonl` with the text before and after.
+
+```
+python -m agents.reviser --film gebisa-ejeta --target picture --shot s08 --note "There are three hands. Show only two."
+python -m agents.reviser --film gebisa-ejeta --target picture --shot s08 --reroll
+```
+
+The film's rules outrank a note. Asked for boots on a runner the film's world block says is always barefoot, the Reviser kept the feet out of the picture and said why.
 
 The director owns `storyboard.json`. The agents write it only when the film has none; after that a new draft goes to `storyboard.draft.json` and never overwrites the director's edits.
 

@@ -1084,3 +1084,343 @@ table.candidates audio {
     gap: 0;
   }
 }
+
+/* ---- directing: a note beside something a stage made ---- */
+.direct-open {
+  font: 600 0.875rem var(--text);
+  color: var(--grain);
+  background: none;
+  border: 1px solid currentColor;
+  border-radius: 3px;
+  padding: 5px 10px;
+  cursor: pointer;
+  justify-self: start;
+  margin-top: 4px;
+}
+.direct {
+  display: grid;
+  gap: 8px;
+  background: var(--sheet);
+  border-left: 4px solid var(--grain);
+  padding: 12px 14px;
+  margin-top: 6px;
+}
+.direct label {
+  display: grid;
+  gap: 6px;
+  font-weight: 600;
+  font-size: 0.9375rem;
+}
+.direct textarea {
+  font: inherit;
+  font-weight: 400;
+  min-height: 4.5rem;
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--ink-soft);
+  border-radius: 3px;
+  background: #fff;
+  color: var(--ink);
+  resize: vertical;
+}
+.direct-keys {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.direct-keys button {
+  font: 600 0.875rem var(--text);
+  background: var(--ink);
+  color: var(--field);
+  border: 0;
+  border-radius: 3px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+.direct-keys button[disabled] {
+  opacity: 0.55;
+  cursor: progress;
+}
+.direct-keys .quiet-button {
+  background: none;
+  color: var(--ink);
+  border: 1px solid var(--ink-soft);
+}
+.direct p {
+  margin: 0;
+  font-size: 0.9375rem;
+}
+.direct-done {
+  color: var(--leaf);
+}
+.direct-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: start;
+  margin-top: 8px;
+}
+.direct-row .direct {
+  flex: 1 1 320px;
+}
+.notes {
+  margin: 12px 0 0;
+  padding-left: 1.2rem;
+  display: grid;
+  gap: 12px;
+  max-width: 76ch;
+}
+.notes p {
+  margin: 2px 0 0;
+}
+
+/* ---- third pass: the film comes first, as on a film site ----
+   The top of each page is the screen: dark, the picture behind the title, one clear way to
+   watch. Everything below it is the production office, on paper. */
+.hero {
+  position: relative;
+  background: var(--ink);
+  color: var(--field);
+  overflow: hidden;
+  isolation: isolate;
+}
+.hero-backdrop {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 35%;
+  z-index: -2;
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(90deg, rgba(23, 35, 29, 0.96) 0%, rgba(23, 35, 29, 0.82) 42%, rgba(23, 35, 29, 0.25) 100%),
+    linear-gradient(0deg, rgba(23, 35, 29, 0.9) 0%, rgba(23, 35, 29, 0) 45%);
+}
+.hero-inner {
+  padding-block: 28px 44px;
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 12px;
+  max-width: 1120px;
+}
+.hero.home .hero-inner {
+  min-height: 480px;
+}
+.hero .back {
+  position: absolute;
+  top: 0;
+  padding-top: 22px;
+  color: var(--field);
+  opacity: 0.85;
+}
+.hero .film-name {
+  font-size: clamp(2.6rem, 8vw, 5.5rem);
+  max-width: 14ch;
+}
+.now-showing {
+  margin: 0;
+  font: 600 1rem var(--display);
+  color: var(--straw);
+}
+.meta {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  font-size: 0.9375rem;
+}
+.meta li {
+  padding: 3px 10px;
+  border: 1px solid rgba(231, 236, 228, 0.45);
+  border-radius: 3px;
+}
+.meta .tag {
+  background: var(--straw);
+  border-color: var(--straw);
+  color: var(--ink);
+  font-weight: 600;
+}
+.meta .tag.done {
+  background: var(--leaf);
+  border-color: var(--leaf);
+  color: #fff;
+}
+.hero .film-kind {
+  margin: 0;
+  color: var(--field);
+  opacity: 0.8;
+}
+.logline {
+  margin: 0;
+  font-size: 1.1875rem;
+  line-height: 1.45;
+  max-width: 46ch;
+}
+.hero-keys {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+  margin-top: 8px;
+}
+.hero .watch {
+  font: 600 1.0625rem var(--display);
+  background: var(--straw);
+  color: var(--ink);
+  border: 0;
+  border-radius: 3px;
+  padding: 13px 24px;
+  cursor: pointer;
+  text-decoration: none;
+}
+.hero .how {
+  color: var(--field);
+}
+.credits {
+  background: #0f1813;
+  color: var(--field);
+}
+.credits dl {
+  margin: 0 auto;
+  padding-block: 18px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 14px 28px;
+}
+.credits dt {
+  font-size: 0.8125rem;
+  opacity: 0.7;
+}
+.credits dd {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+.credits dd span {
+  display: block;
+  font: 400 0.8125rem var(--text);
+  opacity: 0.7;
+}
+.theatre {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  background: rgba(8, 12, 10, 0.96);
+  display: grid;
+  place-items: center;
+  padding: 16px;
+}
+.screen {
+  display: grid;
+  gap: 10px;
+  width: min(100%, 1180px);
+}
+.screen.s9x16 {
+  width: min(100%, 46vh);
+}
+.screen video {
+  display: block;
+  width: 100%;
+  max-height: 82vh;
+  background: #000;
+}
+.theatre-keys {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  color: var(--field);
+  font-size: 0.9375rem;
+}
+.theatre-keys span {
+  margin-right: auto;
+  opacity: 0.8;
+}
+.theatre-keys button {
+  font: 600 0.9375rem var(--display);
+  background: none;
+  color: var(--field);
+  border: 1px solid rgba(231, 236, 228, 0.5);
+  border-radius: 3px;
+  padding: 8px 14px;
+  cursor: pointer;
+}
+.theatre-keys button[aria-pressed="true"] {
+  background: var(--field);
+  color: var(--ink);
+}
+h2.shelf {
+  font: 800 1.5rem var(--display);
+  letter-spacing: -0.02em;
+  margin: 32px 0 14px;
+}
+.cards {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 22px 18px;
+}
+.card {
+  display: grid;
+  gap: 4px;
+  text-decoration: none;
+}
+.card-poster {
+  display: block;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  background: var(--frame);
+  margin-bottom: 6px;
+}
+.card-poster.none {
+  display: grid;
+  place-items: center;
+  color: #9aa89f;
+  font-size: 0.875rem;
+}
+.card:hover .film-title {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}
+.card .film-title {
+  font-size: 1.25rem;
+}
+.bar {
+  list-style: none;
+  margin: 6px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  gap: 3px;
+}
+.bar li {
+  height: 6px;
+  background: var(--rule);
+}
+.bar li.done {
+  background: var(--leaf);
+}
+.bar li.ready,
+.bar li.blocked {
+  background: var(--straw);
+}
+@media (max-width: 760px) {
+  .hero-inner {
+    min-height: 340px;
+  }
+  .hero::after {
+    background: linear-gradient(0deg, rgba(23, 35, 29, 0.97) 0%, rgba(23, 35, 29, 0.7) 60%, rgba(23, 35, 29, 0.35) 100%);
+  }
+}

@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Board } from "@/components/Board";
 import { filmState, isFilmName } from "@/lib/pipeline";
@@ -25,14 +24,5 @@ export default async function Page({
     if (message.startsWith("There is no film")) notFound();
     return <p className="fail">The board could not read this film: {message}</p>;
   }
-  return (
-    <>
-      <div className="wrap">
-        <Link className="back" href="/">
-          All films
-        </Link>
-      </div>
-      <Board initial={state} stage={stage} />
-    </>
-  );
+  return <Board initial={state} stage={stage} />;
 }
