@@ -44,7 +44,8 @@
         "at_s": 65,
         "note": "Music fades softly into a lingering, warm chord"
       }
-    ]
+    ],
+    "chosen_seed": 1
   },
   "end_card": {
     "text": "This film was made with AI.",
@@ -57,8 +58,8 @@
       "size": "wide",
       "image_prompt": "Before sunrise, a small house with a rusted corrugated tin roof and a blue painted wooden door stands in the centre, on red earth among coffee trees and false banana plants. Thin smoke rises from the roof. Green misty hills behind, grey-blue dawn sky. Nobody is in the picture.",
       "use_reference": false,
-      "motion_mode": "ken_burns",
-      "motion_prompt": "slow push in",
+      "motion_mode": "video",
+      "motion_prompt": "slow push in. Thin smoke drifts up from the tin roof, leaves sway slightly, mist moves over the hills. Nobody appears.",
       "narration": {
         "am": "እማዬ ዘውዲቱ በጅማ ከተማ ቆርቆሮ በተከደነ ትንሽ ቤት ውስጥ ትኖራለች።"
       },
@@ -75,8 +76,8 @@
       "size": "medium",
       "image_prompt": "Extreme close-up from directly above of an earth floor being covered with long fresh green grass. Only two dark brown hands and the cuffs of white cotton sleeves enter from the top edge, scattering the grass. No head, no body and no face are in the picture. Dim warm light.",
       "use_reference": false,
-      "motion_mode": "ken_burns",
-      "motion_prompt": "slow pan left to right, fixed horizon",
+      "motion_mode": "video",
+      "motion_prompt": "slow push in. The two hands scatter grass across the earth floor, blades falling and settling. Only hands are seen.",
       "narration": {
         "am": "ፀሐይ ሳትወጣ ወለሉ ላይ ለምለም ሣር ታነጥፋለች።"
       },
@@ -93,8 +94,8 @@
       "size": "close",
       "image_prompt": "Close view of a flat round black iron pan resting on a small clay charcoal stove with glowing orange embers. The pan is full of coffee beans, half still pale green and half roasted dark brown and shiny. Thin white smoke rises. A woman's dark brown hand holds the pan's long handle at the edge of the picture.",
       "use_reference": true,
-      "motion_mode": "ken_burns",
-      "motion_prompt": "slow push in",
+      "motion_mode": "video",
+      "motion_prompt": "slow push in. The hand shakes the pan gently, beans roll and darken, smoke rises, embers glow and flicker.",
       "narration": {
         "am": "በብረት ምጣድ ላይ ጥሬ ቡና ታቆላለች።"
       },
@@ -111,8 +112,8 @@
       "size": "medium",
       "image_prompt": "A black clay jebena coffee pot with a round body and tall narrow neck sits in the centre on a small clay charcoal stove, steam rising from its neck. Beside it on the grass-covered earth floor stand a wooden mortar with a pestle and a small clay burner with a thin line of frankincense smoke.",
       "use_reference": true,
-      "motion_mode": "ken_burns",
-      "motion_prompt": "slow pull back",
+      "motion_mode": "video",
+      "motion_prompt": "slow pull back. Steam rises from the neck of the clay pot, incense smoke curls upward, embers glow. Nothing else moves.",
       "narration": {
         "am": "የተቆላውን ቡና ወቅጣ በጥቁር የሸክላ ጀበና ታፈላዋለች።"
       },
@@ -129,8 +130,8 @@
       "size": "close",
       "image_prompt": "Extreme close-up of a very small white handleless porcelain cup standing on a low wooden tray. A thin stream of dark coffee falls into it from the small side spout of a black clay pot at the top edge of the picture. Only the pot's spout and one dark brown hand on its handle are visible. Steam rises from the cup. No head, no body and no face are in the picture.",
       "use_reference": false,
-      "motion_mode": "ken_burns",
-      "motion_prompt": "slow push in",
+      "motion_mode": "video",
+      "motion_prompt": "slow push in. The thin stream of dark coffee keeps pouring and fills the cup, steam rising. Only the hand is seen.",
       "narration": {
         "am": "ሦስተኛውና የመጨረሻው ሲኒ በረካ ይባላል፤ ትርጉሙም በረከት ነው።"
       },
@@ -147,8 +148,8 @@
       "size": "wide",
       "image_prompt": "Seen from behind and far away, an old white and blue country bus drives away down a red earth road that winds through green coffee hills toward the horizon, dust rising behind it. Grey morning sky. In the near corner, the back of an older woman in a white dress and shawl stands watching, small in the picture.",
       "use_reference": false,
-      "motion_mode": "ken_burns",
-      "motion_prompt": "slow pan right to left",
+      "motion_mode": "video",
+      "motion_prompt": "slow push in. The bus drives away down the road and grows smaller, dust rising behind it. The woman stands still, her back to the camera, and does not turn.",
       "narration": {
         "am": "ከሰባት ዓመት በፊት ልጇ ዳዊት ወደ አዲስ አበባ ሄደ።"
       },
@@ -165,8 +166,8 @@
       "size": "medium",
       "image_prompt": "From inside a dim room, an older woman in a long white cotton dress and white shawl is seen from behind, standing in the centre in an open blue doorway and looking out at a red earth road and misty green hills. Her face is not visible.",
       "use_reference": true,
-      "motion_mode": "ken_burns",
-      "motion_prompt": "subtle drift forward",
+      "motion_mode": "video",
+      "motion_prompt": "slow push in. The woman stands still in the doorway with her back to the camera and does not turn; her shawl moves slightly in the wind, mist drifts over the hills.",
       "narration": {
         "am": "ያ ሦስተኛው ሲኒ ሁልጊዜ የእሱ እንደሆነ ነገረችው።"
       },
@@ -183,8 +184,8 @@
       "size": "close",
       "image_prompt": "Extreme close-up of a low wooden tray on an earth floor covered with green grass, indoors. Exactly two very small white handleless porcelain cups stand on the tray, both empty. One dark brown hand in a white cotton cuff is setting the second cup down. No head, no body and no face are in the picture. Dim soft morning light from the left.",
       "use_reference": false,
-      "motion_mode": "ken_burns",
-      "motion_prompt": "slow pan left to right",
+      "motion_mode": "video",
+      "motion_prompt": "slow pan left to right. The hand sets the cup down on the tray and slowly withdraws. Only the hand is seen.",
       "narration": {
         "am": "በየማለዳው በረከቦቱ ላይ ሁለት አነስተኛ ነጭ ሲኒዎችን ታዘጋጃለች።"
       },
@@ -201,8 +202,8 @@
       "size": "wide",
       "image_prompt": "Inside a dim room with mud-plastered walls, an empty low three-legged wooden stool stands in the centre beside a closed blue painted wooden door. On the grass-covered earth floor beside the stool, a low wooden tray holds one very small white porcelain cup without a handle, the size of an egg cup, full to the brim with black coffee, no steam. Fading evening light through a small window. Nobody is in the picture.",
       "use_reference": false,
-      "motion_mode": "ken_burns",
-      "motion_prompt": "slow push in",
+      "motion_mode": "video",
+      "motion_prompt": "slow push in. Nothing moves except dust in the fading window light. The stool stays empty; nobody enters.",
       "narration": {
         "am": "ሁለቱን ሲኒዎች ጠጥታ ሦስተኛውን ሲኒ እንዲጠብቅ ታስቀራለች።"
       },
@@ -220,8 +221,8 @@
       "size": "medium",
       "image_prompt": "Seen from deep inside a dark room, a blue painted wooden door stands half open in the centre and bright grey rainy daylight pours through it. Rain falls on red earth outside. In the doorway stands the black silhouette of one young man with a bag on his shoulder, completely dark against the light, with no visible features. Nobody else is in the picture.",
       "use_reference": false,
-      "motion_mode": "ken_burns",
-      "motion_prompt": "slow push in",
+      "motion_mode": "video",
+      "motion_prompt": "slow push in. Rain falls outside; the dark figure in the doorway takes one slow step forward and stays a black silhouette with no visible features.",
       "narration": {
         "am": "በአንድ ዝናባማ ማለዳ ቡናው ሳይፈላ ሰማያዊው በር ተከፈተ።"
       },
@@ -238,8 +239,8 @@
       "size": "wide",
       "image_prompt": "Seen from behind, a young man in a dark jacket wet with rain sits on a low three-legged wooden stool beside the open blue door, inside the room. A dusty brown canvas bag rests on the grass-covered floor by his feet. His face is not visible.",
       "use_reference": false,
-      "motion_mode": "ken_burns",
-      "motion_prompt": "slow pan left to right",
+      "motion_mode": "video",
+      "motion_prompt": "slow pan left to right. The young man sits still with his back to the camera and does not turn; rain falls outside the open door.",
       "narration": {
         "am": "ዳዊት አቧራ የለበሰ ቦርሳ ይዞ ደረሰና ተቀመጠ።"
       },
@@ -256,8 +257,8 @@
       "size": "close",
       "image_prompt": "Close view of two pairs of hands over a low wooden tray: a young man's dark brown hands hold out a very small white cup full of dark steaming coffee, and an older woman's dark brown hands, in white cotton sleeves, reach to take it. A black clay jebena stands on the tray behind. Warm morning light.",
       "use_reference": true,
-      "motion_mode": "ken_burns",
-      "motion_prompt": "slow pull back",
+      "motion_mode": "video",
+      "motion_prompt": "slow pull back. The young man's hands pass the small cup into the older woman's hands, steam rising. Only hands are seen.",
       "narration": {
         "am": "በዚያች ማለዳ ዳዊት ሦስተኛውን ሲኒ ለእናቱ ቀዳ።"
       },

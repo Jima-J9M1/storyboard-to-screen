@@ -4,8 +4,8 @@
     "text": "This film was made with AI.",
     "duration_s": 3
   },
-  "music": "placeholder chord (no score chosen yet)",
-  "placeholder_music": true,
+  "music": "candidate_1.m4a",
+  "placeholder_music": false,
   "films": {
     "9x16": {
       "file": "film_9x16.mp4",
@@ -14,8 +14,8 @@
         1920
       ],
       "duration_s": 68.48,
-      "loudness_lufs": -14.61,
-      "true_peak_db": -1.23,
+      "loudness_lufs": -14.65,
+      "true_peak_db": -1.13,
       "subtitle_cards": 15,
       "longest_subtitle_line": 30
     },
@@ -26,8 +26,8 @@
         1080
       ],
       "duration_s": 68.48,
-      "loudness_lufs": -14.61,
-      "true_peak_db": -1.23,
+      "loudness_lufs": -14.65,
+      "true_peak_db": -1.13,
       "subtitle_cards": 12,
       "longest_subtitle_line": 42
     }
@@ -45,21 +45,21 @@
       "length_s": 5.1,
       "still_s": 0.0,
       "longest_freeze_s": 0.0,
-      "average_change": 7.27
+      "average_change": 5.05
     },
     {
       "shot": "s03",
       "length_s": 3.4,
       "still_s": 0.0,
       "longest_freeze_s": 0.0,
-      "average_change": 3.61
+      "average_change": 5.02
     },
     {
       "shot": "s04",
       "length_s": 4.5,
       "still_s": 0.0,
       "longest_freeze_s": 0.0,
-      "average_change": 3.07
+      "average_change": 3.11
     },
     {
       "shot": "s05",
@@ -73,14 +73,14 @@
       "length_s": 4.55,
       "still_s": 0.0,
       "longest_freeze_s": 0.0,
-      "average_change": 6.17
+      "average_change": 5.03
     },
     {
       "shot": "s07",
       "length_s": 4.15,
       "still_s": 0.0,
       "longest_freeze_s": 0.0,
-      "average_change": 4.73
+      "average_change": 4.68
     },
     {
       "shot": "s08",

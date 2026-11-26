@@ -1,98 +1,98 @@
 [
   {
     "shot": "s01",
-    "asked": "slow push in",
-    "mode": "ken_burns",
+    "asked": "slow push in. Thin smoke drifts up from the tin roof, leaves sway slightly, mist moves over the hills. Nobody appears.",
+    "mode": "video",
     "move": "camera move: push in",
     "frames": 180,
-    "fallback": false
+    "fallback": true
   },
   {
     "shot": "s02",
-    "asked": "slow pan left to right, fixed horizon",
-    "mode": "ken_burns",
-    "move": "camera move: pan left to right",
+    "asked": "slow push in. The two hands scatter grass across the earth floor, blades falling and settling. Only hands are seen.",
+    "mode": "video",
+    "move": "camera move: push in",
     "frames": 137,
-    "fallback": false
+    "fallback": true
   },
   {
     "shot": "s03",
-    "asked": "slow push in",
-    "mode": "ken_burns",
-    "move": "camera move: push in",
+    "asked": "slow push in. The hand shakes the pan gently, beans roll and darken, smoke rises, embers glow and flicker.",
+    "mode": "video",
+    "move": "camera move: pan left to right",
     "frames": 95,
-    "fallback": false
+    "fallback": true
   },
   {
     "shot": "s04",
-    "asked": "slow pull back",
-    "mode": "ken_burns",
+    "asked": "slow pull back. Steam rises from the neck of the clay pot, incense smoke curls upward, embers glow. Nothing else moves.",
+    "mode": "video",
     "move": "camera move: pull back",
     "frames": 122,
-    "fallback": false
+    "fallback": true
   },
   {
     "shot": "s05",
-    "asked": "slow push in",
-    "mode": "ken_burns",
+    "asked": "slow push in. The thin stream of dark coffee keeps pouring and fills the cup, steam rising. Only the hand is seen.",
+    "mode": "video",
     "move": "camera move: push in",
     "frames": 170,
-    "fallback": false
+    "fallback": true
   },
   {
     "shot": "s06",
-    "asked": "slow pan right to left",
-    "mode": "ken_burns",
-    "move": "camera move: pan right to left",
+    "asked": "slow push in. The bus drives away down the road and grows smaller, dust rising behind it. The woman stands still, her back to the camera, and does not turn.",
+    "mode": "video",
+    "move": "camera move: push in",
     "frames": 124,
-    "fallback": false
+    "fallback": true
   },
   {
     "shot": "s07",
-    "asked": "subtle drift forward",
-    "mode": "ken_burns",
+    "asked": "slow push in. The woman stands still in the doorway with her back to the camera and does not turn; her shawl moves slightly in the wind, mist drifts over the hills.",
+    "mode": "video",
     "move": "camera move: push in",
     "frames": 114,
-    "fallback": false
+    "fallback": true
   },
   {
     "shot": "s08",
-    "asked": "slow pan left to right",
-    "mode": "ken_burns",
+    "asked": "slow pan left to right. The hand sets the cup down on the tray and slowly withdraws. Only the hand is seen.",
+    "mode": "video",
     "move": "camera move: pan left to right",
     "frames": 188,
-    "fallback": false
+    "fallback": true
   },
   {
     "shot": "s09",
-    "asked": "slow push in",
-    "mode": "ken_burns",
+    "asked": "slow push in. Nothing moves except dust in the fading window light. The stool stays empty; nobody enters.",
+    "mode": "video",
     "move": "camera move: push in",
     "frames": 164,
-    "fallback": false
+    "fallback": true
   },
   {
     "shot": "s10",
-    "asked": "slow push in",
-    "mode": "ken_burns",
+    "asked": "slow push in. Rain falls outside; the dark figure in the doorway takes one slow step forward and stays a black silhouette with no visible features.",
+    "mode": "video",
     "move": "camera move: push in",
     "frames": 161,
-    "fallback": false
+    "fallback": true
   },
   {
     "shot": "s11",
-    "asked": "slow pan left to right",
-    "mode": "ken_burns",
+    "asked": "slow pan left to right. The young man sits still with his back to the camera and does not turn; rain falls outside the open door.",
+    "mode": "video",
     "move": "camera move: pan left to right",
     "frames": 158,
-    "fallback": false
+    "fallback": true
   },
   {
     "shot": "s12",
-    "asked": "slow pull back",
-    "mode": "ken_burns",
+    "asked": "slow pull back. The young man's hands pass the small cup into the older woman's hands, steam rising. Only hands are seen.",
+    "mode": "video",
     "move": "camera move: pull back",
     "frames": 144,
-    "fallback": false
+    "fallback": true
   }
 ]

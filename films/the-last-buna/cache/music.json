@@ -1,0 +1,29 @@
+{
+  "audition_1": {
+    "input_hash": "9d90b7e45ec85cb5",
+    "outputs": [
+      "films/the-last-buna/outputs/music/audition_1.m4a"
+    ]
+  },
+  "audition_2": {
+    "input_hash": "45760ca1e03e4624",
+    "outputs": [
+      "films/the-last-buna/outputs/music/audition_2.m4a"
+    ]
+  },
+  "audition_3": {
+    "input_hash": "fa23f1a88df349d0",
+    "outputs": [
+      "films/the-last-buna/outputs/music/audition_3.m4a"
+    ]
+  },
+  "candidates": {
+    "input_hash": "dcaf0dc1eaf74cae",
+    "outputs": [
+      "films/the-last-buna/outputs/music/candidate_1.m4a",
+      "films/the-last-buna/outputs/music/candidate_2.m4a",
+      "films/the-last-buna/outputs/music/candidate_3.m4a",
+      "films/the-last-buna/outputs/music/job_report.json"
+    ]
+  }
+}
