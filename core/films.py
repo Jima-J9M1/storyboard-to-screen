@@ -6,6 +6,7 @@ Everything else is made from that by the agents and the stages.
 Usage:
     python -m core.films new --title "Lalibela"
     python -m core.films new --title "Lalibela" --audience "..." --feeling "..." --languages en am
+    python -m core.films new --title "My grandmother's coffee" --story "She was born in ..."
     python -m core.films list
 """
 
@@ -23,9 +24,15 @@ class FilmExists(Exception):
     pass
 
 
+MIN_STORY_WORDS = 80   # fewer than this cannot yield enough facts for a 60-second film
+
+
 def create(title: str, audience: str = "", feeling: str = "", languages: list[str] | None = None,
-           sources: list[str] | None = None) -> str:
-    """Create films/<slug>/brief.json and return the slug. Audience and feeling may be filled in later."""
+           sources: list[str] | None = None, story: str = "") -> str:
+    """Create films/<slug>/brief.json and return the slug. Audience and feeling may be filled in later.
+
+    story  the story in the director's own words, for one that no public source tells
+    """
     title = " ".join(title.split())
     slug = slugify(title)
     film = paths.film(slug)
@@ -39,6 +46,12 @@ def create(title: str, audience: str = "", feeling: str = "", languages: list[st
     }
     if sources:
         brief["sources"] = sources
+    story = story.strip()
+    if story:
+        if len(story.split()) < MIN_STORY_WORDS:
+            raise ValueError(f"The story is {len(story.split())} words. Tell it in at least {MIN_STORY_WORDS}, "
+                             "with the names, places and dates you want in the film.")
+        brief["story"] = story
     validate_brief(brief, name="brief", require_intent=False)
     write_json(film.brief, brief)
     return slug
@@ -53,6 +66,7 @@ def main() -> int:
     new.add_argument("--feeling", default="")
     new.add_argument("--languages", nargs="+", default=["en"])
     new.add_argument("--sources", nargs="*", default=[])
+    new.add_argument("--story", default="", help="the story in your own words, for one no public source tells")
     commands.add_parser("list", help="list the films in the repo")
     args = parser.parse_args()
 
@@ -62,7 +76,7 @@ def main() -> int:
         return 0
 
     try:
-        slug = create(args.title, args.audience, args.feeling, args.languages, args.sources)
+        slug = create(args.title, args.audience, args.feeling, args.languages, args.sources, args.story)
     except Exception as err:
         print(err, file=sys.stderr)
         return 1

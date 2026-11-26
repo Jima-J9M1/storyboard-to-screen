@@ -78,7 +78,15 @@ make radio FILM=lalibela           # narration over a black screen, to test the 
 make film FILM=lalibela            # the film
 ```
 
-The title must match the name of an English Wikipedia article. Add pages you trust under `sources` in the brief for more facts. If the title is a living person, the pipeline refuses to show or voice them.
+If the story is not on Wikipedia, tell it yourself:
+
+```
+python -m core.films new --title "Almaz and the last coffee tree" --story "Almaz was born in 1948 near Jimma ..." --languages am
+```
+
+The narration may then only use what you wrote. On the production board the same form has a box for the story and a list of narration languages, and each stage has a button to run it.
+
+Otherwise the title must match the name of an English Wikipedia article. Add pages you trust under `sources` in the brief for more facts. If the title is a living person, the pipeline refuses to show or voice them.
 
 ## Every command
 

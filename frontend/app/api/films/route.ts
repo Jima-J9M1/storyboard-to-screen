@@ -38,6 +38,7 @@ export async function POST(request: Request) {
 
   if (title.length < 2) return fail(400, "Give the film a title.");
   if (title.startsWith("-")) return fail(400, "A title cannot start with a hyphen.");
+  if (text(body.story, 8000).startsWith("-")) return fail(400, "A story cannot start with a hyphen.");
   if (!languages.length) return fail(400, "Give at least one language code, such as en or am.");
 
   try {
@@ -46,6 +47,7 @@ export async function POST(request: Request) {
       audience: text(body.audience, 400),
       feeling: text(body.feeling, 400),
       languages,
+      story: text(body.story, 8000),
     });
     if (!isFilmName(slug)) return fail(500, "The pipeline did not return a film name.");
     return NextResponse.json({ slug }, { status: 201 });

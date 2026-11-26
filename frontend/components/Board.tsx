@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useLive } from "@/lib/useLive";
 import type { FilmState, MediaFile, Stage, Who } from "@/lib/types";
 import { Direct } from "./Direct";
+import { RunStage } from "./RunStage";
 
 const plural = (n: number, word: string) => `${n} ${word}${n === 1 ? "" : "s"}`;
 const clock = (ts: string) =>
@@ -162,6 +163,15 @@ export function Board({ initial, stage }: { initial: FilmState; stage?: string }
                   </dd>
                 </div>
               </dl>
+              {shown.runnable && (
+                <RunStage
+                  key={shown.id}
+                  slug={film.slug}
+                  stage={shown.id}
+                  busy={film.running}
+                  label={shown.done ? `Run ${shown.name} again` : `Run ${shown.name} now`}
+                />
+              )}
               <h3 className="made">What {shown.name} made</h3>
               <StageOutput stage={shown} film={film} />
               <StageCalls stage={shown} film={film} />
@@ -502,9 +512,13 @@ function ResearchOutput({ film }: { film: FilmState }) {
               <tr key={src.source_id}>
                 <td>{src.source_id}</td>
                 <td>
-                  <a href={src.url} target="_blank" rel="noopener noreferrer">
-                    {src.title || src.url}
-                  </a>
+                  {src.url ? (
+                    <a href={src.url} target="_blank" rel="noopener noreferrer">
+                      {src.title || src.url}
+                    </a>
+                  ) : (
+                    src.title
+                  )}
                 </td>
                 <td className="num">{src.words}</td>
                 <td className="quiet">{src.licence}</td>

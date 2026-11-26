@@ -166,3 +166,22 @@ A third, smaller failure followed: the job had finished, but downloading its out
 **A second fault found in the same run.** The first attempt, which made no clips, was logged as a successful call, because the job itself had finished and returned a report. A job that makes no clips is now logged as a failure.
 
 **Evidence.** `films/gebisa-ejeta/outputs/video/job_reports.json` holds both runs' reports. `runs.jsonl`, stage `video`.
+
+## F10. A generated clip turned the film's subject to face the camera
+
+**When:** 26 November 2026, after the second clips for each shot came back from Kaggle.
+
+**Symptom.** Nothing failed. Twenty clips were made, the film was cut, every measured check passed. Looking at frames from the cut, shot s03 showed the young man, who stands for the film's subject, turned towards the camera with his face in view. The storyboard asks for him "seen from behind", and the film's rule is that the subject is never shown from the front.
+
+**Cause.** The picture was right; the video model changed it. Asked for a man who "stands still looking out over the fields", it turned him. The first clip had begun the turn and the continuation finished it. A second shot, s09, did something similar: its continuation tilted the camera up from a farmer's hands to his face.
+
+**Why no check caught it.** The pipeline's checks on pictures look at the words of a prompt, and its checks on video measure movement. Neither looks at what is in the frame. A face is exactly the thing the rules care most about and the thing no automatic check here can see.
+
+**What we tried and what fixed it.**
+1. Looked at the last frame of all twenty continuation clips. Two shots showed a face.
+2. Added a storyboard setting, `"extend": false`, by which a shot refuses its continuation. Shot s09 uses it.
+3. For s03 that was not enough, because the first clip also turns him. It was set back to a camera move over its picture, in which he stays seen from behind.
+
+**What it taught us.** A rule enforced on the text of a prompt is not enforced on the video made from it. For generated video, "the subject is never shown" needs a person to watch every clip.
+
+**Evidence.** `films/gebisa-ejeta/storyboard.json`, shots s03 and s09; `films/gebisa-ejeta/outputs/shots/moves.json`.

@@ -112,6 +112,8 @@ def run(film_slug: str, collect: bool = False, shape: str | None = None, part: s
             name = f"{shot['id']}.{clip_shape}"
             key = clip_key(shot, clip_shape, picture)
             if part == "b":
+                if shot.get("extend") is False:
+                    continue   # the director has ruled out a continuation for this shot
                 first = out_dir / f"{name}.mp4"
                 if not (first.exists() and cache.fresh(name, key)):
                     continue   # a second clip needs an up-to-date first clip to start from

@@ -20,6 +20,7 @@ from pathlib import Path
 from core import paths
 from core.contracts import ValidationError, film_duration_s, load_brief, load_storyboard
 from core.files import load_json
+from core.run_stage import RUNNABLE
 
 REQUIRED_DOCS = [
     ("README.md", "How to run it, and what it costs"),
@@ -257,6 +258,8 @@ def _stages(film: paths.Film, brief_problems: list[str], research: dict,
             "id": stage_id, "name": name, "built": built, "done": done, "detail": detail,
             "problems": problems, "who": who, "who_label": who_label, "what": what, "your_part": your_part,
             "calls": _calls(lines, LOG_NAMES.get(stage_id)),
+            # Whether the board may start this stage. The hours-long GPU stages are terminal-only.
+            "runnable": built and stage_id in RUNNABLE,
             "command": f"{command} FILM={film.slug}" if command and built else None,
         })
 
@@ -422,9 +425,9 @@ def _release_checks(board: dict | None, outputs: dict, stale: bool) -> list[dict
     if made["still_s"] is not None:
         checks.append(check("The picture keeps moving", made["longest_freeze_s"] <= 1.0,
                             f"stands still for {made['still_s']} s in all; longest freeze {made['longest_freeze_s']} s"))
-    checks.append(check("Every shot is generated video", generated == len(board["shots"]),
-                        f"all {generated} shots" if generated == len(board["shots"])
-                        else f"{generated} of {len(board['shots'])} shots; the rest are camera moves over a picture"))
+    moving = sum(1 for shot in shots if shot["move"])
+    checks.append(check("Every shot has a moving clip", moving == len(board["shots"]),
+                        f"{generated} generated video, {moving - generated} camera move over a picture"))
     return checks
 
 
@@ -467,6 +470,7 @@ def film_state(slug: str) -> dict:
         "runtime_s": next((shape["duration_s"] for shape in shapes.values()), None),
         "backdrop": next((shot["picture"] for shot in outputs["shots"].values() if shot["picture"]), None),
         "direction": _direction(film),
+        "running": (film.dir / ".running").read_text(encoding="utf-8").split()[-1] if (film.dir / ".running").exists() else None,
         "film_is_stale": _film_is_stale(film),
         "release_checks": _release_checks(board, outputs, _film_is_stale(film)),
         "runs": _runs(slug),

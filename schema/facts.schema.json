@@ -19,7 +19,7 @@
           "source_id": {
             "description": "Which source the quote was copied from.",
             "type": "string",
-            "pattern": "^(wikipedia|web[0-9]+)$"
+            "pattern": "^(wikipedia|told|web[0-9]+)$"
           },
           "text": {
             "description": "One fact, in one plain sentence, saying no more than the source does.",

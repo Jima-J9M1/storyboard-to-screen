@@ -94,7 +94,7 @@
       "size": "medium",
       "image_prompt": "A young man seen from behind, standing at a vista looking out over rich agricultural terraced fields under soft morning light.",
       "use_reference": true,
-      "motion_mode": "video",
+      "motion_mode": "ken_burns",
       "motion_prompt": "the grain sways in the wind, the young man stands still looking out over the fields, slow tilt up",
       "narration": {
         "en": "He intended to study engineering, but his mother convinced him he could accomplish more working in agriculture."
@@ -218,7 +218,8 @@
       "fact_ids": [
         "f15"
       ],
-      "seed": 1009
+      "seed": 1009,
+      "extend": false
     },
     {
       "id": "s10",

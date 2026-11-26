@@ -13,7 +13,7 @@
         1080,
         1920
       ],
-      "duration_s": 89.48,
+      "duration_s": 89.52,
       "loudness_lufs": -14.06,
       "true_peak_db": -1.38,
       "subtitle_cards": 22,
@@ -25,7 +25,7 @@
         1920,
         1080
       ],
-      "duration_s": 89.48,
+      "duration_s": 89.52,
       "loudness_lufs": -14.06,
       "true_peak_db": -1.38,
       "subtitle_cards": 20,
@@ -38,70 +38,70 @@
       "length_s": 9.05,
       "still_s": 0.0,
       "longest_freeze_s": 0.0,
-      "average_change": 3.11
+      "average_change": 6.25
     },
     {
       "shot": "s02",
       "length_s": 9.9,
       "still_s": 0.0,
       "longest_freeze_s": 0.0,
-      "average_change": 3.06
+      "average_change": 6.25
     },
     {
       "shot": "s03",
       "length_s": 7.4,
       "still_s": 0.0,
       "longest_freeze_s": 0.0,
-      "average_change": 1.17
+      "average_change": 4.22
     },
     {
       "shot": "s04",
       "length_s": 10.05,
       "still_s": 0.0,
       "longest_freeze_s": 0.0,
-      "average_change": 1.6
+      "average_change": 5.11
     },
     {
       "shot": "s05",
       "length_s": 7.7,
       "still_s": 0.0,
       "longest_freeze_s": 0.0,
-      "average_change": 2.65
+      "average_change": 1.98
     },
     {
       "shot": "s06",
       "length_s": 10.2,
       "still_s": 0.0,
       "longest_freeze_s": 0.0,
-      "average_change": 3.75
+      "average_change": 4.6
     },
     {
       "shot": "s07",
       "length_s": 8.0,
       "still_s": 0.0,
       "longest_freeze_s": 0.0,
-      "average_change": 2.41
+      "average_change": 2.04
     },
     {
       "shot": "s08",
       "length_s": 8.05,
       "still_s": 0.0,
       "longest_freeze_s": 0.0,
-      "average_change": 2.45
+      "average_change": 3.51
     },
     {
       "shot": "s09",
       "length_s": 7.85,
       "still_s": 0.0,
       "longest_freeze_s": 0.0,
-      "average_change": 5.59
+      "average_change": 6.17
     },
     {
       "shot": "s10",
       "length_s": 8.8,
-      "still_s": 1.2,
+      "still_s": 0.6,
       "longest_freeze_s": 0.2,
-      "average_change": 1.37
+      "average_change": 3.84
     }
   ],
   "subtitles_9x16": [

@@ -4,7 +4,7 @@
     "asked": "Low angle slow pan right following the running feet.",
     "mode": "ken_burns",
     "move": "camera move: pan left to right",
-    "frames": 135,
+    "frames": 145,
     "fallback": false
   },
   {
@@ -12,7 +12,7 @@
     "asked": "Static wide shot with soft wind movement in grass.",
     "mode": "ken_burns",
     "move": "camera move: push in",
-    "frames": 186,
+    "frames": 196,
     "fallback": false
   },
   {
@@ -20,7 +20,7 @@
     "asked": "Slow push in toward the stopwatch.",
     "mode": "ken_burns",
     "move": "camera move: push in",
-    "frames": 181,
+    "frames": 191,
     "fallback": false
   },
   {
@@ -28,7 +28,7 @@
     "asked": "Slow tilt up from the ground to the illuminated arch.",
     "mode": "ken_burns",
     "move": "camera move: tilt up",
-    "frames": 278,
+    "frames": 288,
     "fallback": false
   },
   {
@@ -36,7 +36,7 @@
     "asked": "Static close-up with a subtle focus pull.",
     "mode": "ken_burns",
     "move": "camera move: push in",
-    "frames": 206,
+    "frames": 216,
     "fallback": false
   },
   {
@@ -44,7 +44,7 @@
     "asked": "Slow zoom out.",
     "mode": "ken_burns",
     "move": "camera move: pull back",
-    "frames": 219,
+    "frames": 229,
     "fallback": false
   },
   {
@@ -52,7 +52,7 @@
     "asked": "Slow orbital pan around the runner.",
     "mode": "ken_burns",
     "move": "camera move: pan left to right",
-    "frames": 206,
+    "frames": 216,
     "fallback": false
   },
   {
@@ -60,7 +60,7 @@
     "asked": "Slow push in through mist.",
     "mode": "ken_burns",
     "move": "camera move: push in",
-    "frames": 209,
+    "frames": 219,
     "fallback": false
   },
   {
@@ -68,7 +68,7 @@
     "asked": "Tracking shot moving alongside the sled.",
     "mode": "ken_burns",
     "move": "camera move: push in",
-    "frames": 174,
+    "frames": 184,
     "fallback": false
   },
   {
@@ -76,7 +76,7 @@
     "asked": "Slow crane up above the crowd.",
     "mode": "ken_burns",
     "move": "camera move: push in",
-    "frames": 178,
+    "frames": 188,
     "fallback": false
   }
 ]

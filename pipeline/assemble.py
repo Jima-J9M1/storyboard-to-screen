@@ -6,7 +6,8 @@ Writes  films/<slug>/outputs/film/film_9x16.mp4 and film_16x9.mp4
         films/<slug>/outputs/film/report.json   measured length, loudness, subtitles, music used
 
 In order, from the storyboard:
-  1. the shots are joined in order, each at the length the storyboard gives it;
+  1. the shots are joined in order, each starting where the storyboard says, with a short
+     dissolve from one into the next;
   2. the end card saying the film was made with AI is added;
   3. each narration line starts with its shot;
   4. the score is lowered under the voice (side-chain ducking) and faded out;
@@ -41,6 +42,7 @@ from core.runlog import input_hash
 STAGE = "assembly"
 FPS = 25
 VOICE_LEAD_S = 0.1  # a line starts this long after its shot does
+DISSOLVE_S = 0.4    # each shot blends into the next over this long; the clips are made that much longer for it
 # shape: frame, subtitle font size, characters per line, share of the height kept clear below the text
 LAYOUT = {
     "9x16": {"frame": (1080, 1920), "font_px": 50, "chars": 30, "bottom_margin": 0.20, "end_font_px": 64},
@@ -148,14 +150,22 @@ def build_film(film: paths.Film, board: dict, shape: str, sound: Path, work: Pat
     inputs: list[str] = []
     for shot in board["shots"]:
         inputs += ["-i", str(film.outputs / "shots" / f"{shot['id']}.{shape}.mp4")]
-    inputs += ["-loop", "1", "-framerate", str(FPS), "-t", str(end_s), "-i", str(end_image)]
+    inputs += ["-loop", "1", "-framerate", str(FPS), "-t", str(end_s + DISSOLVE_S), "-i", str(end_image)]
     for card in plan:
         inputs += ["-i", str(card["image"])]
     inputs += ["-i", str(sound)]
 
     shots = len(board["shots"])
-    graph = "".join(f"[{n}:v]fps={FPS},format=yuv420p,setsar=1[c{n}];" for n in range(shots + 1))
-    graph += "".join(f"[c{n}]" for n in range(shots + 1)) + f"concat=n={shots + 1}:v=1:a=0[v0];"
+    # Every input gets the same frame rate, time base and pixel format, which a dissolve needs.
+    graph = "".join(f"[{n}:v]fps={FPS},format=yuv420p,setsar=1,settb=AVTB[c{n}];" for n in range(shots + 1))
+    # Shot n+1 starts fading in exactly where shot n+1 begins in the storyboard, over the extra
+    # frames at the end of shot n. The narration's timing is untouched.
+    start, joined = 0.0, "c0"
+    for n, shot in enumerate(board["shots"], start=1):
+        start += shot["duration_s"]
+        graph += f"[{joined}][c{n}]xfade=transition=fade:duration={DISSOLVE_S}:offset={start:.3f}[x{n}];"
+        joined = f"x{n}"
+    graph += f"[{joined}]null[v0];"
     for n, card in enumerate(plan):
         graph += (f"[v{n}][{shots + 1 + n}:v]overlay=0:0:"
                   f"enable='between(t,{card['on_s']},{card['off_s']})'[v{n + 1}];")
@@ -165,7 +175,7 @@ def build_film(film: paths.Film, board: dict, shape: str, sound: Path, work: Pat
     ffmpeg("-loglevel", "error", *inputs, "-filter_complex", graph,
            "-map", f"[v{len(plan)}]", "-map", f"{shots + 1 + len(plan)}:a",
            "-c:v", "libx264", "-preset", "slow", "-crf", "24", "-pix_fmt", "yuv420p", "-r", str(FPS),
-           "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart", "-shortest", str(out))
+           "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart", "-t", str(film_duration_s(board)), str(out))
     return plan
 
 
@@ -201,7 +211,7 @@ def run(film_slug: str) -> int:
     key = input_hash(
         [_fingerprint(p) for p in needed], _fingerprint(score) if score else PLACEHOLDER,
         [(s["id"], s["duration_s"], s["subtitle_en"]) for s in board["shots"]], board["end_card"],
-        LAYOUT, TARGET_LUFS, TARGET_PEAK_DB, DUCK, VOICE_LEAD_S, "crf24", "motion-report",
+        LAYOUT, TARGET_LUFS, TARGET_PEAK_DB, DUCK, VOICE_LEAD_S, "crf24", "motion-report", DISSOLVE_S,
     )
     cache = Cache(film, STAGE)
     if cache.fresh("film", key):

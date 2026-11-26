@@ -26,6 +26,10 @@
       "uniqueItems": true,
       "items": { "type": "string", "pattern": "^[a-z]{2,3}$" }
     },
+    "story": {
+      "description": "Optional: the story in the director's own words, for a story no public source tells. When it is given it is the source of the film's facts, and Wikipedia is not consulted.",
+      "type": "string"
+    },
     "sources": {
       "description": "Optional: web pages the director trusts, read by the Researcher in addition to Wikipedia.",
       "type": "array",

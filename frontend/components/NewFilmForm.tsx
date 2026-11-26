@@ -22,7 +22,8 @@ export function NewFilmForm() {
           title: field("title"),
           audience: field("audience"),
           feeling: field("feeling"),
-          languages: field("languages").toLowerCase().split(/[\s,]+/).filter(Boolean),
+          languages: [field("language")],
+          story: field("story"),
         }),
       });
       const body = await response.json();
@@ -39,8 +40,21 @@ export function NewFilmForm() {
       <h2>Start a new film</h2>
       <label>
         Title
-        <small>A person, place or story. It must match the name of a Wikipedia article.</small>
+        <small>A person, place or story. Without a story below, it must match the name of a Wikipedia article.</small>
         <input name="title" required minLength={2} maxLength={120} autoComplete="off" />
+      </label>
+      <label>
+        Tell the story yourself
+        <small>
+          For a story that is not on Wikipedia, such as one from your own family. Write at least 80 words, with the
+          names, places and dates you want in the film: the narration may only use what you write here. Leave it
+          empty to have the title researched instead.
+        </small>
+        <textarea name="story" className="tall" maxLength={8000} />
+        <small>
+          What you write is saved in this repo and sent to the language model. If the story is about real people,
+          they must agree to it before the film is shared; faces are never shown unless you record their consent.
+        </small>
       </label>
       <label>
         Audience
@@ -53,9 +67,15 @@ export function NewFilmForm() {
         <textarea name="feeling" maxLength={400} />
       </label>
       <label>
-        Narration languages
-        <small>Language codes separated by commas, such as en, am. The first is the main one.</small>
-        <input name="languages" defaultValue="en" required autoComplete="off" />
+        Narration language
+        <small>The film is narrated in this language, with English subtitles.</small>
+        <select name="language" defaultValue="en">
+          <option value="en">English</option>
+          <option value="am">Amharic</option>
+          <option value="om">Afaan Oromo</option>
+          <option value="ti">Tigrinya</option>
+          <option value="so">Somali</option>
+        </select>
       </label>
       {problem && (
         <p className="problem" role="alert">

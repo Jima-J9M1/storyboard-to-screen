@@ -43,6 +43,9 @@ SHAPES = {
     "9x16": (1080, 1920, 2160, "crop=1216:2160"),
     "16x9": (1920, 1080, 3840, "crop=3840:2160"),
 }
+# Each clip runs this many frames past the end of its shot. The Edit stage dissolves from one
+# shot into the next over those frames, so a cut is a short blend and never a hard jump.
+HANDLE_FRAMES = 10   # 0.4 seconds
 TRAVEL = 0.12  # how far a move goes: 12 % of the frame over the length of the shot
 
 # The moves a motion_prompt can ask for, checked in this order. Each is a zoompan expression
@@ -164,7 +167,7 @@ def run(film_slug: str) -> int:
             missing.append(shot["id"])
             continue
         name, expressions = choose_move(shot["motion_mode"], shot["motion_prompt"])
-        frames = round(shot["duration_s"] * FPS)
+        frames = round(shot["duration_s"] * FPS) + HANDLE_FRAMES
         look = hashlib.sha256(picture.read_bytes()).hexdigest()[:16]
         made_by = {}
         for shape in SHAPES:
@@ -176,10 +179,10 @@ def run(film_slug: str) -> int:
             use_generated = (shot["motion_mode"] == "video" and generated.exists()
                              and generated_clips.fresh(item, first_key))
             clips = [generated]
-            if use_generated and second.exists() and generated_clips.fresh(f"{item}.b", continuation_key(first_key, generated)):
+            if use_generated and shot.get("extend") is not False and second.exists() and generated_clips.fresh(f"{item}.b", continuation_key(first_key, generated)):
                 clips.append(second)   # the second clip carries the motion on from the first one's last frame
             if use_generated:
-                key = input_hash("generated-v3", [hashlib.sha256(c.read_bytes()).hexdigest()[:16] for c in clips],
+                key = input_hash("generated-v4", [hashlib.sha256(c.read_bytes()).hexdigest()[:16] for c in clips],
                                  frames, SHAPES[shape], FPS, PUSH)
                 seconds = sum(probe_seconds(c) for c in clips)
                 made_by[shape] = (f"{'two generated clips joined' if len(clips) == 2 else 'generated video'}, "

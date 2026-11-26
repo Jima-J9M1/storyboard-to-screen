@@ -123,6 +123,10 @@
           "description": "Whether the picture is painted with the reference sheet as a guide image. Wide landscapes copy the sheet's composition when guided, so they rely on the style block alone.",
           "type": "boolean"
         },
+        "extend": {
+          "description": "Optional. false means: do not use a second generated clip that continues the first. Set it when the continuation shows something the film must not show, such as a face that turns to the camera. Defaults to true.",
+          "type": "boolean"
+        },
         "motion_mode": {
           "description": "video = image-to-video model; ken_burns = pan and zoom over the keyframe; still = hold.",
           "enum": ["video", "ken_burns", "still"]

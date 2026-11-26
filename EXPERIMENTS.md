@@ -314,3 +314,48 @@ The picture stood still for 27 of the film's 87 seconds of shots before, and 1.2
 **Limits.** No freeze does not mean good motion. Stretched three times, a clip is slow motion, with two of every three frames invented by FFmpeg. Fifteen frames were inspected and looked clean, but in shot s04 the glass beaker changes shape as the hands move, which is the video model's own distortion. The better fix is more real motion per shot: a second clip for each shot, continuing from the first one's last frame, was sent to Kaggle and will halve the stretch.
 
 **Evidence.** `films/gebisa-ejeta/outputs/film/report.json`, field `motion_9x16`, for the current film. `core/motion.py` for the method. `films/gebisa-ejeta/outputs/shots/moves.json` records how much each clip was slowed.
+
+## E12. Does a second clip that continues the first give a shot enough real motion?
+
+**Date:** 26 November 2026
+
+**Why.** After E11 nothing froze, but a 3.4-second clip stretched over a 9-second shot is slow motion with two of every three frames computed. The director asked for shots that feel like a short, continuous scene.
+
+**Hypothesis.** A second clip generated from the last frame of the first, with the same motion description, will carry the movement on. Joined, the two give 6.75 seconds of real motion, so a shot needs little stretching.
+
+**Change.** For each of the ten shots, in both shapes, a second clip was generated from the last frame of the first (next seed, same prompt). The Moving shots stage joins the two before fitting them to the shot. The Edit stage also now dissolves from each shot into the next over 0.4 seconds; each clip is made that much longer so the narration's timing does not move.
+
+**Result.**
+
+| | One clip per shot (E11) | Two clips joined |
+|---|---|---|
+| Stretch needed to fill a shot | 2.2 to 3.0 times | 1.2 to 1.6 times |
+| Clips made | 20 | 20 more, in two jobs of about two hours each |
+| Retries | none | none |
+
+But a continuation does not know what the film must not show. In shot s03, a young man seen from behind, the model turned him towards the camera and his face came into view, in both shapes. Looking closer, the first clip of that shot had already begun to turn him. The subject of this film is never to be shown from the front.
+
+How each shot is made now:
+
+| Shot | How it moves |
+|---|---|
+| s01 | two generated clips joined, slowed 1.4x to fill the shot |
+| s02 | two generated clips joined, slowed 1.5x to fill the shot |
+| s03 | camera move: tilt up |
+| s04 | two generated clips joined, slowed 1.5x to fill the shot |
+| s05 | two generated clips joined, slowed 1.2x to fill the shot |
+| s06 | two generated clips joined, slowed 1.6x to fill the shot |
+| s07 | two generated clips joined, slowed 1.2x to fill the shot |
+| s08 | two generated clips joined, slowed 1.3x to fill the shot |
+| s09 | generated video, slowed 2.4x to fill the shot |
+| s10 | two generated clips joined, slowed 1.4x to fill the shot |
+
+The film stands still for 0.6 seconds in all, and its longest freeze is 0.2 seconds.
+
+**Decision.** Two joined clips are used wherever the continuation is acceptable. A shot can refuse its continuation (`"extend": false` in the storyboard), which s09 does because its second clip tilted up to a farmer's face. Shot s03 went back to a camera move over its picture, where the man stays seen from behind.
+
+**What it shows.** More generated motion is better for pacing and worse for control. Every generated clip has to be looked at for what came into frame, not only for whether it moves.
+
+**Limits.** Faces were found by a person-style check of the last frame of each clip, done by the agent from still frames. A face that appears and disappears in the middle of a clip would be missed. The director must watch every shot.
+
+**Evidence.** `films/gebisa-ejeta/outputs/shots/moves.json`; `films/gebisa-ejeta/outputs/video/job_report-9x16-b.json` and `job_report-16x9-b.json`; `films/gebisa-ejeta/outputs/film/report.json`.

@@ -18,6 +18,8 @@ export type Stage = {
   detail: string;
   problems: string[];
   command: string | null;
+  // Whether the board may start this stage.
+  runnable: boolean;
   // How the stage's outside calls went. Null for a stage that makes none.
   calls: { log_name: string; attempts: number; ok: number; failed: number; seconds: number; models: string[] } | null;
 };
@@ -25,7 +27,7 @@ export type Stage = {
 export type Source = {
   source_id: string;
   title: string | null;
-  url: string;
+  url: string | null;
   licence: string | null;
   words: number;
 };
@@ -123,6 +125,8 @@ export type FilmState = {
   direction: { ts: string; target: string; shot: string | null; note: string; before: string; after: string; what_changed: string }[];
   // True when the storyboard or a picture is newer than the film that was cut from them.
   film_is_stale: boolean;
+  // The stage running for this film right now, if any.
+  running: string | null;
   // What the assignment asks of the finished film, each checked against a measurement.
   release_checks: { label: string; pass: boolean; detail: string }[];
   runs: {

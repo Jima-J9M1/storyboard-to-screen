@@ -13,7 +13,7 @@
         1080,
         1920
       ],
-      "duration_s": 81.85,
+      "duration_s": 81.88,
       "loudness_lufs": -14.32,
       "true_peak_db": -1.16,
       "subtitle_cards": 20,
@@ -25,13 +25,85 @@
         1920,
         1080
       ],
-      "duration_s": 81.85,
+      "duration_s": 81.88,
       "loudness_lufs": -14.32,
       "true_peak_db": -1.16,
       "subtitle_cards": 14,
       "longest_subtitle_line": 42
     }
   },
+  "motion_9x16": [
+    {
+      "shot": "s01",
+      "length_s": 5.4,
+      "still_s": 0.0,
+      "longest_freeze_s": 0.0,
+      "average_change": 3.62
+    },
+    {
+      "shot": "s02",
+      "length_s": 7.45,
+      "still_s": 0.0,
+      "longest_freeze_s": 0.0,
+      "average_change": 3.37
+    },
+    {
+      "shot": "s03",
+      "length_s": 7.25,
+      "still_s": 0.0,
+      "longest_freeze_s": 0.0,
+      "average_change": 3.22
+    },
+    {
+      "shot": "s04",
+      "length_s": 11.1,
+      "still_s": 0.0,
+      "longest_freeze_s": 0.0,
+      "average_change": 3.85
+    },
+    {
+      "shot": "s05",
+      "length_s": 8.25,
+      "still_s": 0.0,
+      "longest_freeze_s": 0.0,
+      "average_change": 2.44
+    },
+    {
+      "shot": "s06",
+      "length_s": 8.75,
+      "still_s": 0.0,
+      "longest_freeze_s": 0.0,
+      "average_change": 2.11
+    },
+    {
+      "shot": "s07",
+      "length_s": 8.25,
+      "still_s": 0.0,
+      "longest_freeze_s": 0.0,
+      "average_change": 2.09
+    },
+    {
+      "shot": "s08",
+      "length_s": 8.35,
+      "still_s": 0.0,
+      "longest_freeze_s": 0.0,
+      "average_change": 2.98
+    },
+    {
+      "shot": "s09",
+      "length_s": 6.95,
+      "still_s": 0.0,
+      "longest_freeze_s": 0.0,
+      "average_change": 3.5
+    },
+    {
+      "shot": "s10",
+      "length_s": 7.1,
+      "still_s": 0.0,
+      "longest_freeze_s": 0.0,
+      "average_change": 2.85
+    }
+  ],
   "subtitles_9x16": [
     {
       "shot": "s01",

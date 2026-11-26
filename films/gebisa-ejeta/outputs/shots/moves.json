@@ -3,80 +3,80 @@
     "shot": "s01",
     "asked": "the bare feet walk slowly forward along the dirt path, the tall grass sways in the breeze, slow pan left to right",
     "mode": "video",
-    "move": "generated video, slowed 2.7x to fill the shot",
-    "frames": 226,
+    "move": "two generated clips joined, slowed 1.4x to fill the shot",
+    "frames": 236,
     "fallback": false
   },
   {
     "shot": "s02",
     "asked": "the fire flickers, the mother's hands gently close around the child's hand and the pencil, slow push in",
     "mode": "video",
-    "move": "generated video, slowed 2.9x to fill the shot",
-    "frames": 248,
+    "move": "two generated clips joined, slowed 1.5x to fill the shot",
+    "frames": 258,
     "fallback": false
   },
   {
     "shot": "s03",
     "asked": "the grain sways in the wind, the young man stands still looking out over the fields, slow tilt up",
-    "mode": "video",
-    "move": "generated video, slowed 2.2x to fill the shot",
-    "frames": 185,
+    "mode": "ken_burns",
+    "move": "camera move: tilt up",
+    "frames": 195,
     "fallback": false
   },
   {
     "shot": "s04",
     "asked": "the gloved hands lift the beaker a little, the green sprout's leaves tremble, slow push in",
     "mode": "video",
-    "move": "generated video, slowed 3.0x to fill the shot",
-    "frames": 251,
+    "move": "two generated clips joined, slowed 1.5x to fill the shot",
+    "frames": 261,
     "fallback": false
   },
   {
     "shot": "s05",
     "asked": "heat shimmers over the cracked ground, the single green shoot trembles in the wind, slow pull back",
     "mode": "video",
-    "move": "generated video, slowed 2.3x to fill the shot",
-    "frames": 192,
+    "move": "two generated clips joined, slowed 1.2x to fill the shot",
+    "frames": 202,
     "fallback": false
   },
   {
     "shot": "s06",
     "asked": "the tall sorghum sways in slow waves in the wind, clouds drift across the sky, slow pan left to right, fixed horizon",
     "mode": "video",
-    "move": "generated video, slowed 3.0x to fill the shot",
-    "frames": 255,
+    "move": "two generated clips joined, slowed 1.6x to fill the shot",
+    "frames": 265,
     "fallback": false
   },
   {
     "shot": "s07",
     "asked": "light shifts slowly across the roots, crumbs of soil settle, slow push in",
     "mode": "video",
-    "move": "generated video, slowed 2.4x to fill the shot",
-    "frames": 200,
+    "move": "two generated clips joined, slowed 1.2x to fill the shot",
+    "frames": 210,
     "fallback": false
   },
   {
     "shot": "s08",
     "asked": "golden seed pours steadily from the cupped hands into the sack, slow tilt down",
     "mode": "video",
-    "move": "generated video, slowed 2.4x to fill the shot",
-    "frames": 201,
+    "move": "two generated clips joined, slowed 1.3x to fill the shot",
+    "frames": 211,
     "fallback": false
   },
   {
     "shot": "s09",
     "asked": "the hands tighten on the bundle and the grain heads sway gently, slow push in",
     "mode": "video",
-    "move": "generated video, slowed 2.3x to fill the shot",
-    "frames": 196,
+    "move": "generated video, slowed 2.4x to fill the shot",
+    "frames": 206,
     "fallback": false
   },
   {
     "shot": "s10",
     "asked": "light glints across the gold medal, dust drifts in the beams of light, slow push in",
     "mode": "video",
-    "move": "generated video, slowed 2.6x to fill the shot",
-    "frames": 220,
+    "move": "two generated clips joined, slowed 1.4x to fill the shot",
+    "frames": 230,
     "fallback": false
   }
 ]

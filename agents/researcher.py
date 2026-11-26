@@ -1,12 +1,14 @@
 """Researcher: collect sourced material about the brief's title.
 
-Reads   films/<slug>/brief.json   title, and the optional list of extra source pages
+Reads   films/<slug>/brief.json   title, the optional story told by the director, and optional extra source pages
 Writes  films/<slug>/research/source_wikipedia.json   the article text, its revision and licence
         films/<slug>/research/source_web<n>.json      one record per extra page: url, date, fingerprint
         films/<slug>/research/subject.json            what the title is, and the likeness policy
         films/<slug>/research/facts.json              numbered facts, each quoting its source
 
-Step 1 fetches the sources and needs no key.
+Step 1 gathers the sources and needs no key. If the brief holds a story in the director's own
+words, that telling is the source and Wikipedia is not consulted; otherwise the title is
+looked up on Wikipedia.
 Step 2 asks a language model to list the facts, then checks every fact's quote against the
 text of the source it names. A fact whose quote is not in that source word for word is
 rejected, so the model cannot add anything the sources do not say.
@@ -177,6 +179,45 @@ def research_wikipedia(title: str, film: paths.Film, cache: Cache, refresh: bool
     return source
 
 
+# ---------- step 1a, the other way: a story the director tells ----------
+
+TOLD_LICENCE = "The director's own account, told for this film."
+TOLD_POLICY = (
+    "This story was told by the director, so the system cannot look up who in it is a real person. "
+    "It is treated as being about real people: until the director records their consent in ETHICS.md, "
+    "nobody in it is shown with a recognisable face, voiced, or given invented words."
+)
+
+
+def research_told(brief: dict, film: paths.Film, cache: Cache, refresh: bool) -> dict:
+    """Use the director's own telling as the source. No public record is consulted for it."""
+    source_path = film.research / "source_told.json"
+    subject_path = film.research / "subject.json"
+    key = input_hash(brief["title"], brief["story"])
+    if cache.fresh("told", key) and not refresh:
+        print("research: the story as told is already recorded; nothing fetched.")
+        return load_json(source_path)
+    source = {
+        "source_id": "told",
+        "title": f"{brief['title']}, as told by the director",
+        "url": None,
+        "licence": TOLD_LICENCE,
+        "retrieved_at": _now(),
+        "text": brief["story"],
+    }
+    subject = {
+        "title": brief["title"], "description": "A story told by the director", "wikidata_id": None,
+        "is_human": None, "born": None, "died": None, "living": None,
+        "likeness_policy": "review", "policy_reason": TOLD_POLICY,
+    }
+    write_json(source_path, source)
+    write_json(subject_path, subject)
+    cache.store("told", key, [source_path, subject_path])
+    print(f"research: recorded the story as told, {len(brief['story'].split())} words. No public source was consulted for it.")
+    print(f"research: likeness policy is \"review\". {TOLD_POLICY}")
+    return source
+
+
 # ---------- step 1b: extra pages listed in the brief ----------
 
 def _text_path(film: paths.Film, source_id: str) -> Path:
@@ -285,7 +326,7 @@ def extract_facts(title: str, film: paths.Film, sources: list[dict], cache: Cach
         check=lambda parsed: unsupported_facts(parsed, texts),
     )
     write_json(facts_path, {
-        "sources": [{"source_id": s["source_id"], "url": s.get("permalink") or s["url"]} for s in sources],
+        "sources": [{"source_id": s["source_id"], "url": s.get("permalink") or s.get("url")} for s in sources],
         "model": model,
         "facts": reply["facts"],
     })
@@ -308,7 +349,11 @@ def run(film_slug: str, refresh: bool = False) -> int:
 
     title = brief["title"]
     cache = Cache(film, STAGE)
-    sources = [research_wikipedia(title, film, cache, refresh)]
+    # A story the director tells is its own source. Otherwise the title is looked up on Wikipedia.
+    if brief.get("story", "").strip():
+        sources = [research_told(brief, film, cache, refresh)]
+    else:
+        sources = [research_wikipedia(title, film, cache, refresh)]
     for n, url in enumerate(brief.get("sources", []), start=1):
         sources.append(research_page(url, f"web{n}", film, cache, refresh))
     extract_facts(title, film, sources, cache, refresh)

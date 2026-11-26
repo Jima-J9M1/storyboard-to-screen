@@ -103,6 +103,8 @@ Each agent owns named fields of the storyboard and writes nothing else. `agents/
 
 **The director owns the storyboard.** The agents write `storyboard.json` only when the film has none. After that a new draft goes to `storyboard.draft.json`, so re-running the agents can never undo the director's edits.
 
+**A story the director tells.** A film does not have to be about something on Wikipedia. If the brief holds a `story` in the director's own words, that telling is recorded as the source and the facts are drawn from it under the same quote check; no public source is consulted. Because the system cannot look up who in such a story is a real person, it is treated as being about real people: nobody in it is shown with a recognisable face, voiced or quoted until the director records consent.
+
 **The quote check.** A language model can state things its source does not say. So the Researcher must return, with every fact, the exact words from the source that support it, and code checks that those words are in the text of the source the fact names. A reply with a quote that is not there word for word is rejected and retried. Later agents may only narrate facts from this list.
 
 **Source text and copyright.** Wikipedia's text is openly licensed, so it is committed. Other pages belong to their publishers, so only a record is committed: the address, the date, the word count and a fingerprint of the text. The text itself stays in a git-ignored folder and is fetched again if it is needed. The facts cache is keyed on the fingerprints, so a clean clone can tell the facts are current without fetching anything.
@@ -206,7 +208,7 @@ The cost and latency tables in `COSTS.md` will be generated from this file by a 
 
 The board also serves the generated files themselves, so they can be looked at and played. It serves only what the status report lists, only pictures, sound and video, and only from inside a film's `outputs/` folder; a request for anything else gets "not found".
 
-The board changes the repo in two ways, both by running pipeline code and never by writing files itself. It can start a new film (`python -m core.films new`), and it can pass the director's note on one item to the Reviser (`python -m agents.reviser`), which is the one place the board causes a model to be called. It cannot run a whole stage or edit a storyboard directly. It listens on this machine only, runs commands without a shell, and refuses a request to start a film that comes from another website. The pipeline does not need it.
+The board changes the repo in two ways, both by running pipeline code and never by writing files itself. It can start a new film (`python -m core.films new`), and it can pass the director's note on one item to the Reviser (`python -m agents.reviser`), which is the one place the board causes a model to be called. It can also start a stage (`python -m core.run_stage`), which is where the list of stages that may be started from a browser is kept; the hours-long GPU stages are not on it. It cannot edit a storyboard directly. It listens on this machine only, runs commands without a shell, and refuses a request to start a film that comes from another website. The pipeline does not need it.
 
 ## Text on screen
 
@@ -231,7 +233,9 @@ The video model's documentation asks for a 24 GB GPU at 720p. Kaggle's free GPU 
 - keeps one part of the model on the GPU at a time, and decodes the video in tiles;
 - makes clips in storyboard order, tall first, saving each as it finishes, and stops starting new ones when its time budget is nearly spent.
 
-A generated clip is shorter than its shot, so the Moving shots stage slows it (by at most two, with in-between frames computed by FFmpeg) and then holds the last frame.
+A generated clip is 3.4 seconds and a shot is 7 to 10. So each shot gets a second clip that starts from the last frame of the first and carries the motion on; the Moving shots stage joins the two and stretches them to the shot's exact length (1.2 to 1.6 times), with in-between frames computed by FFmpeg and a slow push-in. A clip is never held on a frozen frame. A shot can refuse its continuation with `"extend": false`, for when the continuation shows something the film must not.
+
+Each clip runs 0.4 seconds past its shot, and the Edit stage dissolves from one shot into the next over those frames, so the narration's timing does not move.
 
 The pictures reach Kaggle as a private dataset, and the clips come back as the job's output. `core/kaggle.py` holds the upload, wait and download steps; a job that has already run can be collected without sending a new one.
 

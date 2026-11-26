@@ -48,7 +48,7 @@ export async function filmState(slug: string) {
   return JSON.parse(await run("core.status", ["--film", slug]));
 }
 
-export type NewFilm = { title: string; audience: string; feeling: string; languages: string[] };
+export type NewFilm = { title: string; audience: string; feeling: string; languages: string[]; story: string };
 
 export async function createFilm(film: NewFilm): Promise<string> {
   const out = await run("core.films", [
@@ -57,6 +57,7 @@ export async function createFilm(film: NewFilm): Promise<string> {
     "--audience", film.audience,
     "--feeling", film.feeling,
     "--languages", ...film.languages,
+    "--story", film.story,
   ]);
   return out.trim();
 }
@@ -78,4 +79,22 @@ export async function direct(slug: string, direction: Direction) {
   const marker = out.lastIndexOf("@@RESULT@@");
   if (marker < 0) throw new PipelineError("The Reviser finished without a result.");
   return JSON.parse(out.slice(marker + "@@RESULT@@".length));
+}
+
+// Start one stage of a film. The pipeline decides what running it means; the board only names it.
+export async function runStage(slug: string, stage: string): Promise<{ ok: boolean; lines: string[] }> {
+  if (!isFilmName(slug)) throw new PipelineError(`"${slug}" is not a film name.`);
+  if (!/^[a-z_]+$/.test(stage)) throw new PipelineError("That is not a stage.");
+  return new Promise((resolve, reject) => {
+    execFile(
+      PYTHON,
+      ["-m", "core.run_stage", "--film", slug, "--stage", stage],
+      { cwd: REPO, timeout: 30 * 60_000, maxBuffer: 16 * 1024 * 1024 },
+      (error, stdout, stderr) => {
+        const marker = stdout.lastIndexOf("@@RESULT@@");
+        if (marker >= 0) return resolve(JSON.parse(stdout.slice(marker + "@@RESULT@@".length)));
+        reject(new PipelineError(stderr.trim().slice(-400) || error?.message || "The stage ended without a result."));
+      },
+    );
+  });
 }

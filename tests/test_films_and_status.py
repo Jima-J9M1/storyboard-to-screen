@@ -51,6 +51,19 @@ class FilmTests(TempRepoTestCase):
         self.assertEqual((intent["status"], intent["current"]), ("blocked", True))
         self.assertIn("audience", intent["problems"][0])
 
+    def test_a_film_can_start_from_a_story_the_director_tells(self):
+        story = "My grandmother Almaz was born in a village near Jimma. " * 12
+        slug = films.create("Almaz and the coffee tree", story=story, languages=["am"])
+        brief = json.loads((self.root / f"films/{slug}/brief.json").read_text())
+        self.assertEqual(brief["story"], story.strip())
+        self.assertEqual(brief["languages"], ["am"])
+
+    def test_a_story_too_short_to_make_a_film_is_refused(self):
+        with self.assertRaises(ValueError) as caught:
+            films.create("A short one", story="She was born. She grew coffee.")
+        self.assertIn("at least 80", str(caught.exception))
+        self.assertEqual(paths.film_slugs(), [])
+
     def test_creating_the_same_film_twice_is_refused(self):
         films.create("Lalibela")
         with self.assertRaises(films.FilmExists):

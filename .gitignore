@@ -13,6 +13,9 @@ films/*/outputs/music/work/
 films/*/outputs/video/work*/
 films/*/outputs/radio_cut/voice.wav
 
+# Marks a film whose stage is running right now
+films/*/.running
+
 # Secrets
 .env
 
