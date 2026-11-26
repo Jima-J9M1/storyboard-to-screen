@@ -339,6 +339,7 @@ def _outputs(film: paths.Film, board: dict | None) -> dict:
         if found:
             films[shape] = found | {k: facts[k] for k in ("duration_s", "loudness_lufs", "true_peak_db", "subtitle_cards")}
 
+    motion = report.get("motion_9x16") or []
     return {
         "reference": _file(film, "keyframes/reference.jpg"),
         "contact_sheet": _file(film, "keyframes/contact_sheet.jpg"),
@@ -347,7 +348,12 @@ def _outputs(film: paths.Film, board: dict | None) -> dict:
         "radio_cut": {"audio": _file(film, "radio_cut/radio_cut.m4a"), "video": _file(film, "radio_cut/radio_cut.mp4")},
         "music": {"candidates": candidates, "chosen_seed": music.get("chosen_seed"),
                   "gpu": job.get("gpu"), "gpu_seconds": job.get("total_seconds")},
-        "film": {"shapes": films, "placeholder_music": report.get("placeholder_music"), "music": report.get("music")},
+        "film": {
+            "shapes": films, "placeholder_music": report.get("placeholder_music"), "music": report.get("music"),
+            "end_card": (report.get("end_card") or {}).get("text"),
+            "still_s": round(sum(shot["still_s"] for shot in motion), 1) if motion else None,
+            "longest_freeze_s": max((shot["longest_freeze_s"] for shot in motion), default=None),
+        },
     }
 
 
@@ -386,6 +392,40 @@ def _credits(film: paths.Film, board: dict | None, research: dict, outputs: dict
         if outputs["film"]["shapes"]:
             credits.append({"role": "Edit", "who": "FFmpeg and Pillow", "note": "cut, mix, subtitles, end card"})
     return credits
+
+
+def _release_checks(board: dict | None, outputs: dict, stale: bool) -> list[dict]:
+    """What the assignment asks of the finished film, each checked against a measurement. Empty until a film exists."""
+    made = outputs["film"]
+    shapes = made["shapes"]
+    if not shapes or not board:
+        return []
+    any_shape = next(iter(shapes.values()))
+    shots = outputs["shots"].values()
+    generated = sum(1 for shot in shots if shot["move"] and "generated" in shot["move"])
+
+    def check(label: str, passed: bool, detail: str) -> dict:
+        return {"label": label, "pass": bool(passed), "detail": detail}
+
+    checks = [
+        check("60 to 90 seconds long", 60 <= any_shape["duration_s"] <= 90, f"{any_shape['duration_s']} s"),
+        check("Exported tall and wide", {"9x16", "16x9"} <= set(shapes), ", ".join(sorted(shapes))),
+        check("Ends with a card saying it was made with AI", bool(re.search(r"\bAI\b", made["end_card"] or "")),
+              f"\"{made['end_card']}\"" if made["end_card"] else "no end card recorded"),
+        check("English subtitles", any_shape["subtitle_cards"] > 0, f"{any_shape['subtitle_cards']} subtitle cards"),
+        check("Loudness near -14 LUFS", abs(any_shape["loudness_lufs"] + 14) <= 1, f"{any_shape['loudness_lufs']} LUFS"),
+        check("Peak below -1 dB", any_shape["true_peak_db"] <= -1, f"{any_shape['true_peak_db']} dB"),
+        check("An original score, not the placeholder", not made["placeholder_music"], made["music"] or ""),
+        check("The film is cut from the current storyboard", not stale,
+              "something changed after the last cut" if stale else "up to date"),
+    ]
+    if made["still_s"] is not None:
+        checks.append(check("The picture keeps moving", made["longest_freeze_s"] <= 1.0,
+                            f"stands still for {made['still_s']} s in all; longest freeze {made['longest_freeze_s']} s"))
+    checks.append(check("Every shot is generated video", generated == len(board["shots"]),
+                        f"all {generated} shots" if generated == len(board["shots"])
+                        else f"{generated} of {len(board['shots'])} shots; the rest are camera moves over a picture"))
+    return checks
 
 
 def _direction(film: paths.Film) -> list[dict]:
@@ -428,6 +468,7 @@ def film_state(slug: str) -> dict:
         "backdrop": next((shot["picture"] for shot in outputs["shots"].values() if shot["picture"]), None),
         "direction": _direction(film),
         "film_is_stale": _film_is_stale(film),
+        "release_checks": _release_checks(board, outputs, _film_is_stale(film)),
         "runs": _runs(slug),
     }
 

@@ -38,11 +38,12 @@ export function Board({ initial, stage }: { initial: FilmState; stage?: string }
   }
 
   const brief = film.brief ?? {};
+  const hasFilm = Object.keys(film.outputs.film.shapes).length > 0;
   const current = film.stages.find((stage) => stage.current);
   const done = film.stages.filter((stage) => stage.done).length;
-  const hasFilm = Object.keys(film.outputs.film.shapes).length > 0;
-  // The stage on show: the one the director clicked, otherwise the one the film is at.
-  const shown = film.stages.find((stage) => stage.id === picked) ?? current ?? film.stages[film.stages.length - 1];
+  // What is on show: the director's choice; otherwise the film if there is one, otherwise the stage it is at.
+  const view = picked ?? (hasFilm ? "film" : (current ?? film.stages[0]).id);
+  const shown = film.stages.find((stage) => stage.id === view) ?? current ?? film.stages[film.stages.length - 1];
 
   return (
     <>
@@ -84,93 +85,91 @@ export function Board({ initial, stage }: { initial: FilmState; stage?: string }
         </div>
       </header>
 
-      {film.credits.length > 1 && (
-        <section className="credits" aria-label="Credits">
-          <dl className="wrap">
-            {film.credits.map((credit) => (
-              <div key={credit.role}>
-                <dt>{credit.role}</dt>
-                <dd>
-                  {credit.who}
-                  {credit.note && <span>{credit.note}</span>}
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </section>
-      )}
-
       {theatre && hasFilm && <Theatre film={film} close={() => setTheatre(false)} />}
 
-      <div className="strip-scroll" id="stages">
-        <ol className="strip full" aria-label="Production stages. Choose one to see what it made.">
-          {film.stages.map((stage) => (
-            <li key={stage.id}>
-              <button
-                type="button"
-                className={`frame ${stage.status}`}
-                aria-pressed={stage.id === shown.id}
-                aria-current={stage.current ? "step" : undefined}
-                onClick={() => pick(stage.id)}
-              >
-                <b>{stage.name}</b>
-                <span className={`who ${stage.who}`}>{WHO[stage.who]}</span>
-                <span>{frameLabel(stage)}</span>
-              </button>
-            </li>
-          ))}
-        </ol>
-      </div>
-
-      <section className="now" aria-live="polite">
-        <div className="wrap">
-          <div className="stage-head">
-            <h2>{shown.name}</h2>
-            <p>
-              <span className={`pill ${shown.status}`}>{frameLabel(shown)}</span>
-              <span className={`who ${shown.who}`}>{shown.who_label}</span>
-            </p>
-          </div>
-          <dl className="stage-guide">
-            <div>
-              <dt>What happens here</dt>
-              <dd>{shown.what}</dd>
-            </div>
-            <div>
-              <dt>Your part as director</dt>
-              <dd>{shown.your_part}</dd>
-            </div>
-            <div>
-              <dt>Right now</dt>
-              <dd>
-                {shown.detail}
-                {shown.problems.length > 0 && (
-                  <ul className="problems">
-                    {shown.problems.map((p) => (
-                      <li key={p}>{p}</li>
-                    ))}
-                  </ul>
-                )}
-                {shown.command && (
-                  <span className="do">
-                    {shown.done ? "Run it again" : "Run it"} in the terminal: <code>{shown.command}</code>
+      <div className="wrap workspace" id="stages">
+        <nav className="pipeline" aria-label="The film and the stages that made it">
+          <button type="button" className="pipe-film" aria-pressed={view === "film"} onClick={() => pick("film")}>
+            <b>The film</b>
+            <span>{!hasFilm ? "Not cut yet" : film.outputs.film.placeholder_music ? "Rough cut" : "Finished"}</span>
+          </button>
+          <p className="pipe-title">How it is made</p>
+          <ol>
+            {film.stages.map((stage, n) => (
+              <li key={stage.id} className={stage.status}>
+                <button
+                  type="button"
+                  aria-pressed={view === stage.id}
+                  aria-current={stage.current ? "step" : undefined}
+                  onClick={() => pick(stage.id)}
+                >
+                  <i aria-hidden="true">{n + 1}</i>
+                  <span>
+                    <b>{stage.name}</b>
+                    <small>
+                      {WHO[stage.who]}, {frameLabel(stage).toLowerCase()}
+                    </small>
                   </span>
-                )}
-              </dd>
-            </div>
-          </dl>
-        </div>
-      </section>
+                </button>
+              </li>
+            ))}
+          </ol>
+          <button type="button" className="pipe-notes" aria-pressed={view === "notes"} onClick={() => pick("notes")}>
+            Your notes
+            <span>{film.direction.length}</span>
+          </button>
+        </nav>
 
-      <main className="wrap">
-        <section className="panel">
-          <h3 className="made">What {shown.name} made</h3>
-          <StageOutput stage={shown} film={film} />
-          <StageCalls stage={shown} film={film} />
-          <DirectionLog film={film} />
-        </section>
-        <p className="foot">Read from the repo every five seconds. This page changes nothing.</p>
-      </main>
+        <main className="stage-view" aria-live="polite">
+          {view === "film" ? (
+            <FinalOutput film={film} watch={() => setTheatre(true)} />
+          ) : view === "notes" ? (
+            <NotesView film={film} />
+          ) : (
+            <>
+              <div className="stage-head">
+                <h2>{shown.name}</h2>
+                <p>
+                  <span className={`pill ${shown.status}`}>{frameLabel(shown)}</span>
+                  <span className={`who ${shown.who}`}>{shown.who_label}</span>
+                </p>
+              </div>
+              <dl className="stage-guide">
+                <div>
+                  <dt>What happens here</dt>
+                  <dd>{shown.what}</dd>
+                </div>
+                <div>
+                  <dt>Your part as director</dt>
+                  <dd>{shown.your_part}</dd>
+                </div>
+                <div>
+                  <dt>Right now</dt>
+                  <dd>
+                    {shown.detail}
+                    {shown.problems.length > 0 && (
+                      <ul className="problems">
+                        {shown.problems.map((p) => (
+                          <li key={p}>{p}</li>
+                        ))}
+                      </ul>
+                    )}
+                    {shown.command && (
+                      <span className="do">
+                        {shown.done ? "Run it again" : "Run it"} in the terminal: <code>{shown.command}</code>
+                      </span>
+                    )}
+                  </dd>
+                </div>
+              </dl>
+              <h3 className="made">What {shown.name} made</h3>
+              <StageOutput stage={shown} film={film} />
+              <StageCalls stage={shown} film={film} />
+            </>
+          )}
+          <p className="foot">Read from the repo every five seconds.</p>
+        </main>
+      </div>
     </>
   );
 }
@@ -210,6 +209,216 @@ function Theatre({ film, close }: { film: FilmState; close: () => void }) {
   );
 }
 
+// ---------- the finished film ----------
+
+function FinalOutput({ film, watch }: { film: FilmState; watch: () => void }) {
+  const out = film.outputs.film;
+  const shapes = out.shapes;
+  const board = film.storyboard;
+  const names: Record<string, string> = { "9x16": "Tall, for phones", "16x9": "Wide" };
+  const [shape, setShape] = useState(shapes["9x16"] ? "9x16" : Object.keys(shapes)[0]);
+  const [at, setAt] = useState(0);
+  const [player, setPlayer] = useState<HTMLVideoElement | null>(null);
+
+  if (Object.keys(shapes).length === 0 || !board) {
+    return (
+      <>
+        <div className="stage-head">
+          <h2>The film</h2>
+        </div>
+        <Nothing>
+          No film has been cut yet. It is made by <code>make film FILM={film.slug}</code> once the stages on the left
+          are done.
+        </Nothing>
+      </>
+    );
+  }
+
+  // Where each shot starts, so the timeline can jump the player to it.
+  const language = board.languages[0];
+  let clock = 0;
+  const timeline = board.shots.map((shot) => {
+    const entry = { shot, start: clock, picture: film.outputs.shots[shot.id]?.picture ?? null };
+    clock += shot.duration_s;
+    return entry;
+  });
+  const total = clock + board.end_card.duration_s;
+  const playing = [...timeline].reverse().find((entry) => at >= entry.start - 0.05) ?? timeline[0];
+  const onEndCard = at >= clock;
+  const file = shapes[shape];
+  const passed = film.release_checks.filter((check) => check.pass).length;
+  const jump = (seconds: number) => {
+    if (!player) return;
+    player.currentTime = seconds + 0.05;
+    void player.play();
+  };
+
+  return (
+    <>
+      <div className="stage-head">
+        <h2>The film</h2>
+        <p>
+          <span className={`pill ${out.placeholder_music ? "ready" : "done"}`}>{out.placeholder_music ? "Rough cut" : "Finished"}</span>
+          <span className="quiet">
+            {runtime(file.duration_s)}, {plural(board.shots.length, "shot")}
+          </span>
+        </p>
+      </div>
+      {film.film_is_stale && (
+        <div className="notice">
+          <strong>This film is older than its storyboard</strong>
+          Something was changed after it was cut. Run <code>make film FILM={film.slug}</code> to cut it again.
+        </div>
+      )}
+      {out.placeholder_music && (
+        <div className="notice">
+          <strong>The music is a placeholder</strong>
+          Choose one of the score candidates on the Music stage, then cut the film again.
+        </div>
+      )}
+
+      <div className={`final s${shape}`}>
+        <div className="final-screen">
+          <video
+            key={file.path + file.v}
+            ref={setPlayer}
+            controls
+            preload="metadata"
+            src={media(film.slug, file)}
+            onTimeUpdate={(event) => setAt(event.currentTarget.currentTime)}
+          />
+        </div>
+        <div className="final-side">
+          <div className="switch" role="group" aria-label="Shape of the film">
+            {Object.keys(shapes).map((name) => (
+              <button key={name} type="button" aria-pressed={name === shape} onClick={() => setShape(name)}>
+                {names[name] ?? name}
+              </button>
+            ))}
+            <button type="button" onClick={watch}>
+              Full screen
+            </button>
+          </div>
+          <div className="now-playing">
+            <span className="quiet">{onEndCard ? "End card" : `On screen now: ${playing.shot.id}`}</span>
+            <p className="line" lang={language}>
+              {onEndCard ? board.end_card.text : playing.shot.narration[language]}
+            </p>
+            {!onEndCard && language !== "en" && <p className="sub">{playing.shot.subtitle_en}</p>}
+            {!onEndCard && <p className="pic">{playing.shot.reason}</p>}
+          </div>
+          <ul className="downloads">
+            {Object.entries(shapes).map(([name, item]) => (
+              <li key={name}>
+                <a href={media(film.slug, item)} download={item.path.split("/").pop()}>
+                  Download the {name === "9x16" ? "tall" : "wide"} film
+                </a>
+                <span className="quiet"> {megabytes(item)}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <h3>Shot by shot</h3>
+      <p className="lede">Each block is one shot, as wide as it is long. Choose one to play the film from there.</p>
+      <ol className="timeline" style={{ gridTemplateColumns: timeline.map((entry) => `${entry.shot.duration_s}fr`).join(" ") + ` ${board.end_card.duration_s}fr` }}>
+        {timeline.map((entry) => (
+          <li key={entry.shot.id}>
+            <button
+              type="button"
+              aria-pressed={!onEndCard && playing.shot.id === entry.shot.id}
+              onClick={() => jump(entry.start)}
+              title={entry.shot.subtitle_en}
+            >
+              {entry.picture && (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={media(film.slug, entry.picture)} alt="" loading="lazy" />
+              )}
+              <span>{entry.shot.id}</span>
+            </button>
+          </li>
+        ))}
+        <li>
+          <button type="button" className="end" aria-pressed={onEndCard} onClick={() => jump(clock)} title={board.end_card.text}>
+            <span>End</span>
+          </button>
+        </li>
+      </ol>
+      <p className="quiet timeline-foot">
+        0 s to {total.toFixed(1)} s. The current shot is outlined while the film plays.
+      </p>
+
+      <h3>
+        Ready to publish: {passed} of {film.release_checks.length} checks pass
+      </h3>
+      <p className="lede">Each line is what the assignment asks of the film, with the measurement it was checked against.</p>
+      <ul className="checks release">
+        {film.release_checks.map((check) => (
+          <li key={check.label}>
+            <span className={check.pass ? "ok" : "bad"}>{check.pass ? "Passes" : "Not yet"}</span>
+            <span>{check.label}</span>
+            <span className="quiet">{check.detail}</span>
+          </li>
+        ))}
+      </ul>
+      <p className="quiet">
+        Three things only you can check: that the narration sounds right, that the motion looks right, and that the
+        story lands with your audience.
+      </p>
+
+      <h3>Credits</h3>
+      <dl className="credit-list">
+        {film.credits.map((credit) => (
+          <div key={credit.role}>
+            <dt>{credit.role}</dt>
+            <dd>
+              {credit.who}
+              {credit.note && <span className="quiet"> {credit.note}</span>}
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </>
+  );
+}
+
+function NotesView({ film }: { film: FilmState }) {
+  return (
+    <>
+      <div className="stage-head">
+        <h2>Your notes</h2>
+      </div>
+      {film.direction.length === 0 ? (
+        <Nothing>
+          You have not given a note on this film yet. On the Pictures, Script and Music stages, each item has a button
+          for saying what is wrong and how to fix it.
+        </Nothing>
+      ) : (
+        <>
+          <p className="lede">
+            Every note you have given, newest first, with what the Reviser changed because of it. This is the record
+            of your direction.
+          </p>
+          <ol className="notes">
+            {film.direction.map((entry, n) => (
+              <li key={`${entry.ts}-${n}`}>
+                <b>
+                  {DIRECTED[entry.target] ?? entry.target}
+                  {entry.shot ? `, ${entry.shot}` : ""}
+                </b>
+                <span className="quiet"> {new Date(entry.ts).toLocaleString()}</span>
+                <p>&ldquo;{entry.note}&rdquo;</p>
+                <p className="quiet">{entry.what_changed}</p>
+              </li>
+            ))}
+          </ol>
+        </>
+      )}
+    </>
+  );
+}
+
 // ---------- what each stage made ----------
 
 function StageOutput({ stage, film }: { stage: Stage; film: FilmState }) {
@@ -239,6 +448,7 @@ const Nothing = ({ children }: { children: React.ReactNode }) => <p className="e
 
 function IntentOutput({ film }: { film: FilmState }) {
   const brief = film.brief ?? {};
+  const hasFilm = Object.keys(film.outputs.film.shapes).length > 0;
   const row = (label: string, value?: string) => (
     <div>
       <dt>{label}</dt>

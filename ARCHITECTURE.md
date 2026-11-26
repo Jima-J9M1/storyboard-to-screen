@@ -198,7 +198,7 @@ The cost and latency tables in `COSTS.md` will be generated from this file by a 
 | Page | Shows |
 |---|---|
 | `/` | every film with a strip of its nine stages, a form to start a new film, and the repo's paperwork: required documents, experiments, failures |
-| `/films/<name>` | one film, laid out like a film's page on a film site: its picture behind its title, running time and language, a button that plays it full screen, and credits naming the model behind each part. Below that, its brief, the stage it is at and what blocks it; the finished films, radio cut and score candidates, playable in the page; the storyboard with each shot's picture and narration audio; the sources and facts; its part of the run log |
+| `/films/<name>` | one film, laid out like a film's page on a film site: its picture behind its title, running time and language, a button that plays it full screen, and credits naming the model behind each part. Below that, a sidebar lists the finished film and the nine stages in order, from Intent to Edit, and the main area shows whichever is chosen. "The film" view has the player, a timeline of shots that jumps the player to any shot, the measured release checklist and the credits. Each stage's view shows its brief, the stage it is at and what blocks it; the finished films, radio cut and score candidates, playable in the page; the storyboard with each shot's picture and narration audio; the sources and facts; its part of the run log |
 
 **Problem.** A second program that reads the repo would need its own idea of what "done" and "valid" mean, and the two would drift apart.
 

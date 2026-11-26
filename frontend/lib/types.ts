@@ -88,6 +88,9 @@ export type Outputs = {
     shapes: Record<string, MediaFile & { duration_s: number; loudness_lufs: number; true_peak_db: number; subtitle_cards: number }>;
     placeholder_music: boolean | null;
     music: string | null;
+    end_card: string | null;
+    still_s: number | null;
+    longest_freeze_s: number | null;
   };
 };
 
@@ -120,6 +123,8 @@ export type FilmState = {
   direction: { ts: string; target: string; shot: string | null; note: string; before: string; after: string; what_changed: string }[];
   // True when the storyboard or a picture is newer than the film that was cut from them.
   film_is_stale: boolean;
+  // What the assignment asks of the finished film, each checked against a measurement.
+  release_checks: { label: string; pass: boolean; detail: string }[];
   runs: {
     attempts: number;
     ok: number;

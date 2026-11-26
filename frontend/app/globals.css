@@ -1424,3 +1424,318 @@ h2.shelf {
     background: linear-gradient(0deg, rgba(23, 35, 29, 0.97) 0%, rgba(23, 35, 29, 0.7) 60%, rgba(23, 35, 29, 0.35) 100%);
   }
 }
+
+/* ---- fourth pass: the pipeline down the side, the finished film as its own view ---- */
+.hero-inner {
+  min-height: 320px;
+}
+.workspace {
+  display: grid;
+  grid-template-columns: 250px minmax(0, 1fr);
+  gap: 36px;
+  align-items: start;
+  padding-block: 28px 56px;
+}
+.pipeline {
+  position: sticky;
+  top: 16px;
+  display: grid;
+  gap: 10px;
+}
+.pipeline button {
+  font: inherit;
+  color: var(--ink);
+  background: none;
+  border: 0;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+}
+.pipe-film {
+  background: var(--ink) !important;
+  color: var(--field) !important;
+  padding: 14px 16px;
+  border-radius: 4px;
+  display: grid;
+  gap: 2px;
+}
+.pipe-film b {
+  font: 800 1.25rem var(--display);
+}
+.pipe-film span {
+  font-size: 0.875rem;
+  opacity: 0.8;
+}
+.pipe-film[aria-pressed="true"] {
+  outline: 3px solid var(--straw);
+  outline-offset: 2px;
+}
+.pipe-title {
+  margin: 12px 0 0;
+  font: 600 0.9375rem var(--display);
+  color: var(--ink-soft);
+}
+.pipeline ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+}
+/* the stages are a sequence: each is joined to the next by a line down the side */
+.pipeline ol li {
+  position: relative;
+}
+.pipeline ol li + li::before {
+  content: "";
+  position: absolute;
+  left: 25px;
+  top: -6px;
+  height: 12px;
+  width: 2px;
+  background: var(--rule);
+}
+.pipeline ol li.done + li::before {
+  background: var(--leaf);
+}
+.pipeline ol button {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+  padding: 7px 10px 7px 12px;
+  border-radius: 4px;
+}
+.pipeline ol button:hover {
+  background: rgba(23, 35, 29, 0.06);
+}
+.pipeline ol button[aria-pressed="true"] {
+  background: var(--sheet);
+  box-shadow: inset 4px 0 0 var(--ink);
+}
+.pipeline ol i {
+  font: 600 0.8125rem var(--display);
+  font-style: normal;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--rule);
+  color: var(--ink-soft);
+}
+.pipeline li.done i {
+  background: var(--leaf);
+  color: #fff;
+}
+.pipeline li.ready i,
+.pipeline li.blocked i {
+  background: var(--straw);
+  color: var(--ink);
+}
+.pipeline li.blocked i {
+  box-shadow: 0 0 0 2px var(--grain);
+}
+.pipeline ol b {
+  display: block;
+  font: 600 1rem/1.2 var(--display);
+}
+.pipeline ol small {
+  color: var(--ink-soft);
+  font-size: 0.8125rem;
+}
+.pipe-notes {
+  display: flex !important;
+  justify-content: space-between;
+  padding: 9px 12px;
+  border-top: 1px solid var(--rule) !important;
+  margin-top: 6px;
+  font-weight: 600 !important;
+}
+.pipe-notes[aria-pressed="true"] {
+  background: var(--sheet);
+}
+.stage-view .stage-head {
+  margin-bottom: 16px;
+}
+.stage-view .stage-head h2 {
+  font-size: 2.25rem;
+}
+.stage-view .stage-guide {
+  background: var(--sheet);
+  padding: 16px 18px;
+  margin-bottom: 28px;
+}
+.stage-view .foot {
+  margin-top: 40px;
+}
+
+/* the finished film */
+.final {
+  display: grid;
+  grid-template-columns: minmax(0, 300px) minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+.final.s16x9 {
+  grid-template-columns: 1fr;
+}
+.final-screen video {
+  display: block;
+  width: 100%;
+  background: #000;
+}
+.final.s9x16 video {
+  aspect-ratio: 9 / 16;
+}
+.final.s16x9 video {
+  aspect-ratio: 16 / 9;
+}
+.final-side {
+  display: grid;
+  gap: 16px;
+  align-content: start;
+}
+.switch {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.switch button {
+  font: 600 0.9375rem var(--display);
+  background: none;
+  color: var(--ink);
+  border: 1px solid var(--ink);
+  border-radius: 3px;
+  padding: 8px 14px;
+  cursor: pointer;
+}
+.switch button[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--field);
+}
+.now-playing {
+  background: var(--sheet);
+  border-left: 4px solid var(--straw);
+  padding: 12px 16px;
+  display: grid;
+  gap: 6px;
+  min-height: 8.5rem;
+  align-content: start;
+}
+.downloads {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 4px;
+}
+.timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 3px;
+}
+.timeline button {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 76px;
+  padding: 0;
+  border: 0;
+  background: var(--frame);
+  cursor: pointer;
+  overflow: hidden;
+}
+.timeline img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.timeline span {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  font: 600 0.75rem var(--display);
+  background: var(--ink);
+  color: var(--field);
+  padding: 2px 6px;
+}
+.timeline button.end span {
+  position: static;
+  background: none;
+}
+.timeline button.end {
+  display: grid;
+  place-items: center;
+  color: #9aa89f;
+}
+.timeline button[aria-pressed="true"] {
+  outline: 3px solid var(--straw);
+  outline-offset: 1px;
+  z-index: 1;
+}
+.timeline-foot {
+  margin: 8px 0 0;
+  font-size: 0.875rem;
+}
+.checks.release li {
+  grid-template-columns: 5.5rem minmax(0, 1.4fr) minmax(0, 1fr);
+}
+.credit-list {
+  margin: 0;
+  background: var(--sheet);
+  max-width: 900px;
+}
+.credit-list div {
+  display: grid;
+  grid-template-columns: 8rem minmax(0, 1fr);
+  gap: 12px;
+  padding: 9px 14px;
+  border-bottom: 1px solid var(--rule);
+}
+.credit-list dt {
+  color: var(--ink-soft);
+}
+.credit-list dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+@media (max-width: 900px) {
+  .workspace {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .pipeline {
+    position: static;
+  }
+  .pipeline ol {
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(150px, 1fr);
+    overflow-x: auto;
+    gap: 4px;
+  }
+  .pipeline ol li + li::before {
+    display: none;
+  }
+  .final {
+    grid-template-columns: 1fr;
+  }
+  .final.s9x16 .final-screen {
+    max-width: 300px;
+  }
+  .checks.release li {
+    grid-template-columns: 5rem minmax(0, 1fr);
+  }
+  .checks.release li span:last-child {
+    grid-column: 2;
+  }
+}
+
+.hero .back {
+  position: static;
+  align-self: flex-start;
+  margin-bottom: auto;
+  padding-top: 0;
+}
