@@ -1,0 +1,98 @@
+{
+  "s01.am": {
+    "input_hash": "7ab18575b3403c35",
+    "outputs": [
+      "films/the-last-buna/outputs/narration/s01.am.wav"
+    ],
+    "model": "addis-voices-2:am-yohanes-calm",
+    "heard": "እማዬ, ዞዲቱ በጅማ ከተማ ቆርቆሮ በተከደነ ትንሽ ቤት ውስጥ ትኖራለች።"
+  },
+  "s02.am": {
+    "input_hash": "b2c02d2c7654f03c",
+    "outputs": [
+      "films/the-last-buna/outputs/narration/s02.am.wav"
+    ],
+    "model": "addis-voices-2:am-yohanes-calm",
+    "heard": "Size size her Twitter wohla lemm lemm size planet valle"
+  },
+  "s03.am": {
+    "input_hash": "9c118af19bafe674",
+    "outputs": [
+      "films/the-last-buna/outputs/narration/s03.am.wav"
+    ],
+    "model": "addis-voices-2:am-yohanes-calm",
+    "heard": "בברכת מטה לוי תרייבואנה תקול אלא."
+  },
+  "s04.am": {
+    "input_hash": "a4bd040ff3a6d6c1",
+    "outputs": [
+      "films/the-last-buna/outputs/narration/s04.am.wav"
+    ],
+    "model": "addis-voices-2:am-yohanes-calm",
+    "heard": "የተኮላውን ቡና ወቅት በተኮለሼ ክላጀበና ታፈነው"
+  },
+  "s05.am": {
+    "input_hash": "e1fdc18574827418",
+    "outputs": [
+      "films/the-last-buna/outputs/narration/s05.am.wav"
+    ],
+    "model": "addis-voices-2:am-yohanes-calm",
+    "heard": "ሶስተኛውና የመጨረሻው ሲኒ በረካ ይባላል። ትርጉሙም በረከት ነው፤"
+  },
+  "s06.am": {
+    "input_hash": "c33d68e3b8743ed6",
+    "outputs": [
+      "films/the-last-buna/outputs/narration/s06.am.wav"
+    ],
+    "model": "addis-voices-2:am-yohanes-calm",
+    "heard": "ከሰአት አራት በፊት ልድያ ዳይሬክት ወደ አዲስ አበባ ሀሄደ።"
+  },
+  "s07.am": {
+    "input_hash": "3aec6464465286ac",
+    "outputs": [
+      "films/the-last-buna/outputs/narration/s07.am.wav"
+    ],
+    "model": "addis-voices-2:am-yohanes-calm",
+    "heard": "ያ ሷስታኛለች ሆድ ይይዞ ያስለቀሰችው"
+  },
+  "s08.am": {
+    "input_hash": "3973cad8bc1c084a",
+    "outputs": [
+      "films/the-last-buna/outputs/narration/s08.am.wav"
+    ],
+    "model": "addis-voices-2:am-yohanes-calm",
+    "heard": "በየማለዳው በረከቦቱ ላይ ሁለት ካነስተኛ ነጭ ሲኒዎችን ታዘጋጃለች።"
+  },
+  "s09.am": {
+    "input_hash": "ab259db46982a240",
+    "outputs": [
+      "films/the-last-buna/outputs/narration/s09.am.wav"
+    ],
+    "model": "addis-voices-2:am-yohanes-calm",
+    "heard": "ወለድ ቱንሲ ኑት ፓታታ ሶስተኛውን ቱንሲ እንድጠበቅ ታስቀርላለች።"
+  },
+  "s10.am": {
+    "input_hash": "a5b213953c33fba6",
+    "outputs": [
+      "films/the-last-buna/outputs/narration/s10.am.wav"
+    ],
+    "model": "addis-voices-2:am-yohanes-calm",
+    "heard": "Van de Nava ma Maladabunao Seilla Samaya Uber Takavete."
+  },
+  "s11.am": {
+    "input_hash": "7fb242ddd3e0bf0e",
+    "outputs": [
+      "films/the-last-buna/outputs/narration/s11.am.wav"
+    ],
+    "model": "addis-voices-2:am-yohanes-calm",
+    "heard": "ዳዊት አዋራ የለበሰ ቦርሳ ይዞ ደረሰና ተቀመጠ።"
+  },
+  "s12.am": {
+    "input_hash": "9d03e2f88323fc70",
+    "outputs": [
+      "films/the-last-buna/outputs/narration/s12.am.wav"
+    ],
+    "model": "addis-voices-2:am-yohanes-calm",
+    "heard": "በዚህች ማለዳ ዳዊት ሶስተኛውን ሲኒ ለእናቱ ጋዳ።"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "facts": {
+    "input_hash": "9f7aae5ed916c76a",
+    "outputs": [
+      "films/the-last-buna/research/facts.json"
+    ]
+  },
+  "told": {
+    "input_hash": "a4fefff899669161",
+    "outputs": [
+      "films/the-last-buna/research/source_told.json",
+      "films/the-last-buna/research/subject.json"
+    ]
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "agent": "storyboard_artist",
+  "model": "gemini-3.5-flash-lite",
+  "seed": 1,
+  "temperature": 0.7,
+  "reply": {
+    "style_block": "An intimate visual style using soft natural morning light, muted earthy tones, textured film grain, and realistic medium-shot photography evoking a personal documentary.",
+    "world_block": "Any person is depicted only from behind or in shadow to protect their identity, wearing traditional Ethiopian highlands cotton attire. Any village home is a small dwelling with a corrugated tin roof and a vibrant blue wooden door. Any field of the crop is a lush coffee plant with dark green leaves and bright red cherries, distinct from broadleaf plants.",
+    "reference_sheet_prompt": "A cinematic reference sheet showing a weathered blue wooden door on a tin-roofed house, a clay coffee pot, fresh green grass on a dirt floor, and a lone figure seen from behind in soft morning light.",
+    "shots": [
+      {
+        "size": "wide",
+        "image_prompt": "A small house with a corrugated tin roof and a bright blue wooden door stands under an overcast morning sky in Jimma.",
+        "motion_prompt": "slow push in",
+        "reason": "Establishes the lonely setting to ground the audience in a feeling of quiet solitude."
+      },
+      {
+        "size": "medium",
+        "image_prompt": "A person's hands carefully spread fresh green grass blades over a packed earth floor indoors.",
+        "motion_prompt": "slow pan left to right, fixed horizon",
+        "reason": "Connects the viewer to the tactile morning ritual of preparing the home."
+      },
+      {
+        "size": "close",
+        "image_prompt": "Green coffee beans roasting on a flat black iron pan over glowing charcoal embers.",
+        "motion_prompt": "subtle focus shift",
+        "reason": "Draws the audience into the warmth and sensory details of the coffee preparation."
+      },
+      {
+        "size": "medium",
+        "image_prompt": "A dark clay jebena pot sits near a wisp of smoke from frankincense on a low table.",
+        "motion_prompt": "slow pull back",
+        "reason": "Builds anticipation and cultural reverence for the brewing process."
+      },
+      {
+        "size": "close",
+        "image_prompt": "Two small white ceramic cups sit neatly on a woven tray next to steaming coffee.",
+        "motion_prompt": "slow push in",
+        "reason": "Highlights the poignant detail of the double setup that evokes longing."
+      },
+      {
+        "size": "wide",
+        "image_prompt": "A crowded old passenger bus travels down a long dusty road leading toward a distant city skyline.",
+        "motion_prompt": "slow pan right to left",
+        "reason": "Visualizes the physical distance that separates family members from each other."
+      },
+      {
+        "size": "medium",
+        "image_prompt": "An unnamed figure viewed from behind gazes out through an open doorway toward a misty horizon.",
+        "motion_prompt": "subtle drift forward",
+        "reason": "Evokes the deep emotional weight of a parting promise."
+      },
+      {
+        "size": "close",
+        "image_prompt": "A hand places two small white cups onto a wooden tray in the dim morning light.",
+        "motion_prompt": "slow pan left to right",
+        "reason": "Emphasizes the daily repetition of waiting and holding onto hope."
+      },
+      {
+        "size": "wide",
+        "image_prompt": "An empty low wooden stool sits beside a vibrant blue door in an empty courtyard.",
+        "motion_prompt": "slow push in",
+        "reason": "Leaves the viewer with a strong feeling of absence and patient longing."
+      },
+      {
+        "size": "medium",
+        "image_prompt": "A bright blue wooden door swings open inward, revealing a rain-streaked threshold and soft morning light.",
+        "motion_prompt": "slow push in",
+        "reason": "Sparks a sudden shift from longing to unexpected joy and surprise."
+      },
+      {
+        "size": "wide",
+        "image_prompt": "A figure sits down on a low wooden stool outside a blue door, resting a dusty canvas bag on the ground.",
+        "motion_prompt": "slow pan left to right",
+        "reason": "Brings the emotional journey full circle with a sense of homecoming."
+      },
+      {
+        "size": "close",
+        "image_prompt": "A hand pours dark coffee from a black clay pot into a small white cup held by another.",
+        "motion_prompt": "slow pull back",
+        "reason": "Leaves the audience with a profound feeling of love, reunion, and blessing."
+      }
+    ]
+  }
+}

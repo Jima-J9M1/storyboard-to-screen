@@ -1,0 +1,213 @@
+{
+  "planned_s": 68.45,
+  "end_card": {
+    "text": "This film was made with AI.",
+    "duration_s": 3
+  },
+  "music": "placeholder chord (no score chosen yet)",
+  "placeholder_music": true,
+  "films": {
+    "9x16": {
+      "file": "film_9x16.mp4",
+      "frame": [
+        1080,
+        1920
+      ],
+      "duration_s": 68.48,
+      "loudness_lufs": -14.61,
+      "true_peak_db": -1.23,
+      "subtitle_cards": 15,
+      "longest_subtitle_line": 30
+    },
+    "16x9": {
+      "file": "film_16x9.mp4",
+      "frame": [
+        1920,
+        1080
+      ],
+      "duration_s": 68.48,
+      "loudness_lufs": -14.61,
+      "true_peak_db": -1.23,
+      "subtitle_cards": 12,
+      "longest_subtitle_line": 42
+    }
+  },
+  "motion_9x16": [
+    {
+      "shot": "s01",
+      "length_s": 6.8,
+      "still_s": 0.0,
+      "longest_freeze_s": 0.0,
+      "average_change": 0.65
+    },
+    {
+      "shot": "s02",
+      "length_s": 5.1,
+      "still_s": 0.0,
+      "longest_freeze_s": 0.0,
+      "average_change": 7.27
+    },
+    {
+      "shot": "s03",
+      "length_s": 3.4,
+      "still_s": 0.0,
+      "longest_freeze_s": 0.0,
+      "average_change": 3.61
+    },
+    {
+      "shot": "s04",
+      "length_s": 4.5,
+      "still_s": 0.0,
+      "longest_freeze_s": 0.0,
+      "average_change": 3.07
+    },
+    {
+      "shot": "s05",
+      "length_s": 6.4,
+      "still_s": 0.0,
+      "longest_freeze_s": 0.0,
+      "average_change": 2.53
+    },
+    {
+      "shot": "s06",
+      "length_s": 4.55,
+      "still_s": 0.0,
+      "longest_freeze_s": 0.0,
+      "average_change": 6.17
+    },
+    {
+      "shot": "s07",
+      "length_s": 4.15,
+      "still_s": 0.0,
+      "longest_freeze_s": 0.0,
+      "average_change": 4.73
+    },
+    {
+      "shot": "s08",
+      "length_s": 7.1,
+      "still_s": 0.0,
+      "longest_freeze_s": 0.0,
+      "average_change": 4.22
+    },
+    {
+      "shot": "s09",
+      "length_s": 6.15,
+      "still_s": 0.0,
+      "longest_freeze_s": 0.0,
+      "average_change": 2.3
+    },
+    {
+      "shot": "s10",
+      "length_s": 6.05,
+      "still_s": 0.0,
+      "longest_freeze_s": 0.0,
+      "average_change": 3.14
+    },
+    {
+      "shot": "s11",
+      "length_s": 5.9,
+      "still_s": 0.0,
+      "longest_freeze_s": 0.0,
+      "average_change": 5.55
+    },
+    {
+      "shot": "s12",
+      "length_s": 5.35,
+      "still_s": 0.0,
+      "longest_freeze_s": 0.0,
+      "average_change": 3.67
+    }
+  ],
+  "subtitles_9x16": [
+    {
+      "shot": "s01",
+      "on_s": 0.1,
+      "off_s": 6.49,
+      "text": "Emaye Zewditu lives in a small\ntin roofed house in Jimma."
+    },
+    {
+      "shot": "s02",
+      "on_s": 6.9,
+      "off_s": 11.096,
+      "text": "Before sunrise she spreads\nfresh green grass on the"
+    },
+    {
+      "shot": "s02",
+      "on_s": 11.096,
+      "off_s": 11.59,
+      "text": "floor."
+    },
+    {
+      "shot": "s03",
+      "on_s": 12.0,
+      "off_s": 14.96,
+      "text": "She roasts green coffee beans\non a flat iron pan."
+    },
+    {
+      "shot": "s04",
+      "on_s": 15.4,
+      "off_s": 19.47,
+      "text": "She pounds the beans and boils\nthem in a black clay jebena."
+    },
+    {
+      "shot": "s05",
+      "on_s": 19.9,
+      "off_s": 24.981,
+      "text": "The third and last cup is\ncalled baraka, which means"
+    },
+    {
+      "shot": "s05",
+      "on_s": 24.981,
+      "off_s": 25.86,
+      "text": "blessing."
+    },
+    {
+      "shot": "s06",
+      "on_s": 26.3,
+      "off_s": 30.42,
+      "text": "Seven years ago her son Dawit\nleft for Addis Ababa."
+    },
+    {
+      "shot": "s07",
+      "on_s": 30.85,
+      "off_s": 34.58,
+      "text": "She told him that third cup\nwould always be his."
+    },
+    {
+      "shot": "s08",
+      "on_s": 35.0,
+      "off_s": 41.667,
+      "text": "Every morning she sets two\nsmall white cups on trays."
+    },
+    {
+      "shot": "s09",
+      "on_s": 42.1,
+      "off_s": 47.84,
+      "text": "She drinks two cups and leaves\nthe third cup waiting."
+    },
+    {
+      "shot": "s10",
+      "on_s": 48.25,
+      "off_s": 53.278,
+      "text": "One rainy morning the blue\ndoor opens before coffee"
+    },
+    {
+      "shot": "s10",
+      "on_s": 53.278,
+      "off_s": 53.87,
+      "text": "boils."
+    },
+    {
+      "shot": "s11",
+      "on_s": 54.3,
+      "off_s": 59.78,
+      "text": "Dawit arrives with a dusty bag\nand sits down."
+    },
+    {
+      "shot": "s12",
+      "on_s": 60.2,
+      "off_s": 65.1,
+      "text": "That morning Dawit pours the\nthird cup for his mother."
+    }
+  ]
+}

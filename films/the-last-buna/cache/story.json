@@ -1,0 +1,26 @@
+{
+  "composer": {
+    "input_hash": "c92faa2bb6bc48df",
+    "outputs": [
+      "films/the-last-buna/draft/composer.json"
+    ]
+  },
+  "screenwriter": {
+    "input_hash": "842bb2a0e72ef65e",
+    "outputs": [
+      "films/the-last-buna/draft/screenwriter.json"
+    ]
+  },
+  "storyboard_artist": {
+    "input_hash": "76dc4e84f2d70031",
+    "outputs": [
+      "films/the-last-buna/draft/storyboard_artist.json"
+    ]
+  },
+  "translator_am": {
+    "input_hash": "1b4ae72e89bd7c46",
+    "outputs": [
+      "films/the-last-buna/draft/translator_am.json"
+    ]
+  }
+}

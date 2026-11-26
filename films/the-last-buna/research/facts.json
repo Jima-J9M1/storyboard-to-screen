@@ -1,0 +1,137 @@
+{
+  "sources": [
+    {
+      "source_id": "told",
+      "url": null
+    }
+  ],
+  "model": "gemini-3.5-flash",
+  "facts": [
+    {
+      "id": "f01",
+      "source_id": "told",
+      "text": "Emaye Zewditu is a widow living in a small house with a tin roof and a blue wooden door in the city of Jimma.",
+      "quote": "In the city of Jimma, in the green coffee hills of south-west Ethiopia, a widow named Emaye Zewditu lives in a small house with a tin roof and a blue wooden door."
+    },
+    {
+      "id": "f02",
+      "source_id": "told",
+      "text": "Every morning before sunrise, she spreads fresh green grass on the floor and lights a charcoal stove.",
+      "quote": "Every morning before sunrise she spreads fresh green grass on the floor and lights a charcoal stove."
+    },
+    {
+      "id": "f03",
+      "source_id": "told",
+      "text": "She washes green coffee beans in a bowl and roasts them on a flat iron pan until they turn dark and shine.",
+      "quote": "She washes green coffee beans in a bowl and roasts them on a flat iron pan until they turn dark and shine."
+    },
+    {
+      "id": "f04",
+      "source_id": "told",
+      "text": "She carries the smoking pan around the room so the smell fills the house.",
+      "quote": "She carries the smoking pan around the room so the smell fills the house."
+    },
+    {
+      "id": "f05",
+      "source_id": "told",
+      "text": "She pounds the beans in a wooden mortar and boils them in a black clay jebena.",
+      "quote": "She pounds the beans in a wooden mortar and boils them in a black clay jebena."
+    },
+    {
+      "id": "f06",
+      "source_id": "told",
+      "text": "She burns frankincense beside the cups.",
+      "quote": "She burns frankincense beside the cups."
+    },
+    {
+      "id": "f07",
+      "source_id": "told",
+      "text": "In Jimma, coffee is poured three times.",
+      "quote": "In Jimma, coffee is poured three times."
+    },
+    {
+      "id": "f08",
+      "source_id": "told",
+      "text": "The first cup of coffee is called abol.",
+      "quote": "The first cup is called abol."
+    },
+    {
+      "id": "f09",
+      "source_id": "told",
+      "text": "The second cup of coffee is called tona.",
+      "quote": "The second is called tona."
+    },
+    {
+      "id": "f10",
+      "source_id": "told",
+      "text": "The third and last cup is called baraka, which means blessing.",
+      "quote": "The third and last cup is called baraka, which means blessing."
+    },
+    {
+      "id": "f11",
+      "source_id": "told",
+      "text": "Her only son, Dawit, left Jimma seven years ago on a bus to Addis Ababa to find work.",
+      "quote": "Her only son, Dawit, left Jimma seven years ago on a bus to Addis Ababa to find work."
+    },
+    {
+      "id": "f12",
+      "source_id": "told",
+      "text": "On the day Dawit left, she told him the third cup would always be his.",
+      "quote": "On the day he left, she told him the third cup would always be his."
+    },
+    {
+      "id": "f13",
+      "source_id": "told",
+      "text": "Every morning since Dawit left, she sets two small white cups on the tray and a low wooden stool beside the door.",
+      "quote": "Since then she has set two small white cups on the tray every morning, and a low wooden stool beside the door."
+    },
+    {
+      "id": "f14",
+      "source_id": "told",
+      "text": "She drinks the first cup and the second cup.",
+      "quote": "She drinks the first cup and the second cup."
+    },
+    {
+      "id": "f15",
+      "source_id": "told",
+      "text": "She pours the third cup for Dawit and leaves it on the tray.",
+      "quote": "She pours the third cup for Dawit and leaves it on the tray."
+    },
+    {
+      "id": "f16",
+      "source_id": "told",
+      "text": "Every evening when the third cup is cold, she pours it onto the roots of the coffee tree in her yard.",
+      "quote": "Every evening the third cup is cold, and she pours it onto the roots of the coffee tree in her yard."
+    },
+    {
+      "id": "f17",
+      "source_id": "told",
+      "text": "Dawit works in a tall building in Addis Ababa.",
+      "quote": "Dawit works in a tall building in Addis Ababa."
+    },
+    {
+      "id": "f18",
+      "source_id": "told",
+      "text": "Dawit calls on holidays and always says he will come next year.",
+      "quote": "He calls on holidays. He always says he will come next year."
+    },
+    {
+      "id": "f19",
+      "source_id": "told",
+      "text": "One morning in the rainy season, the blue door opens before the coffee has boiled.",
+      "quote": "One morning in the rainy season, the blue door opens before the coffee has boiled."
+    },
+    {
+      "id": "f20",
+      "source_id": "told",
+      "text": "Dawit arrives carrying a dusty bag and sits on the low stool.",
+      "quote": "Dawit is standing there with a dusty bag. He sits on the low stool."
+    },
+    {
+      "id": "f21",
+      "source_id": "told",
+      "text": "That morning Dawit pours the third cup himself and gives it to his mother.",
+      "quote": "That morning he pours the third cup himself, and he gives it to his mother."
+    }
+  ]
+}

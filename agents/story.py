@@ -163,6 +163,13 @@ def _name_words(title: str) -> list[str]:
     return [word.lower() for word in title.split() if len(word) > 2]
 
 
+def subject_name(brief: dict) -> str:
+    """The name that may not appear in a picture prompt. A researched title is the subject's name.
+    The title of a story the director told is a title, not a name ("The Last Buna"), so its
+    words are ordinary words the pictures need; nobody's face is shown either way."""
+    return "" if brief.get("story") else brief["title"]
+
+
 def visuals_problems(reply: dict, shot_count: int, title: str, likeness_policy: str) -> list[str]:
     problems = []
     if len(reply["shots"]) != shot_count:
@@ -304,7 +311,7 @@ def run(film_slug: str, replace: bool = False, refresh: bool = False) -> int:
         f"How the subject may be shown: {policy}. {subject.get('policy_reason', '')}\n\n"
         f"Facts about the place, the people and the time:\n{fact_lines}\n\nShots:\n{shot_lines}",
         VISUALS_SCHEMA,
-        lambda reply: visuals_problems(reply, len(lines), brief["title"], policy), refresh,
+        lambda reply: visuals_problems(reply, len(lines), subject_name(brief), policy), refresh,
     )
 
     starts, clock = [], 0.0

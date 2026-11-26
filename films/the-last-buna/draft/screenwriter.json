@@ -1,0 +1,95 @@
+{
+  "agent": "screenwriter",
+  "model": "gemini-3.5-flash-lite",
+  "seed": 1,
+  "temperature": 0.7,
+  "reply": {
+    "shots": [
+      {
+        "beat": "Zewditu at home",
+        "narration": "Emaye Zewditu lives alone inside a tin roofed Jimma house.",
+        "fact_ids": [
+          "f01"
+        ]
+      },
+      {
+        "beat": "Morning routine",
+        "narration": "Before sunrise she spreads fresh green grass on the floor.",
+        "fact_ids": [
+          "f02"
+        ]
+      },
+      {
+        "beat": "Roasting coffee",
+        "narration": "She roasts green coffee beans on a flat iron pan.",
+        "fact_ids": [
+          "f03"
+        ]
+      },
+      {
+        "beat": "Brewing ritual",
+        "narration": "She pounds the dark beans into a black clay jebena.",
+        "fact_ids": [
+          "f05"
+        ]
+      },
+      {
+        "beat": "Serving cups",
+        "narration": "The third and final cup of coffee means blessing.",
+        "fact_ids": [
+          "f10"
+        ]
+      },
+      {
+        "beat": "The parting",
+        "narration": "Seven years ago her son Dawit left for Addis Ababa.",
+        "fact_ids": [
+          "f11"
+        ]
+      },
+      {
+        "beat": "The promise",
+        "narration": "She told him that third cup would always be his.",
+        "fact_ids": [
+          "f12"
+        ]
+      },
+      {
+        "beat": "Daily wait",
+        "narration": "Every morning she sets two small white cups on trays.",
+        "fact_ids": [
+          "f13"
+        ]
+      },
+      {
+        "beat": "The empty seat",
+        "narration": "She drinks two cups and leaves the third cup waiting.",
+        "fact_ids": [
+          "f14",
+          "f15"
+        ]
+      },
+      {
+        "beat": "The turn",
+        "narration": "One rainy morning the blue door opens before coffee boils.",
+        "fact_ids": [
+          "f19"
+        ]
+      },
+      {
+        "beat": "The return",
+        "narration": "Dawit arrives with a dusty bag and sits down.",
+        "fact_ids": [
+          "f20"
+        ]
+      },
+      {
+        "beat": "The ending",
+        "narration": "That morning Dawit pours the third cup for his mother.",
+        "fact_ids": [
+          "f21"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "reference": {
+    "input_hash": "94bd86b74bc2cf1c",
+    "outputs": [
+      "films/the-last-buna/outputs/keyframes/reference.jpg"
+    ]
+  },
+  "s01": {
+    "input_hash": "8f37e9b138db3c4d",
+    "outputs": [
+      "films/the-last-buna/outputs/keyframes/s01.jpg"
+    ]
+  },
+  "s02": {
+    "input_hash": "5889510881a36425",
+    "outputs": [
+      "films/the-last-buna/outputs/keyframes/s02.jpg"
+    ]
+  },
+  "s03": {
+    "input_hash": "8faa1714d7c2329e",
+    "outputs": [
+      "films/the-last-buna/outputs/keyframes/s03.jpg"
+    ]
+  },
+  "s04": {
+    "input_hash": "f1a0215234698932",
+    "outputs": [
+      "films/the-last-buna/outputs/keyframes/s04.jpg"
+    ]
+  },
+  "s05": {
+    "input_hash": "bc5a5f1f009d96ff",
+    "outputs": [
+      "films/the-last-buna/outputs/keyframes/s05.jpg"
+    ]
+  },
+  "s06": {
+    "input_hash": "9db6105ac222e855",
+    "outputs": [
+      "films/the-last-buna/outputs/keyframes/s06.jpg"
+    ]
+  },
+  "s07": {
+    "input_hash": "150de4affeb11cb5",
+    "outputs": [
+      "films/the-last-buna/outputs/keyframes/s07.jpg"
+    ]
+  },
+  "s08": {
+    "input_hash": "5e14753699f3081e",
+    "outputs": [
+      "films/the-last-buna/outputs/keyframes/s08.jpg"
+    ]
+  },
+  "s09": {
+    "input_hash": "c26106c809839ed8",
+    "outputs": [
+      "films/the-last-buna/outputs/keyframes/s09.jpg"
+    ]
+  },
+  "s10": {
+    "input_hash": "0a1e371deac9b8bf",
+    "outputs": [
+      "films/the-last-buna/outputs/keyframes/s10.jpg"
+    ]
+  },
+  "s11": {
+    "input_hash": "cd312e7d89260f49",
+    "outputs": [
+      "films/the-last-buna/outputs/keyframes/s11.jpg"
+    ]
+  },
+  "s12": {
+    "input_hash": "adfa42c777ff2410",
+    "outputs": [
+      "films/the-last-buna/outputs/keyframes/s12.jpg"
+    ]
+  }
+}

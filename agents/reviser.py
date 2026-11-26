@@ -30,7 +30,7 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-from agents.story import LANGUAGE_NAMES, LINES_SCHEMA, MAX_LINE_WORDS, MIN_LINE_WORDS, translation_problems, _name_words
+from agents.story import LANGUAGE_NAMES, LINES_SCHEMA, MAX_LINE_WORDS, MIN_LINE_WORDS, translation_problems, _name_words, subject_name
 from core import llm, paths
 from core.contracts import ValidationError, load_brief, load_storyboard
 from core.files import load_json, write_json
@@ -120,7 +120,7 @@ def revise(film: paths.Film, board: dict, brief: dict, target: str, shot_id: str
     reply, model = llm.generate_json(
         prompt, REVISED_SCHEMA, stage=STAGE, item=f"{target}{'.' + shot_id if shot_id else ''}",
         system=(PROMPTS / "reviser.md").read_text(encoding="utf-8"), temperature=0.4,
-        check=lambda r: problems_with(r["revised"], target, brief["title"], policy),
+        check=lambda r: problems_with(r["revised"], target, subject_name(brief), policy),
     )
     return {"target": target, "shot": shot_id, "note": note, "before": before,
             "after": reply["revised"].strip(), "what_changed": reply["what_changed"].strip(), "model": model}

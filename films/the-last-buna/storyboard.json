@@ -1,0 +1,272 @@
+{
+  "title": "The Last Buna",
+  "languages": [
+    "am"
+  ],
+  "voice": {
+    "provider": "addis",
+    "name": "am-yohanes-calm",
+    "style": "calm, warm, unhurried"
+  },
+  "style_block": "A realistic documentary photograph on 35mm film: soft natural light, shallow depth of field, fine film grain, a muted earthy palette of charcoal black, warm brown, cream white and deep green, with one accent colour, the blue of a painted door.",
+  "world_block": "Any person is Ethiopian, with dark brown skin, and is seen only from behind, from far away, or as hands and forearms; no face is ever visible. Any woman is in her sixties, wearing a long white handwoven cotton dress with a thin coloured woven border and a white cotton shawl covering her hair and shoulders. Any young man wears a plain dark jacket and trousers, with short black hair. Any coffee pot is a jebena: a black unglazed clay pot with a round ball-shaped body, a tall narrow neck, a straw stopper, one curved handle and a small side spout; never a metal kettle or a glass pot. Any coffee cup is a sini: a very small white porcelain cup without a handle, standing on a low rectangular wooden tray table. Any room is a modest Ethiopian home with smooth mud-plastered walls, an earth floor scattered with long fresh green grass, and a small round clay charcoal stove; no modern kitchen, no electric appliances. Any house is small, with a rusted corrugated tin roof and a wooden door painted blue. Any outdoor view is the green hills of south-west Ethiopia in the rainy season: red earth, coffee trees with glossy dark leaves and red cherries, and broad false banana plants under a grey sky.",
+  "reference_sheet": {
+    "prompt": "Inside a modest Ethiopian home in morning light: a black clay jebena coffee pot with a round body and tall narrow neck beside a low wooden tray of very small white handleless cups, long fresh green grass scattered on the earth floor, a small clay charcoal stove glowing, a thin line of incense smoke, a blue painted wooden door in the mud-plastered wall behind, and an older woman in a white cotton dress and white shawl seen from behind.",
+    "seed": 7
+  },
+  "music": {
+    "caption": "A gentle, nostalgic instrumental score featuring a warm acoustic krar, soft ambient pads, and subtle percussive pulses. Gentle texture with no strong lead melody, evoking a cozy home in 2020s modern Ethiopia.",
+    "bpm": 76,
+    "key": "A minor",
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "cues": [
+      {
+        "at_s": 0,
+        "note": "Warm ambient pads introduce a quiet, reflective morning mood"
+      },
+      {
+        "at_s": 12,
+        "note": "Acoustic krar plucks enter gently as coffee is roasted"
+      },
+      {
+        "at_s": 35.5,
+        "note": "Melody softens to a gentle sigh during the emotional parting"
+      },
+      {
+        "at_s": 59.5,
+        "note": "Opening krar theme returns as the traveler comes back home"
+      },
+      {
+        "at_s": 65,
+        "note": "Music fades softly into a lingering, warm chord"
+      }
+    ]
+  },
+  "end_card": {
+    "text": "This film was made with AI.",
+    "duration_s": 3
+  },
+  "shots": [
+    {
+      "id": "s01",
+      "duration_s": 6.8,
+      "size": "wide",
+      "image_prompt": "Before sunrise, a small house with a rusted corrugated tin roof and a blue painted wooden door stands in the centre, on red earth among coffee trees and false banana plants. Thin smoke rises from the roof. Green misty hills behind, grey-blue dawn sky. Nobody is in the picture.",
+      "use_reference": false,
+      "motion_mode": "ken_burns",
+      "motion_prompt": "slow push in",
+      "narration": {
+        "am": "እማዬ ዘውዲቱ በጅማ ከተማ ቆርቆሮ በተከደነ ትንሽ ቤት ውስጥ ትኖራለች።"
+      },
+      "subtitle_en": "Emaye Zewditu lives in a small tin roofed house in Jimma.",
+      "reason": "Establishes the lonely setting to ground the audience in a feeling of quiet solitude.",
+      "fact_ids": [
+        "f01"
+      ],
+      "seed": 1001
+    },
+    {
+      "id": "s02",
+      "duration_s": 5.1,
+      "size": "medium",
+      "image_prompt": "Extreme close-up from directly above of an earth floor being covered with long fresh green grass. Only two dark brown hands and the cuffs of white cotton sleeves enter from the top edge, scattering the grass. No head, no body and no face are in the picture. Dim warm light.",
+      "use_reference": false,
+      "motion_mode": "ken_burns",
+      "motion_prompt": "slow pan left to right, fixed horizon",
+      "narration": {
+        "am": "ፀሐይ ሳትወጣ ወለሉ ላይ ለምለም ሣር ታነጥፋለች።"
+      },
+      "subtitle_en": "Before sunrise she spreads fresh green grass on the floor.",
+      "reason": "Connects the viewer to the tactile morning ritual of preparing the home.",
+      "fact_ids": [
+        "f02"
+      ],
+      "seed": 1002
+    },
+    {
+      "id": "s03",
+      "duration_s": 3.4,
+      "size": "close",
+      "image_prompt": "Close view of a flat round black iron pan resting on a small clay charcoal stove with glowing orange embers. The pan is full of coffee beans, half still pale green and half roasted dark brown and shiny. Thin white smoke rises. A woman's dark brown hand holds the pan's long handle at the edge of the picture.",
+      "use_reference": true,
+      "motion_mode": "ken_burns",
+      "motion_prompt": "slow push in",
+      "narration": {
+        "am": "በብረት ምጣድ ላይ ጥሬ ቡና ታቆላለች።"
+      },
+      "subtitle_en": "She roasts green coffee beans on a flat iron pan.",
+      "reason": "Draws the audience into the warmth and sensory details of the coffee preparation.",
+      "fact_ids": [
+        "f03"
+      ],
+      "seed": 1003
+    },
+    {
+      "id": "s04",
+      "duration_s": 4.5,
+      "size": "medium",
+      "image_prompt": "A black clay jebena coffee pot with a round body and tall narrow neck sits in the centre on a small clay charcoal stove, steam rising from its neck. Beside it on the grass-covered earth floor stand a wooden mortar with a pestle and a small clay burner with a thin line of frankincense smoke.",
+      "use_reference": true,
+      "motion_mode": "ken_burns",
+      "motion_prompt": "slow pull back",
+      "narration": {
+        "am": "የተቆላውን ቡና ወቅጣ በጥቁር የሸክላ ጀበና ታፈላዋለች።"
+      },
+      "subtitle_en": "She pounds the beans and boils them in a black clay jebena.",
+      "reason": "Builds anticipation and cultural reverence for the brewing process.",
+      "fact_ids": [
+        "f05"
+      ],
+      "seed": 1004
+    },
+    {
+      "id": "s05",
+      "duration_s": 6.4,
+      "size": "close",
+      "image_prompt": "Extreme close-up of a very small white handleless porcelain cup standing on a low wooden tray. A thin stream of dark coffee falls into it from the small side spout of a black clay pot at the top edge of the picture. Only the pot's spout and one dark brown hand on its handle are visible. Steam rises from the cup. No head, no body and no face are in the picture.",
+      "use_reference": false,
+      "motion_mode": "ken_burns",
+      "motion_prompt": "slow push in",
+      "narration": {
+        "am": "ሦስተኛውና የመጨረሻው ሲኒ በረካ ይባላል፤ ትርጉሙም በረከት ነው።"
+      },
+      "subtitle_en": "The third and last cup is called baraka, which means blessing.",
+      "reason": "Highlights the poignant detail of the double setup that evokes longing.",
+      "fact_ids": [
+        "f10"
+      ],
+      "seed": 1005
+    },
+    {
+      "id": "s06",
+      "duration_s": 4.55,
+      "size": "wide",
+      "image_prompt": "Seen from behind and far away, an old white and blue country bus drives away down a red earth road that winds through green coffee hills toward the horizon, dust rising behind it. Grey morning sky. In the near corner, the back of an older woman in a white dress and shawl stands watching, small in the picture.",
+      "use_reference": false,
+      "motion_mode": "ken_burns",
+      "motion_prompt": "slow pan right to left",
+      "narration": {
+        "am": "ከሰባት ዓመት በፊት ልጇ ዳዊት ወደ አዲስ አበባ ሄደ።"
+      },
+      "subtitle_en": "Seven years ago her son Dawit left for Addis Ababa.",
+      "reason": "Visualizes the physical distance that separates family members from each other.",
+      "fact_ids": [
+        "f11"
+      ],
+      "seed": 1006
+    },
+    {
+      "id": "s07",
+      "duration_s": 4.15,
+      "size": "medium",
+      "image_prompt": "From inside a dim room, an older woman in a long white cotton dress and white shawl is seen from behind, standing in the centre in an open blue doorway and looking out at a red earth road and misty green hills. Her face is not visible.",
+      "use_reference": true,
+      "motion_mode": "ken_burns",
+      "motion_prompt": "subtle drift forward",
+      "narration": {
+        "am": "ያ ሦስተኛው ሲኒ ሁልጊዜ የእሱ እንደሆነ ነገረችው።"
+      },
+      "subtitle_en": "She told him that third cup would always be his.",
+      "reason": "Evokes the deep emotional weight of a parting promise.",
+      "fact_ids": [
+        "f12"
+      ],
+      "seed": 1007
+    },
+    {
+      "id": "s08",
+      "duration_s": 7.1,
+      "size": "close",
+      "image_prompt": "Extreme close-up of a low wooden tray on an earth floor covered with green grass, indoors. Exactly two very small white handleless porcelain cups stand on the tray, both empty. One dark brown hand in a white cotton cuff is setting the second cup down. No head, no body and no face are in the picture. Dim soft morning light from the left.",
+      "use_reference": false,
+      "motion_mode": "ken_burns",
+      "motion_prompt": "slow pan left to right",
+      "narration": {
+        "am": "በየማለዳው በረከቦቱ ላይ ሁለት አነስተኛ ነጭ ሲኒዎችን ታዘጋጃለች።"
+      },
+      "subtitle_en": "Every morning she sets two small white cups on trays.",
+      "reason": "Emphasizes the daily repetition of waiting and holding onto hope.",
+      "fact_ids": [
+        "f13"
+      ],
+      "seed": 1008
+    },
+    {
+      "id": "s09",
+      "duration_s": 6.15,
+      "size": "wide",
+      "image_prompt": "Inside a dim room with mud-plastered walls, an empty low three-legged wooden stool stands in the centre beside a closed blue painted wooden door. On the grass-covered earth floor beside the stool, a low wooden tray holds one very small white porcelain cup without a handle, the size of an egg cup, full to the brim with black coffee, no steam. Fading evening light through a small window. Nobody is in the picture.",
+      "use_reference": false,
+      "motion_mode": "ken_burns",
+      "motion_prompt": "slow push in",
+      "narration": {
+        "am": "ሁለቱን ሲኒዎች ጠጥታ ሦስተኛውን ሲኒ እንዲጠብቅ ታስቀራለች።"
+      },
+      "subtitle_en": "She drinks two cups and leaves the third cup waiting.",
+      "reason": "Leaves the viewer with a strong feeling of absence and patient longing.",
+      "fact_ids": [
+        "f14",
+        "f15"
+      ],
+      "seed": 1009
+    },
+    {
+      "id": "s10",
+      "duration_s": 6.05,
+      "size": "medium",
+      "image_prompt": "Seen from deep inside a dark room, a blue painted wooden door stands half open in the centre and bright grey rainy daylight pours through it. Rain falls on red earth outside. In the doorway stands the black silhouette of one young man with a bag on his shoulder, completely dark against the light, with no visible features. Nobody else is in the picture.",
+      "use_reference": false,
+      "motion_mode": "ken_burns",
+      "motion_prompt": "slow push in",
+      "narration": {
+        "am": "በአንድ ዝናባማ ማለዳ ቡናው ሳይፈላ ሰማያዊው በር ተከፈተ።"
+      },
+      "subtitle_en": "One rainy morning the blue door opens before coffee boils.",
+      "reason": "Sparks a sudden shift from longing to unexpected joy and surprise.",
+      "fact_ids": [
+        "f19"
+      ],
+      "seed": 1010
+    },
+    {
+      "id": "s11",
+      "duration_s": 5.9,
+      "size": "wide",
+      "image_prompt": "Seen from behind, a young man in a dark jacket wet with rain sits on a low three-legged wooden stool beside the open blue door, inside the room. A dusty brown canvas bag rests on the grass-covered floor by his feet. His face is not visible.",
+      "use_reference": false,
+      "motion_mode": "ken_burns",
+      "motion_prompt": "slow pan left to right",
+      "narration": {
+        "am": "ዳዊት አቧራ የለበሰ ቦርሳ ይዞ ደረሰና ተቀመጠ።"
+      },
+      "subtitle_en": "Dawit arrives with a dusty bag and sits down.",
+      "reason": "Brings the emotional journey full circle with a sense of homecoming.",
+      "fact_ids": [
+        "f20"
+      ],
+      "seed": 1011
+    },
+    {
+      "id": "s12",
+      "duration_s": 5.35,
+      "size": "close",
+      "image_prompt": "Close view of two pairs of hands over a low wooden tray: a young man's dark brown hands hold out a very small white cup full of dark steaming coffee, and an older woman's dark brown hands, in white cotton sleeves, reach to take it. A black clay jebena stands on the tray behind. Warm morning light.",
+      "use_reference": true,
+      "motion_mode": "ken_burns",
+      "motion_prompt": "slow pull back",
+      "narration": {
+        "am": "በዚያች ማለዳ ዳዊት ሦስተኛውን ሲኒ ለእናቱ ቀዳ።"
+      },
+      "subtitle_en": "That morning Dawit pours the third cup for his mother.",
+      "reason": "Leaves the audience with a profound feeling of love, reunion, and blessing.",
+      "fact_ids": [
+        "f21"
+      ],
+      "seed": 1012
+    }
+  ]
+}

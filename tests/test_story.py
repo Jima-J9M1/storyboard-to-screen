@@ -4,6 +4,7 @@ import unittest
 
 from agents.story import (
     assemble, film_length_s, music_problems, script_problems, shot_duration_s, translation_problems,
+    subject_name,
     visuals_problems,
 )
 from core.contracts import _schema_problems, _storyboard_rule_problems
@@ -135,6 +136,14 @@ class AssembleTests(unittest.TestCase):
         self.assertEqual([s["id"] for s in board["shots"]][:2], ["s01", "s02"])
         self.assertTrue(all(s["motion_mode"] == "ken_burns" for s in board["shots"]))
         self.assertEqual(len({s["seed"] for s in board["shots"]}), 10)
+
+
+class SubjectNameTest(unittest.TestCase):
+    def test_a_researched_title_is_the_name_that_may_not_be_drawn(self):
+        self.assertEqual(subject_name({"title": "Test Subject"}), "Test Subject")
+
+    def test_the_title_of_a_told_story_is_not_a_name(self):
+        self.assertEqual(subject_name({"title": "The Last Buna", "story": "..."}), "")
 
 
 if __name__ == "__main__":

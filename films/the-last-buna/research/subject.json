@@ -1,0 +1,11 @@
+{
+  "title": "The Last Buna",
+  "description": "A story told by the director",
+  "wikidata_id": null,
+  "is_human": null,
+  "born": null,
+  "died": null,
+  "living": null,
+  "likeness_policy": "review",
+  "policy_reason": "This story was told by the director, so the system cannot look up who in it is a real person. It is treated as being about real people: until the director records their consent in ETHICS.md, nobody in it is shown with a recognisable face, voiced, or given invented words."
+}

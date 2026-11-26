@@ -1,0 +1,10 @@
+{
+  "film": {
+    "input_hash": "10882a23d60dade0",
+    "outputs": [
+      "films/the-last-buna/outputs/film/film_9x16.mp4",
+      "films/the-last-buna/outputs/film/film_16x9.mp4",
+      "films/the-last-buna/outputs/film/report.json"
+    ]
+  }
+}

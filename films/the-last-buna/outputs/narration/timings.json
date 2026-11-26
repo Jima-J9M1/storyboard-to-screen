@@ -1,0 +1,134 @@
+[
+  {
+    "shot": "s01",
+    "language": "am",
+    "words": 10,
+    "spoken_s": 6.39,
+    "shot_s": 6.8,
+    "fits": true,
+    "model": "addis-voices-2:am-yohanes-calm",
+    "heard": "እማዬ, ዞዲቱ በጅማ ከተማ ቆርቆሮ በተከደነ ትንሽ ቤት ውስጥ ትኖራለች።",
+    "matches_line": true
+  },
+  {
+    "shot": "s02",
+    "language": "am",
+    "words": 7,
+    "spoken_s": 4.69,
+    "shot_s": 5.1,
+    "fits": true,
+    "model": "addis-voices-2:am-yohanes-calm",
+    "heard": "Size size her Twitter wohla lemm lemm size planet valle",
+    "matches_line": false
+  },
+  {
+    "shot": "s03",
+    "language": "am",
+    "words": 6,
+    "spoken_s": 2.96,
+    "shot_s": 3.4,
+    "fits": true,
+    "model": "addis-voices-2:am-yohanes-calm",
+    "heard": "בברכת מטה לוי תרייבואנה תקול אלא.",
+    "matches_line": true
+  },
+  {
+    "shot": "s04",
+    "language": "am",
+    "words": 7,
+    "spoken_s": 4.07,
+    "shot_s": 4.5,
+    "fits": true,
+    "model": "addis-voices-2:am-yohanes-calm",
+    "heard": "የተኮላውን ቡና ወቅት በተኮለሼ ክላጀበና ታፈነው",
+    "matches_line": true
+  },
+  {
+    "shot": "s05",
+    "language": "am",
+    "words": 8,
+    "spoken_s": 5.96,
+    "shot_s": 6.4,
+    "fits": true,
+    "model": "addis-voices-2:am-yohanes-calm",
+    "heard": "ሶስተኛውና የመጨረሻው ሲኒ በረካ ይባላል። ትርጉሙም በረከት ነው፤",
+    "matches_line": true
+  },
+  {
+    "shot": "s06",
+    "language": "am",
+    "words": 9,
+    "spoken_s": 4.12,
+    "shot_s": 4.55,
+    "fits": true,
+    "model": "addis-voices-2:am-yohanes-calm",
+    "heard": "ከሰአት አራት በፊት ልድያ ዳይሬክት ወደ አዲስ አበባ ሀሄደ።",
+    "matches_line": true
+  },
+  {
+    "shot": "s07",
+    "language": "am",
+    "words": 7,
+    "spoken_s": 3.73,
+    "shot_s": 4.15,
+    "fits": true,
+    "model": "addis-voices-2:am-yohanes-calm",
+    "heard": "ያ ሷስታኛለች ሆድ ይይዞ ያስለቀሰችው",
+    "matches_line": true
+  },
+  {
+    "shot": "s08",
+    "language": "am",
+    "words": 8,
+    "spoken_s": 6.67,
+    "shot_s": 7.1,
+    "fits": true,
+    "model": "addis-voices-2:am-yohanes-calm",
+    "heard": "በየማለዳው በረከቦቱ ላይ ሁለት ካነስተኛ ነጭ ሲኒዎችን ታዘጋጃለች።",
+    "matches_line": true
+  },
+  {
+    "shot": "s09",
+    "language": "am",
+    "words": 7,
+    "spoken_s": 5.74,
+    "shot_s": 6.15,
+    "fits": true,
+    "model": "addis-voices-2:am-yohanes-calm",
+    "heard": "ወለድ ቱንሲ ኑት ፓታታ ሶስተኛውን ቱንሲ እንድጠበቅ ታስቀርላለች።",
+    "matches_line": true
+  },
+  {
+    "shot": "s10",
+    "language": "am",
+    "words": 8,
+    "spoken_s": 5.62,
+    "shot_s": 6.05,
+    "fits": true,
+    "model": "addis-voices-2:am-yohanes-calm",
+    "heard": "Van de Nava ma Maladabunao Seilla Samaya Uber Takavete.",
+    "matches_line": true
+  },
+  {
+    "shot": "s11",
+    "language": "am",
+    "words": 7,
+    "spoken_s": 5.48,
+    "shot_s": 5.9,
+    "fits": true,
+    "model": "addis-voices-2:am-yohanes-calm",
+    "heard": "ዳዊት አዋራ የለበሰ ቦርሳ ይዞ ደረሰና ተቀመጠ።",
+    "matches_line": true
+  },
+  {
+    "shot": "s12",
+    "language": "am",
+    "words": 7,
+    "spoken_s": 4.9,
+    "shot_s": 5.35,
+    "fits": true,
+    "model": "addis-voices-2:am-yohanes-calm",
+    "heard": "በዚህች ማለዳ ዳዊት ሶስተኛውን ሲኒ ለእናቱ ጋዳ።",
+    "matches_line": true
+  }
+]

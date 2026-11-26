@@ -1,0 +1,271 @@
+{
+  "title": "The Last Buna",
+  "languages": [
+    "am"
+  ],
+  "voice": {
+    "name": "Sulafat",
+    "style": "calm, warm, unhurried"
+  },
+  "style_block": "An intimate visual style using soft natural morning light, muted earthy tones, textured film grain, and realistic medium-shot photography evoking a personal documentary.",
+  "world_block": "Any person is depicted only from behind or in shadow to protect their identity, wearing traditional Ethiopian highlands cotton attire. Any village home is a small dwelling with a corrugated tin roof and a vibrant blue wooden door. Any field of the crop is a lush coffee plant with dark green leaves and bright red cherries, distinct from broadleaf plants.",
+  "reference_sheet": {
+    "prompt": "A cinematic reference sheet showing a weathered blue wooden door on a tin-roofed house, a clay coffee pot, fresh green grass on a dirt floor, and a lone figure seen from behind in soft morning light.",
+    "seed": 7
+  },
+  "music": {
+    "caption": "A gentle, nostalgic instrumental score featuring a warm acoustic krar, soft ambient pads, and subtle percussive pulses. Gentle texture with no strong lead melody, evoking a cozy home in 2020s modern Ethiopia.",
+    "bpm": 76,
+    "key": "A minor",
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "cues": [
+      {
+        "at_s": 0,
+        "note": "Warm ambient pads introduce a quiet, reflective morning mood"
+      },
+      {
+        "at_s": 12,
+        "note": "Acoustic krar plucks enter gently as coffee is roasted"
+      },
+      {
+        "at_s": 35.5,
+        "note": "Melody softens to a gentle sigh during the emotional parting"
+      },
+      {
+        "at_s": 59.5,
+        "note": "Opening krar theme returns as the traveler comes back home"
+      },
+      {
+        "at_s": 65,
+        "note": "Music fades softly into a lingering, warm chord"
+      }
+    ]
+  },
+  "end_card": {
+    "text": "This film was made with AI.",
+    "duration_s": 3
+  },
+  "shots": [
+    {
+      "id": "s01",
+      "duration_s": 6.0,
+      "size": "wide",
+      "image_prompt": "A small house with a corrugated tin roof and a bright blue wooden door stands under an overcast morning sky in Jimma.",
+      "use_reference": false,
+      "motion_mode": "ken_burns",
+      "motion_prompt": "slow push in",
+      "narration": {
+        "am": "እማዬ ዘውዲቱ ቆርቆሮ በተከደነ የጅማ ቤት ውስጥ ብቻቸውን ይኖራሉ።"
+      },
+      "subtitle_en": "Emaye Zewditu lives alone inside a tin roofed Jimma house.",
+      "reason": "Establishes the lonely setting to ground the audience in a feeling of quiet solitude.",
+      "fact_ids": [
+        "f01"
+      ],
+      "seed": 1001
+    },
+    {
+      "id": "s02",
+      "duration_s": 6.0,
+      "size": "medium",
+      "image_prompt": "A person's hands carefully spread fresh green grass blades over a packed earth floor indoors.",
+      "use_reference": true,
+      "motion_mode": "ken_burns",
+      "motion_prompt": "slow pan left to right, fixed horizon",
+      "narration": {
+        "am": "ፀሐይ ሳትወጣ ወለሉ ላይ ለምለም ሣር ታነጥፋለች።"
+      },
+      "subtitle_en": "Before sunrise she spreads fresh green grass on the floor.",
+      "reason": "Connects the viewer to the tactile morning ritual of preparing the home.",
+      "fact_ids": [
+        "f02"
+      ],
+      "seed": 1002
+    },
+    {
+      "id": "s03",
+      "duration_s": 6.0,
+      "size": "close",
+      "image_prompt": "Green coffee beans roasting on a flat black iron pan over glowing charcoal embers.",
+      "use_reference": true,
+      "motion_mode": "ken_burns",
+      "motion_prompt": "subtle focus shift",
+      "narration": {
+        "am": "በብረት ምጣድ ላይ ጥሬ ቡና ታቆላለች።"
+      },
+      "subtitle_en": "She roasts green coffee beans on a flat iron pan.",
+      "reason": "Draws the audience into the warmth and sensory details of the coffee preparation.",
+      "fact_ids": [
+        "f03"
+      ],
+      "seed": 1003
+    },
+    {
+      "id": "s04",
+      "duration_s": 6.0,
+      "size": "medium",
+      "image_prompt": "A dark clay jebena pot sits near a wisp of smoke from frankincense on a low table.",
+      "use_reference": true,
+      "motion_mode": "ken_burns",
+      "motion_prompt": "slow pull back",
+      "narration": {
+        "am": "የተቆላውን ቡና ወቅጣ በጥቁር የሸክላ ጀበና ውስጥ ታደርጋለች።"
+      },
+      "subtitle_en": "She pounds the dark beans into a black clay jebena.",
+      "reason": "Builds anticipation and cultural reverence for the brewing process.",
+      "fact_ids": [
+        "f05"
+      ],
+      "seed": 1004
+    },
+    {
+      "id": "s05",
+      "duration_s": 5.5,
+      "size": "close",
+      "image_prompt": "Two small white ceramic cups sit neatly on a woven tray next to steaming coffee.",
+      "use_reference": true,
+      "motion_mode": "ken_burns",
+      "motion_prompt": "slow push in",
+      "narration": {
+        "am": "ሦስተኛውና የመጨረሻው የቡና ሲኒ ምርቃት ማለት ነው።"
+      },
+      "subtitle_en": "The third and final cup of coffee means blessing.",
+      "reason": "Highlights the poignant detail of the double setup that evokes longing.",
+      "fact_ids": [
+        "f10"
+      ],
+      "seed": 1005
+    },
+    {
+      "id": "s06",
+      "duration_s": 6.0,
+      "size": "wide",
+      "image_prompt": "A crowded old passenger bus travels down a long dusty road leading toward a distant city skyline.",
+      "use_reference": false,
+      "motion_mode": "ken_burns",
+      "motion_prompt": "slow pan right to left",
+      "narration": {
+        "am": "ከሰባት ዓመት በፊት ልጇ ዳዊት ወደ አዲስ አበባ ሄደ።"
+      },
+      "subtitle_en": "Seven years ago her son Dawit left for Addis Ababa.",
+      "reason": "Visualizes the physical distance that separates family members from each other.",
+      "fact_ids": [
+        "f11"
+      ],
+      "seed": 1006
+    },
+    {
+      "id": "s07",
+      "duration_s": 6.0,
+      "size": "medium",
+      "image_prompt": "An unnamed figure viewed from behind gazes out through an open doorway toward a misty horizon.",
+      "use_reference": true,
+      "motion_mode": "ken_burns",
+      "motion_prompt": "subtle drift forward",
+      "narration": {
+        "am": "ያ ሦስተኛው ሲኒ ሁልጊዜ የእሱ እንደሆነ ነገረችው።"
+      },
+      "subtitle_en": "She told him that third cup would always be his.",
+      "reason": "Evokes the deep emotional weight of a parting promise.",
+      "fact_ids": [
+        "f12"
+      ],
+      "seed": 1007
+    },
+    {
+      "id": "s08",
+      "duration_s": 6.0,
+      "size": "close",
+      "image_prompt": "A hand places two small white cups onto a wooden tray in the dim morning light.",
+      "use_reference": true,
+      "motion_mode": "ken_burns",
+      "motion_prompt": "slow pan left to right",
+      "narration": {
+        "am": "በየማለዳው በረከቦቱ ላይ ሁለት አነስተኛ ነጭ ሲኒዎችን ታዘጋጃለች።"
+      },
+      "subtitle_en": "Every morning she sets two small white cups on trays.",
+      "reason": "Emphasizes the daily repetition of waiting and holding onto hope.",
+      "fact_ids": [
+        "f13"
+      ],
+      "seed": 1008
+    },
+    {
+      "id": "s09",
+      "duration_s": 6.0,
+      "size": "wide",
+      "image_prompt": "An empty low wooden stool sits beside a vibrant blue door in an empty courtyard.",
+      "use_reference": false,
+      "motion_mode": "ken_burns",
+      "motion_prompt": "slow push in",
+      "narration": {
+        "am": "ሁለቱን ሲኒዎች ጠጥታ ሦስተኛውን ሲኒ እንዲጠብቅ ታስቀራለች።"
+      },
+      "subtitle_en": "She drinks two cups and leaves the third cup waiting.",
+      "reason": "Leaves the viewer with a strong feeling of absence and patient longing.",
+      "fact_ids": [
+        "f14",
+        "f15"
+      ],
+      "seed": 1009
+    },
+    {
+      "id": "s10",
+      "duration_s": 6.0,
+      "size": "medium",
+      "image_prompt": "A bright blue wooden door swings open inward, revealing a rain-streaked threshold and soft morning light.",
+      "use_reference": true,
+      "motion_mode": "ken_burns",
+      "motion_prompt": "slow push in",
+      "narration": {
+        "am": "በአንድ ዝናባማ ማለዳ ቡናው ሳይፈላ ሰማያዊው በር ተከፈተ።"
+      },
+      "subtitle_en": "One rainy morning the blue door opens before coffee boils.",
+      "reason": "Sparks a sudden shift from longing to unexpected joy and surprise.",
+      "fact_ids": [
+        "f19"
+      ],
+      "seed": 1010
+    },
+    {
+      "id": "s11",
+      "duration_s": 5.5,
+      "size": "wide",
+      "image_prompt": "A figure sits down on a low wooden stool outside a blue door, resting a dusty canvas bag on the ground.",
+      "use_reference": false,
+      "motion_mode": "ken_burns",
+      "motion_prompt": "slow pan left to right",
+      "narration": {
+        "am": "ዳዊት አቧራ የለበሰ ቦርሳ ይዞ ደረሰና ተቀመጠ።"
+      },
+      "subtitle_en": "Dawit arrives with a dusty bag and sits down.",
+      "reason": "Brings the emotional journey full circle with a sense of homecoming.",
+      "fact_ids": [
+        "f20"
+      ],
+      "seed": 1011
+    },
+    {
+      "id": "s12",
+      "duration_s": 6.0,
+      "size": "close",
+      "image_prompt": "A hand pours dark coffee from a black clay pot into a small white cup held by another.",
+      "use_reference": true,
+      "motion_mode": "ken_burns",
+      "motion_prompt": "slow pull back",
+      "narration": {
+        "am": "በዚያች ማለዳ ዳዊት ሦስተኛውን ሲኒ ለእእናቱ ቀዳ።"
+      },
+      "subtitle_en": "That morning Dawit pours the third cup for his mother.",
+      "reason": "Leaves the audience with a profound feeling of love, reunion, and blessing.",
+      "fact_ids": [
+        "f21"
+      ],
+      "seed": 1012
+    }
+  ]
+}
