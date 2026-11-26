@@ -14,9 +14,9 @@ make film
 |---|---|---|---|
 | Gebisa Ejeta | `films/gebisa-ejeta` | English | Wikipedia and Purdue University pages |
 | Abebe Bikila | `films/abebe-bikila` | Amharic | Wikipedia |
-| The Last Buna | `films/the-last-buna` | Amharic | a made-up story told by the director |
+| The Last Buna | `films/the-last-buna` | Amharic | a made-up story told by the diriector |
 
-The first is the film submitted for the 10 Academy "Heritage Short" assignment: Gebisa Ejeta is the Ethiopian plant scientist who bred sorghum that survives drought and the parasitic weed striga. `make film` builds it; add `FILM=<folder name>` to build another. The other two are rough cuts.
+The film submitted for the 10 Academy "Heritage Short" assignment is **The Last Buna**: a mother in Jimma pours the third cup of the coffee ceremony every morning for a son who left seven years ago. It is narrated in Amharic with English subtitles. `make film` builds it; add `FILM=<folder name>` to build another. Gebisa Ejeta was the first film made with the system and is complete; Abebe Bikila is a rough cut.
 
 ## Make the film
 
@@ -27,9 +27,9 @@ make film
 That runs every stage in order and writes:
 
 ```
-films/gebisa-ejeta/outputs/film/film_9x16.mp4
-films/gebisa-ejeta/outputs/film/film_16x9.mp4
-films/gebisa-ejeta/outputs/film/report.json    measured length, loudness and subtitles
+films/the-last-buna/outputs/film/film_9x16.mp4
+films/the-last-buna/outputs/film/film_16x9.mp4
+films/the-last-buna/outputs/film/report.json    measured length, loudness and subtitles
 ```
 
 ### What you need first
@@ -58,7 +58,7 @@ All three have free tiers and none needs a payment card. `.env` is ignored by gi
 
 ## Change one shot
 
-Open `films/gebisa-ejeta/storyboard.json`, change one shot's `image_prompt` or its narration line, and run `make film` again. Only that shot's picture or audio is regenerated; everything else is reused. `runs.jsonl` gains one line per new model call, which is how you can see it.
+Open `films/the-last-buna/storyboard.json`, change one shot's `image_prompt` or its narration line, and run `make film` again. Only that shot's picture or audio is regenerated; everything else is reused. `runs.jsonl` gains one line per new model call, which is how you can see it.
 
 ## Direct it with a note
 
@@ -102,7 +102,7 @@ Otherwise the title must match the name of an English Wikipedia article. Add pag
 
 ## Every command
 
-Each one works on one film, chosen with `FILM=<name>`. The default is `gebisa-ejeta`.
+Each one works on one film, chosen with `FILM=<name>`. The default is `the-last-buna`.
 
 | Command | What it does |
 |---|---|

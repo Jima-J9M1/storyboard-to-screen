@@ -1,7 +1,7 @@
 PY := .venv/bin/python
 
 # The film every command works on. Override it: make research FILM=lalibela
-FILM ?= gebisa-ejeta
+FILM ?= the-last-buna
 
 .PHONY: help setup test new films status validate research story narration radio keyframes video shots music assemble film costs board
 

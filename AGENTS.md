@@ -1,7 +1,7 @@
 # Rules for any coding agent working in this repo
 
 This repo is a system that turns a title into a 60–90 second narrated short film.
-It holds many films, one folder each under `films/`. The film submitted for the 10 Academy "Heritage Short" assignment is `films/gebisa-ejeta`. The pipeline is what is graded.
+It holds many films, one folder each under `films/`. The film submitted for the 10 Academy "Heritage Short" assignment is `films/the-last-buna`. The pipeline is what is graded.
 
 ## Before every task
 1. Re-read the section of the assignment brief that covers the task. Do not work from memory of it.
@@ -11,7 +11,7 @@ It holds many films, one folder each under `films/`. The film submitted for the 
 If the brief and these rules disagree, the brief wins. Say so and fix this file.
 
 ## Shape of the system
-Two halves, with a film's `storyboard.json` between them. Every command works on one film, chosen with `FILM=<name>`; the default is `gebisa-ejeta`.
+Two halves, with a film's `storyboard.json` between them. Every command works on one film, chosen with `FILM=<name>`; the default is `the-last-buna`.
 
 | Half | Command | What it does |
 |---|---|---|

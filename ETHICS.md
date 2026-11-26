@@ -1,8 +1,29 @@
 # Ethics: consent, labelling and licences
 
-This covers the film submitted for the assignment, `films/gebisa-ejeta`.
+The film submitted for the assignment is `films/the-last-buna`; the first section covers it. The sections after it were written for the first film, `films/gebisa-ejeta`. The tables of models, licences and labelling apply to both.
 
-## Who appears, and consent
+## The Last Buna: who appears, and consent
+
+**The story is made up. No real person appears in the film, and no real person's voice is used.** No consent record was therefore needed, and none exists.
+
+| Question | Answer | Where it is enforced |
+|---|---|---|
+| Are the people real? | No. Emaye Zewditu and Dawit are invented by the director. The story says so in its first line. | `story` in `films/the-last-buna/brief.json` |
+| How does the system treat them? | As if they were real. It cannot look up who in a told story is real, so it sets the likeness policy to `review`: no recognisable face, no imitated voice, no invented quotes. | `films/the-last-buna/research/subject.json`; `research_told` in `agents/researcher.py` |
+| Is a face shown? | No face is meant to be shown. The pictures show hands, objects, a woman from behind and a man as a silhouette or from behind. Three first-draft pictures showed a face and were remade. Four frames of every generated clip were checked and showed none; the clips were not watched frame by frame by the agent, so the director watches the film before it is posted. | `world_block` and picture prompts in `storyboard.json` |
+| Whose voice narrates? | A stock text-to-speech voice, `am-yohanes-calm`, from Addis AI. It was not made from a recording supplied by us. | `voice` in `storyboard.json` |
+| Are words put in anyone's mouth? | No. The narration is in the third person with no quotation. | `script_problems` in `agents/story.py` |
+| Does it use private or family information? | No. The story is fiction. Its text was sent to Gemini (facts, script, translation) and its narration lines to Addis AI, whose terms allow training on inputs. | `runs.jsonl` |
+| Could it be mistaken for a true story? | The film itself does not say it is fiction. The repo does, and the post should say so in words. | Open item below |
+
+**The place and the custom.** Jimma, the three pourings (abol, tona, baraka), the jebena, the grass on the floor and the frankincense are real and are described from the director's own knowledge, not from a cited source. The pictures are generated, so details of dress, pots and houses are a model's approximation of them, guided by the storyboard's `world_block`. One known error remains: the cup in shot s05 has a handle, which a coffee cup of this kind does not.
+
+**Sources.** The only source is the director's telling (`films/the-last-buna/research/source_told.json`). Every fact in `facts.json` quotes it word for word, and each shot lists the facts its line relies on.
+
+**A paid service.** The Amharic voice is from Addis AI, which is paid and is not in the assignment's free stack; every other model call for this film used a free tier. The cost is in `runs.jsonl` and `COSTS.md`.
+
+
+## Gebisa Ejeta: who appears, and consent
 
 **No real person appears in the film, and no real person's voice is used.** No consent record was therefore needed, and none exists.
 
@@ -17,7 +38,7 @@ This covers the film submitted for the assignment, `films/gebisa-ejeta`.
 
 He has not been contacted and has not approved the film. It makes only claims that the sources below make.
 
-## Sources for every claim
+## Gebisa Ejeta: sources for every claim
 
 The narration may only use facts from `films/gebisa-ejeta/research/facts.json`. Each fact there quotes its source word for word, and code checked each quote against the source text.
 
@@ -64,3 +85,5 @@ Picture prompts describe qualities ("oil painting style with textured canvas gra
 
 - Read the Gemini API terms on ownership and permitted use of generated audio and text, and record the result above.
 - Switch on the platform's AI label when posting, and record where and when.
+- The Last Buna: say in the post that the story is made up.
+- The Last Buna: the director watches every generated clip for a visible face before posting.
