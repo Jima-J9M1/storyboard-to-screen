@@ -1,0 +1,74 @@
+{
+  "s01.9x16": {
+    "input_hash": "2d97436178f1bddf",
+    "outputs": [
+      "films/the-last-buna/outputs/video/s01.9x16.mp4"
+    ]
+  },
+  "s02.9x16": {
+    "input_hash": "3368e73b35b61492",
+    "outputs": [
+      "films/the-last-buna/outputs/video/s02.9x16.mp4"
+    ]
+  },
+  "s03.9x16": {
+    "input_hash": "b18edee3cd2d3ee6",
+    "outputs": [
+      "films/the-last-buna/outputs/video/s03.9x16.mp4"
+    ]
+  },
+  "s04.9x16": {
+    "input_hash": "43ba810659374b8a",
+    "outputs": [
+      "films/the-last-buna/outputs/video/s04.9x16.mp4"
+    ]
+  },
+  "s05.9x16": {
+    "input_hash": "5655a086de3455c2",
+    "outputs": [
+      "films/the-last-buna/outputs/video/s05.9x16.mp4"
+    ]
+  },
+  "s06.9x16": {
+    "input_hash": "7d5ce1988ae7aa05",
+    "outputs": [
+      "films/the-last-buna/outputs/video/s06.9x16.mp4"
+    ]
+  },
+  "s07.9x16": {
+    "input_hash": "a62168ce8474b9a0",
+    "outputs": [
+      "films/the-last-buna/outputs/video/s07.9x16.mp4"
+    ]
+  },
+  "s08.9x16": {
+    "input_hash": "9e64d761f581cab6",
+    "outputs": [
+      "films/the-last-buna/outputs/video/s08.9x16.mp4"
+    ]
+  },
+  "s09.9x16": {
+    "input_hash": "51b1ceeffb3cf825",
+    "outputs": [
+      "films/the-last-buna/outputs/video/s09.9x16.mp4"
+    ]
+  },
+  "s10.9x16": {
+    "input_hash": "3b75f862ea2b39bd",
+    "outputs": [
+      "films/the-last-buna/outputs/video/s10.9x16.mp4"
+    ]
+  },
+  "s11.9x16": {
+    "input_hash": "ab4cf144cba8cd82",
+    "outputs": [
+      "films/the-last-buna/outputs/video/s11.9x16.mp4"
+    ]
+  },
+  "s12.9x16": {
+    "input_hash": "8ee1aae536187ee5",
+    "outputs": [
+      "films/the-last-buna/outputs/video/s12.9x16.mp4"
+    ]
+  }
+}

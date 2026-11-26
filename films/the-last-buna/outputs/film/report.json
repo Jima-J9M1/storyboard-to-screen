@@ -38,84 +38,84 @@
       "length_s": 6.8,
       "still_s": 0.0,
       "longest_freeze_s": 0.0,
-      "average_change": 0.65
+      "average_change": 1.16
     },
     {
       "shot": "s02",
       "length_s": 5.1,
       "still_s": 0.0,
       "longest_freeze_s": 0.0,
-      "average_change": 5.05
+      "average_change": 13.6
     },
     {
       "shot": "s03",
       "length_s": 3.4,
       "still_s": 0.0,
       "longest_freeze_s": 0.0,
-      "average_change": 5.02
+      "average_change": 5.16
     },
     {
       "shot": "s04",
       "length_s": 4.5,
       "still_s": 0.0,
       "longest_freeze_s": 0.0,
-      "average_change": 3.11
+      "average_change": 4.02
     },
     {
       "shot": "s05",
       "length_s": 6.4,
       "still_s": 0.0,
       "longest_freeze_s": 0.0,
-      "average_change": 2.53
+      "average_change": 3.84
     },
     {
       "shot": "s06",
       "length_s": 4.55,
       "still_s": 0.0,
       "longest_freeze_s": 0.0,
-      "average_change": 5.03
+      "average_change": 5.5
     },
     {
       "shot": "s07",
       "length_s": 4.15,
       "still_s": 0.0,
       "longest_freeze_s": 0.0,
-      "average_change": 4.68
+      "average_change": 5.45
     },
     {
       "shot": "s08",
       "length_s": 7.1,
       "still_s": 0.0,
       "longest_freeze_s": 0.0,
-      "average_change": 4.22
+      "average_change": 4.47
     },
     {
       "shot": "s09",
       "length_s": 6.15,
       "still_s": 0.0,
       "longest_freeze_s": 0.0,
-      "average_change": 2.3
+      "average_change": 3.22
     },
     {
       "shot": "s10",
       "length_s": 6.05,
       "still_s": 0.0,
       "longest_freeze_s": 0.0,
-      "average_change": 3.14
+      "average_change": 5.65
     },
     {
       "shot": "s11",
       "length_s": 5.9,
       "still_s": 0.0,
       "longest_freeze_s": 0.0,
-      "average_change": 5.55
+      "average_change": 5.12
     },
     {
       "shot": "s12",
       "length_s": 5.35,
       "still_s": 0.0,
       "longest_freeze_s": 0.0,
-      "average_change": 3.67
+      "average_change": 3.74
     }
   ],
   "subtitles_9x16": [

@@ -94,7 +94,7 @@
       "size": "close",
       "image_prompt": "Close view of a flat round black iron pan resting on a small clay charcoal stove with glowing orange embers. The pan is full of coffee beans, half still pale green and half roasted dark brown and shiny. Thin white smoke rises. A woman's dark brown hand holds the pan's long handle at the edge of the picture.",
       "use_reference": true,
-      "motion_mode": "video",
+      "motion_mode": "ken_burns",
       "motion_prompt": "slow push in. The hand shakes the pan gently, beans roll and darken, smoke rises, embers glow and flicker.",
       "narration": {
         "am": "በብረት ምጣድ ላይ ጥሬ ቡና ታቆላለች።"
@@ -257,7 +257,7 @@
       "size": "close",
       "image_prompt": "Close view of two pairs of hands over a low wooden tray: a young man's dark brown hands hold out a very small white cup full of dark steaming coffee, and an older woman's dark brown hands, in white cotton sleeves, reach to take it. A black clay jebena stands on the tray behind. Warm morning light.",
       "use_reference": true,
-      "motion_mode": "video",
+      "motion_mode": "ken_burns",
       "motion_prompt": "slow pull back. The young man's hands pass the small cup into the older woman's hands, steam rising. Only hands are seen.",
       "narration": {
         "am": "በዚያች ማለዳ ዳዊት ሦስተኛውን ሲኒ ለእናቱ ቀዳ።"
