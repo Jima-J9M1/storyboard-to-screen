@@ -119,9 +119,68 @@ The real limits are the free tiers' rate limits, not money. See [FAILURES.md](FA
 
 ## How it is built
 
+A film starts as a brief you write. Agents draft a storyboard from it, you direct and approve the storyboard, and the stages render it. Every command works on one film under `films/<name>/`.
+
+```mermaid
+flowchart TD
+    you(["You, the director"])
+    brief["brief.json<br/>title, audience, feeling, language,<br/>or the story in your own words"]
+
+    subgraph story ["Story half: agents/ (language models draft, code checks every draft)"]
+        direction TB
+        researcher["Researcher<br/>sources, quoted facts, likeness rule"]
+        writer["Screenwriter<br/>narration and subtitles"]
+        artist["Storyboard artist<br/>look, world rules, one picture per shot"]
+        composer["Composer<br/>music brief and cues"]
+        translator["Translator<br/>narration in the film's language"]
+        researcher --> writer --> artist --> composer --> translator
+    end
+
+    board["storyboard.json<br/>the contract: prompts, seeds, shot lengths"]
+    reviser["Reviser<br/>rewrites one field from your note"]
+
+    subgraph film ["Film half: pipeline/ (renders what the storyboard says, decides nothing)"]
+        direction TB
+        validate["validate<br/>schema and rules"]
+        narration["narration<br/>Gemini TTS or Addis AI"]
+        radio["radio cut<br/>voice only, to test the story"]
+        keyframes["keyframes<br/>FLUX.2 klein on Cloudflare"]
+        video["video<br/>Wan 2.2 on a Kaggle GPU"]
+        shots["moving shots<br/>FFmpeg: generated clip, or a camera move"]
+        music["music<br/>ACE-Step 1.5 on a Kaggle GPU"]
+        assemble["assembly<br/>FFmpeg: subtitles, score under voice, end card"]
+        validate --> narration --> radio
+        validate --> keyframes --> video --> shots
+        keyframes --> shots
+        validate --> music
+        narration --> assemble
+        shots --> assemble
+        music --> assemble
+    end
+
+    out(["The film in 9:16 and 16:9<br/>and report.json with its measured length and loudness"])
+
+    you -- writes --> brief --> researcher
+    translator -- first draft --> board
+    you -- edits and approves --> board
+    you -. "a note: what is wrong" .-> reviser -.-> board
+    board --> validate
+    assemble --> out
 ```
-films/<name>/brief.json ──> agents ──> films/<name>/storyboard.json ──> stages ──> film
-        you write it         draft it         you direct it              render it
+
+Every stage makes its model calls the same way, which is what makes a re-run cheap and a failure survivable:
+
+```mermaid
+flowchart LR
+    stage["A stage needs<br/>one picture, line or clip"] --> hash{"Same inputs<br/>as last time?"}
+    hash -- yes --> reuse["Reuse the file<br/>no model call"]
+    hash -- no --> call["Call the model"]
+    call --> ok{"Worked?"}
+    ok -- yes --> save["Save the file<br/>and its input hash"]
+    ok -- "no, up to 3 tries" --> call
+    ok -- "still no" --> fallback["Fallback<br/>next model, or a camera move<br/>over the picture"]
+    fallback --> save
+    call -. "every attempt" .-> log[("runs.jsonl<br/>model, parameters, seed,<br/>latency, cost")]
 ```
 
 | Folder | Holds |

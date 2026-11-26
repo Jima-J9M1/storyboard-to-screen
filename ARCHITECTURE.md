@@ -26,10 +26,51 @@ A stranger must be able to clone this repo, run one command, and get the film. F
 
 ## The shape
 
-```
-brief.json ──> agents ──> storyboard.json ──> stages ──> film
-(a person      (draft     (a person           (render
- writes it)     the plan)  approves it)        the plan)
+```mermaid
+flowchart TD
+    you(["You, the director"])
+    brief["brief.json<br/>title, audience, feeling, language,<br/>or the story in your own words"]
+
+    subgraph story ["Story half: agents/ (language models draft, code checks every draft)"]
+        direction TB
+        researcher["Researcher<br/>sources, quoted facts, likeness rule"]
+        writer["Screenwriter<br/>narration and subtitles"]
+        artist["Storyboard artist<br/>look, world rules, one picture per shot"]
+        composer["Composer<br/>music brief and cues"]
+        translator["Translator<br/>narration in the film's language"]
+        researcher --> writer --> artist --> composer --> translator
+    end
+
+    board["storyboard.json<br/>the contract: prompts, seeds, shot lengths"]
+    reviser["Reviser<br/>rewrites one field from your note"]
+
+    subgraph film ["Film half: pipeline/ (renders what the storyboard says, decides nothing)"]
+        direction TB
+        validate["validate<br/>schema and rules"]
+        narration["narration<br/>Gemini TTS or Addis AI"]
+        radio["radio cut<br/>voice only, to test the story"]
+        keyframes["keyframes<br/>FLUX.2 klein on Cloudflare"]
+        video["video<br/>Wan 2.2 on a Kaggle GPU"]
+        shots["moving shots<br/>FFmpeg: generated clip, or a camera move"]
+        music["music<br/>ACE-Step 1.5 on a Kaggle GPU"]
+        assemble["assembly<br/>FFmpeg: subtitles, score under voice, end card"]
+        validate --> narration --> radio
+        validate --> keyframes --> video --> shots
+        keyframes --> shots
+        validate --> music
+        narration --> assemble
+        shots --> assemble
+        music --> assemble
+    end
+
+    out(["The film in 9:16 and 16:9<br/>and report.json with its measured length and loudness"])
+
+    you -- writes --> brief --> researcher
+    translator -- first draft --> board
+    you -- edits and approves --> board
+    you -. "a note: what is wrong" .-> reviser -.-> board
+    board --> validate
+    assemble --> out
 ```
 
 There are two halves, and one file sits between them.
@@ -125,6 +166,21 @@ Each agent owns named fields of the storyboard and writes nothing else. `agents/
 | assembly | clips, narration, the chosen score, subtitles, end card | the film in 9:16 and 16:9, and `report.json` with its measured length and loudness | local FFmpeg and Pillow | Built |
 
 ## Caching
+
+One model call, from the stage's side. The same path covers caching (this section), retries and fallbacks (Failure handling) and the run log.
+
+```mermaid
+flowchart LR
+    stage["A stage needs<br/>one picture, line or clip"] --> hash{"Same inputs<br/>as last time?"}
+    hash -- yes --> reuse["Reuse the file<br/>no model call"]
+    hash -- no --> call["Call the model"]
+    call --> ok{"Worked?"}
+    ok -- yes --> save["Save the file<br/>and its input hash"]
+    ok -- "no, up to 3 tries" --> call
+    ok -- "still no" --> fallback["Fallback<br/>next model, or a camera move<br/>over the picture"]
+    fallback --> save
+    call -. "every attempt" .-> log[("runs.jsonl<br/>model, parameters, seed,<br/>latency, cost")]
+```
 
 **Problem.** Generation is slow and the quota is small, so nothing should be made twice.
 
