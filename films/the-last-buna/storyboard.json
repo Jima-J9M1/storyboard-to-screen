@@ -184,7 +184,7 @@
       "size": "close",
       "image_prompt": "Extreme close-up of a low wooden tray on an earth floor covered with green grass, indoors. Exactly two very small white handleless porcelain cups stand on the tray, both empty. One dark brown hand in a white cotton cuff is setting the second cup down. No head, no body and no face are in the picture. Dim soft morning light from the left.",
       "use_reference": false,
-      "motion_mode": "video",
+      "motion_mode": "ken_burns",
       "motion_prompt": "slow pan left to right. The hand sets the cup down on the tray and slowly withdraws. Only the hand is seen.",
       "narration": {
         "am": "በየማለዳው በረከቦቱ ላይ ሁለት አነስተኛ ነጭ ሲኒዎችን ታዘጋጃለች።"

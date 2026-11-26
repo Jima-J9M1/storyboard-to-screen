@@ -3,17 +3,17 @@
     "shot": "s01",
     "asked": "slow push in. Thin smoke drifts up from the tin roof, leaves sway slightly, mist moves over the hills. Nobody appears.",
     "mode": "video",
-    "move": "tall: generated video, slowed 2.1x to fill the shot; wide: camera move: push in",
+    "move": "generated video, slowed 2.1x to fill the shot",
     "frames": 180,
-    "fallback": true
+    "fallback": false
   },
   {
     "shot": "s02",
     "asked": "slow push in. The two hands scatter grass across the earth floor, blades falling and settling. Only hands are seen.",
     "mode": "video",
-    "move": "tall: generated video, slowed 1.6x to fill the shot; wide: camera move: push in",
+    "move": "generated video, slowed 1.6x to fill the shot",
     "frames": 137,
-    "fallback": true
+    "fallback": false
   },
   {
     "shot": "s03",
@@ -27,65 +27,65 @@
     "shot": "s04",
     "asked": "slow pull back. Steam rises from the neck of the clay pot, incense smoke curls upward, embers glow. Nothing else moves.",
     "mode": "video",
-    "move": "tall: generated video, slowed 1.4x to fill the shot; wide: camera move: pull back",
+    "move": "generated video, slowed 1.4x to fill the shot",
     "frames": 122,
-    "fallback": true
+    "fallback": false
   },
   {
     "shot": "s05",
     "asked": "slow push in. The thin stream of dark coffee keeps pouring and fills the cup, steam rising. Only the hand is seen.",
     "mode": "video",
-    "move": "tall: generated video, slowed 2.0x to fill the shot; wide: camera move: push in",
+    "move": "generated video, slowed 2.0x to fill the shot",
     "frames": 170,
-    "fallback": true
+    "fallback": false
   },
   {
     "shot": "s06",
     "asked": "slow push in. The bus drives away down the road and grows smaller, dust rising behind it. The woman stands still, her back to the camera, and does not turn.",
     "mode": "video",
-    "move": "tall: generated video, slowed 1.5x to fill the shot; wide: camera move: push in",
+    "move": "generated video, slowed 1.5x to fill the shot",
     "frames": 124,
-    "fallback": true
+    "fallback": false
   },
   {
     "shot": "s07",
     "asked": "slow push in. The woman stands still in the doorway with her back to the camera and does not turn; her shawl moves slightly in the wind, mist drifts over the hills.",
     "mode": "video",
-    "move": "tall: generated video, slowed 1.4x to fill the shot; wide: camera move: push in",
+    "move": "generated video, slowed 1.4x to fill the shot",
     "frames": 114,
-    "fallback": true
+    "fallback": false
   },
   {
     "shot": "s08",
     "asked": "slow pan left to right. The hand sets the cup down on the tray and slowly withdraws. Only the hand is seen.",
-    "mode": "video",
-    "move": "tall: generated video, slowed 2.2x to fill the shot; wide: camera move: pan left to right",
+    "mode": "ken_burns",
+    "move": "camera move: pan left to right",
     "frames": 188,
-    "fallback": true
+    "fallback": false
   },
   {
     "shot": "s09",
     "asked": "slow push in. Nothing moves except dust in the fading window light. The stool stays empty; nobody enters.",
     "mode": "video",
-    "move": "tall: generated video, slowed 1.9x to fill the shot; wide: camera move: push in",
+    "move": "generated video, slowed 1.9x to fill the shot",
     "frames": 164,
-    "fallback": true
+    "fallback": false
   },
   {
     "shot": "s10",
     "asked": "slow push in. Rain falls outside; the dark figure in the doorway takes one slow step forward and stays a black silhouette with no visible features.",
     "mode": "video",
-    "move": "tall: generated video, slowed 1.9x to fill the shot; wide: camera move: push in",
+    "move": "generated video, slowed 1.9x to fill the shot",
     "frames": 161,
-    "fallback": true
+    "fallback": false
   },
   {
     "shot": "s11",
     "asked": "slow pan left to right. The young man sits still with his back to the camera and does not turn; rain falls outside the open door.",
     "mode": "video",
-    "move": "tall: generated video, slowed 1.9x to fill the shot; wide: camera move: pan left to right",
+    "move": "generated video, slowed 1.9x to fill the shot",
     "frames": 158,
-    "fallback": true
+    "fallback": false
   },
   {
     "shot": "s12",

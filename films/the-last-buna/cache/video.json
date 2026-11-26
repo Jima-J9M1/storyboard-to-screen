@@ -1,8 +1,20 @@
 {
+  "s01.16x9": {
+    "input_hash": "3ffba9eb342c173a",
+    "outputs": [
+      "films/the-last-buna/outputs/video/s01.16x9.mp4"
+    ]
+  },
   "s01.9x16": {
     "input_hash": "2d97436178f1bddf",
     "outputs": [
       "films/the-last-buna/outputs/video/s01.9x16.mp4"
+    ]
+  },
+  "s02.16x9": {
+    "input_hash": "57259e9252bee272",
+    "outputs": [
+      "films/the-last-buna/outputs/video/s02.16x9.mp4"
     ]
   },
   "s02.9x16": {
@@ -17,10 +29,22 @@
       "films/the-last-buna/outputs/video/s03.9x16.mp4"
     ]
   },
+  "s04.16x9": {
+    "input_hash": "5bdca3839ae9df0d",
+    "outputs": [
+      "films/the-last-buna/outputs/video/s04.16x9.mp4"
+    ]
+  },
   "s04.9x16": {
     "input_hash": "43ba810659374b8a",
     "outputs": [
       "films/the-last-buna/outputs/video/s04.9x16.mp4"
+    ]
+  },
+  "s05.16x9": {
+    "input_hash": "da94f0824f881c9e",
+    "outputs": [
+      "films/the-last-buna/outputs/video/s05.16x9.mp4"
     ]
   },
   "s05.9x16": {
@@ -29,10 +53,22 @@
       "films/the-last-buna/outputs/video/s05.9x16.mp4"
     ]
   },
+  "s06.16x9": {
+    "input_hash": "3784cdb23c590f1f",
+    "outputs": [
+      "films/the-last-buna/outputs/video/s06.16x9.mp4"
+    ]
+  },
   "s06.9x16": {
     "input_hash": "7d5ce1988ae7aa05",
     "outputs": [
       "films/the-last-buna/outputs/video/s06.9x16.mp4"
+    ]
+  },
+  "s07.16x9": {
+    "input_hash": "c2e583467ba88152",
+    "outputs": [
+      "films/the-last-buna/outputs/video/s07.16x9.mp4"
     ]
   },
   "s07.9x16": {
@@ -41,10 +77,22 @@
       "films/the-last-buna/outputs/video/s07.9x16.mp4"
     ]
   },
+  "s08.16x9": {
+    "input_hash": "36e60c846ec6c324",
+    "outputs": [
+      "films/the-last-buna/outputs/video/s08.16x9.mp4"
+    ]
+  },
   "s08.9x16": {
     "input_hash": "9e64d761f581cab6",
     "outputs": [
       "films/the-last-buna/outputs/video/s08.9x16.mp4"
+    ]
+  },
+  "s09.16x9": {
+    "input_hash": "a384d75a15fdb593",
+    "outputs": [
+      "films/the-last-buna/outputs/video/s09.16x9.mp4"
     ]
   },
   "s09.9x16": {
@@ -53,10 +101,22 @@
       "films/the-last-buna/outputs/video/s09.9x16.mp4"
     ]
   },
+  "s10.16x9": {
+    "input_hash": "bdd69d8797a0a4dc",
+    "outputs": [
+      "films/the-last-buna/outputs/video/s10.16x9.mp4"
+    ]
+  },
   "s10.9x16": {
     "input_hash": "3b75f862ea2b39bd",
     "outputs": [
       "films/the-last-buna/outputs/video/s10.9x16.mp4"
+    ]
+  },
+  "s11.16x9": {
+    "input_hash": "61b61e0384f2db8e",
+    "outputs": [
+      "films/the-last-buna/outputs/video/s11.16x9.mp4"
     ]
   },
   "s11.9x16": {
