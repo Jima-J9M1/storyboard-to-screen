@@ -103,6 +103,18 @@ export function Home({ initial }: { initial: RepoState }) {
           <p className="empty">No films yet. Start one below with a title.</p>
         )}
 
+        <section className="how-it-works">
+          <h2 className="shelf">How a film is made</h2>
+          <p className="lede">
+            You write a brief. Agents draft a storyboard. You approve it. Stages render it into the film.
+          </p>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            className="architecture"
+            src="/architecture.svg"
+            alt="The architecture: the director writes brief.json; the Researcher, Screenwriter, Storyboard artist, Composer and Translator draft storyboard.json; the director approves it; the stages validate, narration, keyframes, video, moving shots, music and assembly render the film in 9:16 and 16:9. Every model call is cached, retried and logged to runs.jsonl."
+          />
+        </section>
         <NewFilmForm />
 
         <section className="paperwork">

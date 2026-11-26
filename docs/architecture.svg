@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 820" width="1400" height="820" font-family="Avenir Next, Helvetica, Arial, sans-serif">
+<title>Storyboard to Screen: architecture</title>
+<style>
+.flow{fill:none;stroke:#2e6a45;stroke-width:3;stroke-dasharray:10 8;animation:run 1.2s linear infinite}
+.human{stroke:#d9a21b}
+.log{stroke:#55635b;stroke-width:2;stroke-dasharray:4 7;animation:run 1.8s linear infinite}
+@keyframes run{to{stroke-dashoffset:-36}}
+.box{fill:#fafbf8;stroke:#c9d2c8;stroke-width:1.5}
+.t{font-size:17px;font-weight:600;fill:#17231d}
+.s{font-size:13px;fill:#55635b}
+.h{font-size:15px;font-weight:700;fill:#17231d;letter-spacing:.6px}
+</style>
+<defs>
+<marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#2e6a45"/></marker>
+<marker id="b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#d9a21b"/></marker>
+<marker id="c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#55635b"/></marker>
+</defs>
+<rect width="1400" height="820" fill="#e7ece4"/>
+<text x="40" y="50" font-size="28" font-weight="700" fill="#17231d">Storyboard to Screen</text>
+<text x="40" y="76" class="s" font-size="15">A title or a told story goes in. A 60 to 90 second narrated film comes out, in 9:16 and 16:9.</text>
+
+<rect x="250" y="120" width="330" height="470" rx="14" fill="none" stroke="#2e6a45" stroke-width="2"/>
+<text class="h" x="270" y="148">STORY HALF  ·  agents/</text><text class="s" x="270" y="168">language models draft, code checks every draft</text>
+<rect x="850" y="120" width="330" height="560" rx="14" fill="none" stroke="#2e6a45" stroke-width="2"/>
+<text class="h" x="870" y="148">FILM HALF  ·  pipeline/</text><text class="s" x="870" y="168">renders the storyboard, decides nothing</text>
+<rect class="box" x="40" y="300" width="160" height="64" rx="10" style="fill:#d9a21b;stroke:#d9a21b"/>
+<text class="t" x="120.0" y="329.0" text-anchor="middle" style="fill:#17231d">You</text>
+<text class="s" x="120.0" y="348.0" text-anchor="middle" style="fill:#17231d">the director</text>
+<rect class="box" x="40" y="430" width="160" height="64" rx="10"/>
+<text class="t" x="120.0" y="459.0" text-anchor="middle">brief.json</text>
+<text class="s" x="120.0" y="478.0" text-anchor="middle">title, audience, feeling</text>
+<path class="flow human" d="M120 364 V426" marker-end="url(#b)"/>
+<rect class="box" x="275" y="186" width="280" height="58" rx="10"/>
+<text class="t" x="415.0" y="212.0" text-anchor="middle">Researcher</text>
+<text class="s" x="415.0" y="231.0" text-anchor="middle">sources, quoted facts</text>
+<rect class="box" x="275" y="264" width="280" height="58" rx="10"/>
+<text class="t" x="415.0" y="290.0" text-anchor="middle">Screenwriter</text>
+<text class="s" x="415.0" y="309.0" text-anchor="middle">narration, subtitles</text>
+<path class="flow" d="M415 244 V261" marker-end="url(#a)"/>
+<rect class="box" x="275" y="342" width="280" height="58" rx="10"/>
+<text class="t" x="415.0" y="368.0" text-anchor="middle">Storyboard artist</text>
+<text class="s" x="415.0" y="387.0" text-anchor="middle">look, one picture per shot</text>
+<path class="flow" d="M415 322 V339" marker-end="url(#a)"/>
+<rect class="box" x="275" y="420" width="280" height="58" rx="10"/>
+<text class="t" x="415.0" y="446.0" text-anchor="middle">Composer</text>
+<text class="s" x="415.0" y="465.0" text-anchor="middle">music brief and cues</text>
+<path class="flow" d="M415 400 V417" marker-end="url(#a)"/>
+<rect class="box" x="275" y="498" width="280" height="58" rx="10"/>
+<text class="t" x="415.0" y="524.0" text-anchor="middle">Translator</text>
+<text class="s" x="415.0" y="543.0" text-anchor="middle">narration in your language</text>
+<path class="flow" d="M415 478 V495" marker-end="url(#a)"/>
+<path class="flow" d="M200 462 H232 V215 H271" marker-end="url(#a)"/>
+<rect class="box" x="625" y="300" width="180" height="90" rx="10" style="fill:#17231d;stroke:#17231d"/>
+<text class="t" x="715.0" y="342.0" text-anchor="middle" style="fill:#fafbf8">storyboard.json</text>
+<text class="s" x="715.0" y="361.0" text-anchor="middle" style="fill:#fafbf8">prompts, seeds, lengths</text>
+<text class="s" x="715" y="412" text-anchor="middle">the contract between the halves</text>
+<path class="flow" d="M555 527 H600 V372 H621" marker-end="url(#a)"/>
+<path class="flow human" d="M200 322 H225 V106 H715 V296" marker-end="url(#b)"/>
+<text class="s" x="560" y="99" text-anchor="middle" fill="#17231d">you edit and approve it, or send a note to the Reviser</text>
+<rect class="box" x="875" y="186" width="280" height="54" rx="10"/>
+<text class="t" x="1015.0" y="210.0" text-anchor="middle">validate</text>
+<text class="s" x="1015.0" y="229.0" text-anchor="middle">schema and rules</text>
+<rect class="box" x="875" y="256" width="280" height="54" rx="10"/>
+<text class="t" x="1015.0" y="280.0" text-anchor="middle">narration</text>
+<text class="s" x="1015.0" y="299.0" text-anchor="middle">Gemini TTS or Addis AI</text>
+<path class="flow" d="M1015 240 V253" marker-end="url(#a)"/>
+<rect class="box" x="875" y="326" width="280" height="54" rx="10"/>
+<text class="t" x="1015.0" y="350.0" text-anchor="middle">keyframes</text>
+<text class="s" x="1015.0" y="369.0" text-anchor="middle">FLUX.2 klein · Cloudflare</text>
+<path class="flow" d="M1015 310 V323" marker-end="url(#a)"/>
+<rect class="box" x="875" y="396" width="280" height="54" rx="10"/>
+<text class="t" x="1015.0" y="420.0" text-anchor="middle">video</text>
+<text class="s" x="1015.0" y="439.0" text-anchor="middle">Wan 2.2 · Kaggle GPU</text>
+<path class="flow" d="M1015 380 V393" marker-end="url(#a)"/>
+<rect class="box" x="875" y="466" width="280" height="54" rx="10"/>
+<text class="t" x="1015.0" y="490.0" text-anchor="middle">moving shots</text>
+<text class="s" x="1015.0" y="509.0" text-anchor="middle">FFmpeg: clip or camera move</text>
+<path class="flow" d="M1015 450 V463" marker-end="url(#a)"/>
+<rect class="box" x="875" y="536" width="280" height="54" rx="10"/>
+<text class="t" x="1015.0" y="560.0" text-anchor="middle">music</text>
+<text class="s" x="1015.0" y="579.0" text-anchor="middle">ACE-Step 1.5 · Kaggle GPU</text>
+<path class="flow" d="M1015 520 V533" marker-end="url(#a)"/>
+<rect class="box" x="875" y="606" width="280" height="54" rx="10"/>
+<text class="t" x="1015.0" y="630.0" text-anchor="middle">assembly</text>
+<text class="s" x="1015.0" y="649.0" text-anchor="middle">FFmpeg: subtitles, score, end card</text>
+<path class="flow" d="M1015 590 V603" marker-end="url(#a)"/>
+<path class="flow" d="M805 345 H830 V213 H871" marker-end="url(#a)"/>
+<rect class="box" x="1220" y="600" width="150" height="70" rx="10" style="fill:#2e6a45;stroke:#2e6a45"/>
+<text class="t" x="1295.0" y="632.0" text-anchor="middle" style="fill:#fafbf8">The film</text>
+<text class="s" x="1295.0" y="651.0" text-anchor="middle" style="fill:#fafbf8">9:16 and 16:9</text>
+<path class="flow" d="M1155 633 H1216" marker-end="url(#a)"/>
+<rect class="box" x="250" y="710" width="930" height="80" rx="10"/>
+<text class="t" x="275" y="742">Every model call:</text>
+<text class="s" x="275" y="766" font-size="14">same inputs as last time → reuse, no call   ·   else call the model, up to 3 tries   ·   then the fallback   ·   every attempt → runs.jsonl</text>
+<path class="log" d="M415 590 V706" marker-end="url(#c)"/>
+<path class="log" d="M1015 680 V706" marker-end="url(#c)"/>
+</svg>

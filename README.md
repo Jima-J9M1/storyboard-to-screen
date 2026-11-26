@@ -131,6 +131,10 @@ The real limits are the free tiers' rate limits, not money. See [FAILURES.md](FA
 
 ## How it is built
 
+![The architecture: you write a brief, agents draft a storyboard, you approve it, stages render the film](docs/architecture.svg)
+
+The same flow as a diagram you can read line by line:
+
 A film starts as a brief you write. Agents draft a storyboard from it, you direct and approve the storyboard, and the stages render it. Every command works on one film under `films/<name>/`.
 
 ```mermaid

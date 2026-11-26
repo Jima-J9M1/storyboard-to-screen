@@ -1788,3 +1788,17 @@ h2.shelf {
   font-size: 0.9375rem;
   overflow-wrap: anywhere;
 }
+
+/* The architecture picture on the home page */
+.how-it-works { margin: 3rem 0; }
+.how-it-works .architecture {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  background: var(--field);
+}
+@media (prefers-reduced-motion: reduce) {
+  .how-it-works .architecture { animation: none; }
+}
