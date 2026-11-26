@@ -10,7 +10,7 @@ import urllib.request
 from typing import Any
 
 # Sent with every request. Deliberately generic: it carries no personal details.
-USER_AGENT = "heritage-short-pipeline/0.1"
+USER_AGENT = "storyboard-to-screen-pipeline/0.1"
 
 
 # 200 is "here it is". 201 is "created", which is how an API answers a request that made

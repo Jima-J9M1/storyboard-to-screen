@@ -1,10 +1,22 @@
-# Heritage Short
+# Storyboard to Screen
 
-A pipeline that turns a title into a 60–90 second narrated short film.
+A pipeline that turns a title, or a story in your own words, into a 60–90 second narrated short film.
 
-You give it a title, an audience and a feeling. Agents research the title and draft a storyboard. You direct the storyboard. Code then renders it: pictures, camera moves, a narrator, a score, subtitles and an end card, exported tall (9:16) and wide (16:9).
+You give it a title, an audience and a feeling. Agents research the title and draft a storyboard. You direct the storyboard. Code then renders it: pictures, moving shots (generated video where a clip exists, a camera move where it does not), a narrator, a score, subtitles and an end card, exported tall (9:16) and wide (16:9).
 
-The film in this repo is about Gebisa Ejeta, the Ethiopian plant scientist who bred sorghum that survives drought and the parasitic weed striga. It was made for the 10 Academy "Heritage Short" assignment.
+```
+git clone https://github.com/Jima-J9M1/storyboard-to-screen.git
+cd storyboard-to-screen
+make film
+```
+
+| Film | Folder | Language | Source |
+|---|---|---|---|
+| Gebisa Ejeta | `films/gebisa-ejeta` | English | Wikipedia and Purdue University pages |
+| Abebe Bikila | `films/abebe-bikila` | Amharic | Wikipedia |
+| The Last Buna | `films/the-last-buna` | Amharic | a made-up story told by the director |
+
+The first is the film submitted for the 10 Academy "Heritage Short" assignment: Gebisa Ejeta is the Ethiopian plant scientist who bred sorghum that survives drought and the parasitic weed striga. `make film` builds it; add `FILM=<folder name>` to build another. The other two are rough cuts.
 
 ## Make the film
 
