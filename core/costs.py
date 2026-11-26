@@ -22,6 +22,24 @@ STAGE_NAMES = {
 LOCAL_STAGES = "Radio cut, Moving shots and Edit call no outside service. They run in FFmpeg on the director's machine and are not in the log."
 
 
+
+def paid_lines(runs: list[dict]) -> list[str]:
+    """Say what was paid, from the cost each call recorded. A call on a free tier records none."""
+    paid: dict[str, list[float]] = {}
+    for r in runs:
+        if (r.get("cost_usd") or 0) > 0:
+            entry = paid.setdefault(str(r.get("model")), [0, 0.0, 0.0])
+            entry[0] += 1
+            entry[1] += r["cost_usd"]
+            entry[2] += r.get("cost_etb") or 0
+    if not paid:
+        return ["Nothing. Every call used a free tier."]
+    lines = ["Every call used a free tier except the ones below, which were made on a paid service.", "",
+             "| Model | Paid calls | Cost (USD) | Cost (ETB) |", "| --- | --- | --- | --- |"]
+    for model, (calls, usd, etb) in sorted(paid.items()):
+        lines.append(f"| {model} | {calls} | {usd:.2f} | {etb:.2f} |")
+    return lines
+
 def _lines() -> list[dict]:
     if not paths.RUNS_PATH.exists():
         return []
@@ -53,8 +71,7 @@ def build() -> str:
         "",
         "## What was paid",
         "",
-        "Nothing. Every call used a free tier, and the log's `cost_usd` adds up to "
-        f"${sum(r.get('cost_usd') or 0 for r in runs):.2f}.",
+        *paid_lines(runs),
         "",
         "## Time per stage",
         "",
